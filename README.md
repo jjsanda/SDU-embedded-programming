@@ -1,3 +1,5 @@
+### Architecture
+
 ```mermaid
 graph TD
 
