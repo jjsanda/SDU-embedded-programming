@@ -23,7 +23,7 @@ graph TD
   logB>Fuelling Log Buffer]
 
 
-  keyQ-->fuelsel
+  keyQ--waitForNextKey-->fuelsel
   gsEG-->fuelsel
   pc--setPrice-->fuelsel
   fuelsel-->lcdB
@@ -37,7 +37,7 @@ graph TD
   txQ-->uart
 
   keyboard-->keyQ 
-  keyQ-->pay
+  keyQ--waitForNextKey-->pay
   gsEG-->pay
   digi-->digiQ
   digiQ-->pay
