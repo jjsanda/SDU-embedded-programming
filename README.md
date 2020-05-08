@@ -12,7 +12,7 @@ graph TD
   keyboard((Keyboard Input Task))
   digi((Digiswitch Task))
   uart((UART RX/TX Task))
-  pc((PC Commands Task))
+  pc((PC Terminal Task))
   
   keyQ[(Key. In Queue)]
   digiQ[(Digi. In Queue)]
@@ -23,7 +23,7 @@ graph TD
   logB>Fuelling Log Buffer]
 
 
-  keyQ-->fuelsel
+  keyQ--waitForNextKey-->fuelsel
   gsEG-->fuelsel
   pc--setPrice-->fuelsel
   fuelsel-->lcdB
@@ -37,7 +37,7 @@ graph TD
   txQ-->uart
 
   keyboard-->keyQ 
-  keyQ-->pay
+  keyQ--waitForNextKey-->pay
   gsEG-->pay
   digi-->digiQ
   digiQ-->pay
