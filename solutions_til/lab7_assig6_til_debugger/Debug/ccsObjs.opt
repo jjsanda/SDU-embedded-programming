@@ -1,0 +1,1 @@
+"./debug.o" "./gpio.o" "./led.o" "./main.o" "./rtcs.o" "./sw1.o" "./systick.o" "./tm4c123gh6pm_startup_ccs_gcc.o" "./uart.o" -Wl,-T"../tm4c123gh6pm.lds" 

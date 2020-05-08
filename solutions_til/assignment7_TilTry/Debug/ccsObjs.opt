@@ -1,0 +1,1 @@
+"./ai.o" "./gpio.o" "./heap_2.o" "./lcd.o" "./list.o" "./main.o" "./port.o" "./print.o" "./queue.o" "./scale.o" "./startup_frt.o" "./stream_buffer.o" "./string.o" "./systick_frt.o" "./tasks.o" "./uart.o" "./ui_keyboard.o" -Wl,-T"../tm4c123gh6pm.lds" 

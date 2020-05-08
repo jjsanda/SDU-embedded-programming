@@ -1,0 +1,1210 @@
+Archive member included to satisfy reference by file (symbol)
+
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o (exit)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o) (_global_impure_ptr)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o (__libc_init_array)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memcpy.o)
+                              ./queue.o (memcpy)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o (memset)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o) (__call_exitprocs)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o) (atexit)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o) (__libc_fini_array)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o) (__retarget_lock_acquire_recursive)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o) (__register_exitproc)
+/Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+                              /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o) (_exit)
+
+Allocating common symbols
+Common symbol       size              file
+
+__lock___atexit_recursive_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___arc4random_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___env_recursive_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___sinit_recursive_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___malloc_recursive_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___at_quick_exit_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___dd_hash_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___tz_mutex   0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+__lock___sfp_recursive_mutex
+                    0x1               /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000000000000 0x0000000000040000 xr
+SRAM             0x0000000020000000 0x0000000000008000 xw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+LOAD ./ai.o
+LOAD ./gpio.o
+LOAD ./heap_2.o
+LOAD ./lcd.o
+LOAD ./list.o
+LOAD ./main.o
+LOAD ./port.o
+LOAD ./print.o
+LOAD ./queue.o
+LOAD ./scale.o
+LOAD ./startup_frt.o
+LOAD ./stream_buffer.o
+LOAD ./string.o
+LOAD ./systick_frt.o
+LOAD ./tasks.o
+LOAD ./uart.o
+LOAD ./ui_keyboard.o
+                0x0000000000000000                PROVIDE (_intvecs_base_address, 0x0)
+
+.intvecs        0x0000000000000000      0x26c
+ *(.intvecs)
+ .intvecs       0x0000000000000000      0x26c ./startup_frt.o
+                0x0000000000000000                g_pfnVectors
+                0x0000000020000000                PROVIDE (_vtable_base_address, 0x20000000)
+
+.vtable
+ *(.vtable)
+
+.text           0x0000000000000270     0x51d4
+ CREATE_OBJECT_SYMBOLS
+ *(.text)
+ .text          0x0000000000000270        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+ .text          0x0000000000000270       0x40 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .text          0x00000000000002b0       0x74 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+                0x00000000000002b0                _mainCRTStartup
+                0x00000000000002b0                _start
+ .text          0x0000000000000324        0x0 ./ai.o
+ .text          0x0000000000000324        0x0 ./gpio.o
+ .text          0x0000000000000324        0x0 ./heap_2.o
+ .text          0x0000000000000324        0x0 ./lcd.o
+ .text          0x0000000000000324        0x0 ./list.o
+ .text          0x0000000000000324        0x0 ./main.o
+ .text          0x0000000000000324        0x0 ./port.o
+ .text          0x0000000000000324        0x0 ./print.o
+ .text          0x0000000000000324        0x0 ./queue.o
+ .text          0x0000000000000324        0x0 ./scale.o
+ .text          0x0000000000000324        0x0 ./startup_frt.o
+ .text          0x0000000000000324        0x0 ./stream_buffer.o
+ .text          0x0000000000000324        0x0 ./string.o
+ .text          0x0000000000000324        0x0 ./systick_frt.o
+ .text          0x0000000000000324        0x0 ./tasks.o
+ .text          0x0000000000000324        0x0 ./uart.o
+ .text          0x0000000000000324        0x0 ./ui_keyboard.o
+ .text          0x0000000000000324        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+ .text          0x0000000000000324        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+ .text          0x0000000000000324        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+ .text          0x0000000000000324      0x134 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memcpy.o)
+                0x0000000000000324                memcpy
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+ .text          0x0000000000000458        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ *(.text.*)
+ .text.get_adc  0x0000000000000458       0x18 ./ai.o
+                0x0000000000000458                get_adc
+ .text.init_adc
+                0x0000000000000470       0x74 ./ai.o
+                0x0000000000000470                init_adc
+ .text.get_ai   0x00000000000004e4       0x48 ./ai.o
+                0x00000000000004e4                get_ai
+ .text.init_ai  0x000000000000052c       0x54 ./ai.o
+                0x000000000000052c                init_ai
+ .text.prvAiRead
+                0x0000000000000580       0x48 ./ai.o
+ .text.init_gpio
+                0x00000000000005c8       0x98 ./gpio.o
+                0x00000000000005c8                init_gpio
+ .text.pvPortMalloc
+                0x0000000000000660      0x11c ./heap_2.o
+                0x0000000000000660                pvPortMalloc
+ .text.vPortFree
+                0x000000000000077c       0x74 ./heap_2.o
+                0x000000000000077c                vPortFree
+ .text.xPortGetFreeHeapSize
+                0x00000000000007f0       0x18 ./heap_2.o
+                0x00000000000007f0                xPortGetFreeHeapSize
+ .text.vPortInitialiseBlocks
+                0x0000000000000808        0xe ./heap_2.o
+                0x0000000000000808                vPortInitialiseBlocks
+ *fill*         0x0000000000000816        0x2 
+ .text.prvHeapInit
+                0x0000000000000818       0x54 ./heap_2.o
+ .text.lcd_take
+                0x000000000000086c       0x1c ./lcd.o
+                0x000000000000086c                lcd_take
+ .text.lcd_give
+                0x0000000000000888       0x1c ./lcd.o
+                0x0000000000000888                lcd_give
+ .text.lcd_send
+                0x00000000000008a4       0xb8 ./lcd.o
+                0x00000000000008a4                lcd_send
+ .text.init_lcd
+                0x000000000000095c       0x84 ./lcd.o
+                0x000000000000095c                init_lcd
+ .text.prvLcdOut
+                0x00000000000009e0       0x98 ./lcd.o
+ .text.vListInitialise
+                0x0000000000000a78       0x40 ./list.o
+                0x0000000000000a78                vListInitialise
+ .text.vListInitialiseItem
+                0x0000000000000ab8       0x1a ./list.o
+                0x0000000000000ab8                vListInitialiseItem
+ .text.vListInsertEnd
+                0x0000000000000ad2       0x48 ./list.o
+                0x0000000000000ad2                vListInsertEnd
+ .text.vListInsert
+                0x0000000000000b1a       0x72 ./list.o
+                0x0000000000000b1a                vListInsert
+ .text.uxListRemove
+                0x0000000000000b8c       0x54 ./list.o
+                0x0000000000000b8c                uxListRemove
+ .text.main     0x0000000000000be0       0x56 ./main.o
+                0x0000000000000be0                main
+ *fill*         0x0000000000000c36        0x2 
+ .text.pxPortInitialiseStack
+                0x0000000000000c38       0x68 ./port.o
+                0x0000000000000c38                pxPortInitialiseStack
+ .text.prvTaskExitError
+                0x0000000000000ca0       0x30 ./port.o
+ .text.vPortSVCHandler
+                0x0000000000000cd0       0x28 ./port.o
+                0x0000000000000cd0                vPortSVCHandler
+ .text.prvPortStartFirstTask
+                0x0000000000000cf8       0x28 ./port.o
+ .text.xPortStartScheduler
+                0x0000000000000d20       0x54 ./port.o
+                0x0000000000000d20                xPortStartScheduler
+ .text.vPortEndScheduler
+                0x0000000000000d74        0xe ./port.o
+                0x0000000000000d74                vPortEndScheduler
+ *fill*         0x0000000000000d82        0x2 
+ .text.vPortEnterCritical
+                0x0000000000000d84       0x34 ./port.o
+                0x0000000000000d84                vPortEnterCritical
+ .text.vPortExitCritical
+                0x0000000000000db8       0x34 ./port.o
+                0x0000000000000db8                vPortExitCritical
+ *fill*         0x0000000000000dec        0x4 
+ .text.xPortPendSVHandler
+                0x0000000000000df0       0x68 ./port.o
+                0x0000000000000df0                xPortPendSVHandler
+ .text.xPortSysTickHandler
+                0x0000000000000e58       0x40 ./port.o
+                0x0000000000000e58                xPortSysTickHandler
+ .text.vPortSetupTimerInterrupt
+                0x0000000000000e98       0x38 ./port.o
+                0x0000000000000e98                vPortSetupTimerInterrupt
+ .text.vPortEnableVFP
+                0x0000000000000ed0       0x14 ./port.o
+ .text.tilConcat
+                0x0000000000000ee4       0x52 ./print.o
+                0x0000000000000ee4                tilConcat
+ *fill*         0x0000000000000f36        0x2 
+ .text.tilPrint
+                0x0000000000000f38       0x30 ./print.o
+                0x0000000000000f38                tilPrint
+ .text.tilPrintDec
+                0x0000000000000f68       0xa4 ./print.o
+                0x0000000000000f68                tilPrintDec
+ .text.tilPrint16U
+                0x000000000000100c       0x7c ./print.o
+                0x000000000000100c                tilPrint16U
+ .text.tilBlockingPrint
+                0x0000000000001088       0x30 ./print.o
+                0x0000000000001088                tilBlockingPrint
+ .text.init_print
+                0x00000000000010b8       0xa0 ./print.o
+                0x00000000000010b8                init_print
+ .text.prvRxTask
+                0x0000000000001158       0x38 ./print.o
+ .text.prvTxTask
+                0x0000000000001190       0x34 ./print.o
+ .text.xQueueGenericReset
+                0x00000000000011c4       0xb4 ./queue.o
+                0x00000000000011c4                xQueueGenericReset
+ .text.xQueueGenericCreate
+                0x0000000000001278       0x5c ./queue.o
+                0x0000000000001278                xQueueGenericCreate
+ .text.prvInitialiseNewQueue
+                0x00000000000012d4       0x3e ./queue.o
+ .text.prvInitialiseMutex
+                0x0000000000001312       0x34 ./queue.o
+ .text.xQueueCreateMutex
+                0x0000000000001346       0x30 ./queue.o
+                0x0000000000001346                xQueueCreateMutex
+ .text.xQueueGiveMutexRecursive
+                0x0000000000001376       0x4c ./queue.o
+                0x0000000000001376                xQueueGiveMutexRecursive
+ .text.xQueueTakeMutexRecursive
+                0x00000000000013c2       0x50 ./queue.o
+                0x00000000000013c2                xQueueTakeMutexRecursive
+ *fill*         0x0000000000001412        0x2 
+ .text.xQueueGenericSend
+                0x0000000000001414      0x154 ./queue.o
+                0x0000000000001414                xQueueGenericSend
+ .text.xQueueGenericSendFromISR
+                0x0000000000001568       0xb2 ./queue.o
+                0x0000000000001568                xQueueGenericSendFromISR
+ .text.xQueueGiveFromISR
+                0x000000000000161a       0xa6 ./queue.o
+                0x000000000000161a                xQueueGiveFromISR
+ .text.xQueueReceive
+                0x00000000000016c0      0x144 ./queue.o
+                0x00000000000016c0                xQueueReceive
+ .text.xQueueSemaphoreTake
+                0x0000000000001804      0x190 ./queue.o
+                0x0000000000001804                xQueueSemaphoreTake
+ .text.xQueuePeek
+                0x0000000000001994      0x148 ./queue.o
+                0x0000000000001994                xQueuePeek
+ .text.xQueueReceiveFromISR
+                0x0000000000001adc       0xac ./queue.o
+                0x0000000000001adc                xQueueReceiveFromISR
+ .text.xQueuePeekFromISR
+                0x0000000000001b88       0x64 ./queue.o
+                0x0000000000001b88                xQueuePeekFromISR
+ .text.uxQueueMessagesWaiting
+                0x0000000000001bec       0x20 ./queue.o
+                0x0000000000001bec                uxQueueMessagesWaiting
+ .text.uxQueueSpacesAvailable
+                0x0000000000001c0c       0x2a ./queue.o
+                0x0000000000001c0c                uxQueueSpacesAvailable
+ .text.uxQueueMessagesWaitingFromISR
+                0x0000000000001c36       0x20 ./queue.o
+                0x0000000000001c36                uxQueueMessagesWaitingFromISR
+ .text.vQueueDelete
+                0x0000000000001c56       0x1a ./queue.o
+                0x0000000000001c56                vQueueDelete
+ .text.prvGetDisinheritPriorityAfterTimeout
+                0x0000000000001c70       0x30 ./queue.o
+ .text.prvCopyDataToQueue
+                0x0000000000001ca0       0xd4 ./queue.o
+ .text.prvCopyDataFromQueue
+                0x0000000000001d74       0x4c ./queue.o
+ .text.prvUnlockQueue
+                0x0000000000001dc0       0xa4 ./queue.o
+ .text.prvIsQueueEmpty
+                0x0000000000001e64       0x2c ./queue.o
+ .text.xQueueIsQueueEmptyFromISR
+                0x0000000000001e90       0x2c ./queue.o
+                0x0000000000001e90                xQueueIsQueueEmptyFromISR
+ .text.prvIsQueueFull
+                0x0000000000001ebc       0x30 ./queue.o
+ .text.xQueueIsQueueFullFromISR
+                0x0000000000001eec       0x30 ./queue.o
+                0x0000000000001eec                xQueueIsQueueFullFromISR
+ .text.init_scale
+                0x0000000000001f1c       0x50 ./scale.o
+                0x0000000000001f1c                init_scale
+ .text.set_scalefactor
+                0x0000000000001f6c       0x44 ./scale.o
+                0x0000000000001f6c                set_scalefactor
+ .text.set_offset
+                0x0000000000001fb0       0x44 ./scale.o
+                0x0000000000001fb0                set_offset
+ .text.prvScaleTask
+                0x0000000000001ff4       0xbc ./scale.o
+ .text.ResetISR
+                0x00000000000020b0       0x6c ./startup_frt.o
+                0x00000000000020b0                ResetISR
+ .text.NmiSR    0x000000000000211c        0x6 ./startup_frt.o
+ .text.FaultISR
+                0x0000000000002122        0x6 ./startup_frt.o
+ .text.IntDefaultHandler
+                0x0000000000002128        0x6 ./startup_frt.o
+ .text.xStreamBufferGenericCreate
+                0x000000000000212e       0x5c ./stream_buffer.o
+                0x000000000000212e                xStreamBufferGenericCreate
+ .text.vStreamBufferDelete
+                0x000000000000218a       0x32 ./stream_buffer.o
+                0x000000000000218a                vStreamBufferDelete
+ .text.xStreamBufferReset
+                0x00000000000021bc       0x50 ./stream_buffer.o
+                0x00000000000021bc                xStreamBufferReset
+ .text.xStreamBufferSetTriggerLevel
+                0x000000000000220c       0x40 ./stream_buffer.o
+                0x000000000000220c                xStreamBufferSetTriggerLevel
+ .text.xStreamBufferSpacesAvailable
+                0x000000000000224c       0x4a ./stream_buffer.o
+                0x000000000000224c                xStreamBufferSpacesAvailable
+ .text.xStreamBufferBytesAvailable
+                0x0000000000002296       0x1e ./stream_buffer.o
+                0x0000000000002296                xStreamBufferBytesAvailable
+ .text.xStreamBufferSend
+                0x00000000000022b4       0xf6 ./stream_buffer.o
+                0x00000000000022b4                xStreamBufferSend
+ .text.xStreamBufferSendFromISR
+                0x00000000000023aa       0xa8 ./stream_buffer.o
+                0x00000000000023aa                xStreamBufferSendFromISR
+ .text.prvWriteMessageToBuffer
+                0x0000000000002452       0x7a ./stream_buffer.o
+ .text.xStreamBufferReceive
+                0x00000000000024cc       0xd4 ./stream_buffer.o
+                0x00000000000024cc                xStreamBufferReceive
+ .text.xStreamBufferNextMessageLengthBytes
+                0x00000000000025a0       0x5a ./stream_buffer.o
+                0x00000000000025a0                xStreamBufferNextMessageLengthBytes
+ .text.xStreamBufferReceiveFromISR
+                0x00000000000025fa       0xa4 ./stream_buffer.o
+                0x00000000000025fa                xStreamBufferReceiveFromISR
+ .text.prvReadMessageFromBuffer
+                0x000000000000269e       0x64 ./stream_buffer.o
+ .text.xStreamBufferIsEmpty
+                0x0000000000002702       0x34 ./stream_buffer.o
+                0x0000000000002702                xStreamBufferIsEmpty
+ .text.xStreamBufferIsFull
+                0x0000000000002736       0x44 ./stream_buffer.o
+                0x0000000000002736                xStreamBufferIsFull
+ .text.xStreamBufferSendCompletedFromISR
+                0x000000000000277a       0x68 ./stream_buffer.o
+                0x000000000000277a                xStreamBufferSendCompletedFromISR
+ .text.xStreamBufferReceiveCompletedFromISR
+                0x00000000000027e2       0x68 ./stream_buffer.o
+                0x00000000000027e2                xStreamBufferReceiveCompletedFromISR
+ .text.prvWriteBytesToBuffer
+                0x000000000000284a       0x80 ./stream_buffer.o
+ .text.prvReadBytesFromBuffer
+                0x00000000000028ca       0x94 ./stream_buffer.o
+ .text.prvBytesInBuffer
+                0x000000000000295e       0x40 ./stream_buffer.o
+ .text.prvInitialiseNewStreamBuffer
+                0x000000000000299e       0x38 ./stream_buffer.o
+ .text.putc1    0x00000000000029d6       0x2a ./string.o
+                0x00000000000029d6                putc1
+ .text.putStr   0x0000000000002a00       0x2c ./string.o
+                0x0000000000002a00                putStr
+ .text.putChars
+                0x0000000000002a2c       0x30 ./string.o
+                0x0000000000002a2c                putChars
+ .text.putDec   0x0000000000002a5c      0x114 ./string.o
+                0x0000000000002a5c                putDec
+ .text.putHex   0x0000000000002b70       0x92 ./string.o
+                0x0000000000002b70                putHex
+ *fill*         0x0000000000002c02        0x2 
+ .text.gprint   0x0000000000002c04      0x340 ./string.o
+                0x0000000000002c04                gprint
+ .text.gsprintf
+                0x0000000000002f44       0x34 ./string.o
+                0x0000000000002f44                gsprintf
+ .text.enable_global_int
+                0x0000000000002f78       0x10 ./systick_frt.o
+                0x0000000000002f78                enable_global_int
+ .text.disable_global_int
+                0x0000000000002f88       0x10 ./systick_frt.o
+                0x0000000000002f88                disable_global_int
+ .text.init_systick
+                0x0000000000002f98       0x88 ./systick_frt.o
+                0x0000000000002f98                init_systick
+ .text.xTaskCreate
+                0x0000000000003020       0x82 ./tasks.o
+                0x0000000000003020                xTaskCreate
+ .text.prvInitialiseNewTask
+                0x00000000000030a2       0xee ./tasks.o
+ .text.prvAddNewTaskToReadyList
+                0x0000000000003190       0xd4 ./tasks.o
+ .text.vTaskDelete
+                0x0000000000003264       0xfc ./tasks.o
+                0x0000000000003264                vTaskDelete
+ .text.vTaskDelayUntil
+                0x0000000000003360       0xa0 ./tasks.o
+                0x0000000000003360                vTaskDelayUntil
+ .text.vTaskDelay
+                0x0000000000003400       0x48 ./tasks.o
+                0x0000000000003400                vTaskDelay
+ .text.uxTaskPriorityGet
+                0x0000000000003448       0x34 ./tasks.o
+                0x0000000000003448                uxTaskPriorityGet
+ .text.uxTaskPriorityGetFromISR
+                0x000000000000347c       0x58 ./tasks.o
+                0x000000000000347c                uxTaskPriorityGetFromISR
+ .text.vTaskPrioritySet
+                0x00000000000034d4      0x138 ./tasks.o
+                0x00000000000034d4                vTaskPrioritySet
+ .text.vTaskSuspend
+                0x000000000000360c      0x104 ./tasks.o
+                0x000000000000360c                vTaskSuspend
+ .text.prvTaskIsTaskSuspended
+                0x0000000000003710       0x48 ./tasks.o
+ .text.vTaskResume
+                0x0000000000003758       0xa0 ./tasks.o
+                0x0000000000003758                vTaskResume
+ .text.xTaskResumeFromISR
+                0x00000000000037f8       0xc0 ./tasks.o
+                0x00000000000037f8                xTaskResumeFromISR
+ .text.vTaskStartScheduler
+                0x00000000000038b8       0x6c ./tasks.o
+                0x00000000000038b8                vTaskStartScheduler
+ .text.vTaskEndScheduler
+                0x0000000000003924       0x30 ./tasks.o
+                0x0000000000003924                vTaskEndScheduler
+ .text.vTaskSuspendAll
+                0x0000000000003954       0x1c ./tasks.o
+                0x0000000000003954                vTaskSuspendAll
+ .text.xTaskResumeAll
+                0x0000000000003970      0x11c ./tasks.o
+                0x0000000000003970                xTaskResumeAll
+ .text.xTaskGetTickCount
+                0x0000000000003a8c       0x20 ./tasks.o
+                0x0000000000003a8c                xTaskGetTickCount
+ .text.xTaskGetTickCountFromISR
+                0x0000000000003aac       0x24 ./tasks.o
+                0x0000000000003aac                xTaskGetTickCountFromISR
+ .text.uxTaskGetNumberOfTasks
+                0x0000000000003ad0       0x18 ./tasks.o
+                0x0000000000003ad0                uxTaskGetNumberOfTasks
+ .text.pcTaskGetName
+                0x0000000000003ae8       0x2c ./tasks.o
+                0x0000000000003ae8                pcTaskGetName
+ .text.xTaskIncrementTick
+                0x0000000000003b14      0x150 ./tasks.o
+                0x0000000000003b14                xTaskIncrementTick
+ .text.vTaskSwitchContext
+                0x0000000000003c64       0x8c ./tasks.o
+                0x0000000000003c64                vTaskSwitchContext
+ .text.vTaskPlaceOnEventList
+                0x0000000000003cf0       0x2c ./tasks.o
+                0x0000000000003cf0                vTaskPlaceOnEventList
+ .text.vTaskPlaceOnUnorderedEventList
+                0x0000000000003d1c       0x3c ./tasks.o
+                0x0000000000003d1c                vTaskPlaceOnUnorderedEventList
+ .text.xTaskRemoveFromEventList
+                0x0000000000003d58       0xa8 ./tasks.o
+                0x0000000000003d58                xTaskRemoveFromEventList
+ .text.vTaskRemoveFromUnorderedEventList
+                0x0000000000003e00       0x84 ./tasks.o
+                0x0000000000003e00                vTaskRemoveFromUnorderedEventList
+ .text.vTaskSetTimeOutState
+                0x0000000000003e84       0x30 ./tasks.o
+                0x0000000000003e84                vTaskSetTimeOutState
+ .text.vTaskInternalSetTimeOutState
+                0x0000000000003eb4       0x2c ./tasks.o
+                0x0000000000003eb4                vTaskInternalSetTimeOutState
+ .text.xTaskCheckForTimeOut
+                0x0000000000003ee0       0x8c ./tasks.o
+                0x0000000000003ee0                xTaskCheckForTimeOut
+ .text.vTaskMissedYield
+                0x0000000000003f6c       0x18 ./tasks.o
+                0x0000000000003f6c                vTaskMissedYield
+ .text.prvIdleTask
+                0x0000000000003f84       0x30 ./tasks.o
+ .text.prvInitialiseTaskLists
+                0x0000000000003fb4       0x80 ./tasks.o
+ .text.prvCheckTasksWaitingTermination
+                0x0000000000004034       0x58 ./tasks.o
+ .text.prvDeleteTCB
+                0x000000000000408c       0x20 ./tasks.o
+ .text.prvResetNextTaskUnblockTime
+                0x00000000000040ac       0x40 ./tasks.o
+ .text.xTaskGetCurrentTaskHandle
+                0x00000000000040ec       0x20 ./tasks.o
+                0x00000000000040ec                xTaskGetCurrentTaskHandle
+ .text.xTaskPriorityInherit
+                0x000000000000410c      0x100 ./tasks.o
+                0x000000000000410c                xTaskPriorityInherit
+ .text.xTaskPriorityDisinherit
+                0x000000000000420c       0xc8 ./tasks.o
+                0x000000000000420c                xTaskPriorityDisinherit
+ .text.vTaskPriorityDisinheritAfterTimeout
+                0x00000000000042d4       0xf0 ./tasks.o
+                0x00000000000042d4                vTaskPriorityDisinheritAfterTimeout
+ .text.uxTaskResetEventItemValue
+                0x00000000000043c4       0x30 ./tasks.o
+                0x00000000000043c4                uxTaskResetEventItemValue
+ .text.pvTaskIncrementMutexHeldCount
+                0x00000000000043f4       0x28 ./tasks.o
+                0x00000000000043f4                pvTaskIncrementMutexHeldCount
+ .text.ulTaskNotifyTake
+                0x000000000000441c       0x90 ./tasks.o
+                0x000000000000441c                ulTaskNotifyTake
+ .text.xTaskNotifyWait
+                0x00000000000044ac       0xb4 ./tasks.o
+                0x00000000000044ac                xTaskNotifyWait
+ .text.xTaskGenericNotify
+                0x0000000000004560      0x110 ./tasks.o
+                0x0000000000004560                xTaskGenericNotify
+ .text.xTaskGenericNotifyFromISR
+                0x0000000000004670      0x150 ./tasks.o
+                0x0000000000004670                xTaskGenericNotifyFromISR
+ .text.vTaskNotifyGiveFromISR
+                0x00000000000047c0       0xe4 ./tasks.o
+                0x00000000000047c0                vTaskNotifyGiveFromISR
+ .text.xTaskNotifyStateClear
+                0x00000000000048a4       0x4c ./tasks.o
+                0x00000000000048a4                xTaskNotifyStateClear
+ .text.prvAddCurrentTaskToDelayedList
+                0x00000000000048f0       0xcc ./tasks.o
+ .text.uart0_rx_rdy
+                0x00000000000049bc       0x20 ./uart.o
+                0x00000000000049bc                uart0_rx_rdy
+ .text.uart0_getc
+                0x00000000000049dc       0x18 ./uart.o
+                0x00000000000049dc                uart0_getc
+ .text.uart0_putc
+                0x00000000000049f4       0x20 ./uart.o
+                0x00000000000049f4                uart0_putc
+ .text.uart0_tx_rdy
+                0x0000000000004a14       0x20 ./uart.o
+                0x0000000000004a14                uart0_tx_rdy
+ .text.lcrh_databits
+                0x0000000000004a34       0x2c ./uart.o
+                0x0000000000004a34                lcrh_databits
+ .text.lcrh_stopbits
+                0x0000000000004a60       0x22 ./uart.o
+                0x0000000000004a60                lcrh_stopbits
+ .text.lcrh_parity
+                0x0000000000004a82       0x4e ./uart.o
+                0x0000000000004a82                lcrh_parity
+ .text.uart0_fifos_enable
+                0x0000000000004ad0       0x20 ./uart.o
+                0x0000000000004ad0                uart0_fifos_enable
+ .text.uart0_fifos_disable
+                0x0000000000004af0       0x20 ./uart.o
+                0x0000000000004af0                uart0_fifos_disable
+ .text.uart0_init
+                0x0000000000004b10       0xfc ./uart.o
+                0x0000000000004b10                uart0_init
+ .text.init_ui_keyboard
+                0x0000000000004c0c       0x74 ./ui_keyboard.o
+                0x0000000000004c0c                init_ui_keyboard
+ .text.row      0x0000000000004c80       0x64 ./ui_keyboard.o
+                0x0000000000004c80                row
+ .text.key_catch
+                0x0000000000004ce4       0x44 ./ui_keyboard.o
+                0x0000000000004ce4                key_catch
+ .text.check_column
+                0x0000000000004d28       0x5c ./ui_keyboard.o
+                0x0000000000004d28                check_column
+ .text.prvKeyboardTask
+                0x0000000000004d84       0xc0 ./ui_keyboard.o
+ .text.prvUiTask
+                0x0000000000004e44      0x2b8 ./ui_keyboard.o
+ .text.exit     0x00000000000050fc       0x20 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+                0x00000000000050fc                exit
+ .text.__libc_init_array
+                0x000000000000511c       0x48 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+                0x000000000000511c                __libc_init_array
+ .text.memset   0x0000000000005164       0x94 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+                0x0000000000005164                memset
+ .text.startup.register_fini
+                0x00000000000051f8       0x14 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .text.__call_exitprocs
+                0x000000000000520c       0xe8 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+                0x000000000000520c                __call_exitprocs
+ .text.atexit   0x00000000000052f4        0xc /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+                0x00000000000052f4                atexit
+ .text.__libc_fini_array
+                0x0000000000005300       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+                0x0000000000005300                __libc_fini_array
+ .text.__retarget_lock_init
+                0x0000000000005334        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005334                __retarget_lock_init
+ .text.__retarget_lock_init_recursive
+                0x0000000000005338        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005338                __retarget_lock_init_recursive
+ .text.__retarget_lock_close
+                0x000000000000533c        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x000000000000533c                __retarget_lock_close
+ .text.__retarget_lock_close_recursive
+                0x0000000000005340        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005340                __retarget_lock_close_recursive
+ .text.__retarget_lock_acquire
+                0x0000000000005344        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005344                __retarget_lock_acquire
+ .text.__retarget_lock_acquire_recursive
+                0x0000000000005348        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005348                __retarget_lock_acquire_recursive
+ .text.__retarget_lock_try_acquire
+                0x000000000000534c        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x000000000000534c                __retarget_lock_try_acquire
+ .text.__retarget_lock_try_acquire_recursive
+                0x0000000000005350        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005350                __retarget_lock_try_acquire_recursive
+ .text.__retarget_lock_release
+                0x0000000000005354        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005354                __retarget_lock_release
+ .text.__retarget_lock_release_recursive
+                0x0000000000005358        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000000005358                __retarget_lock_release_recursive
+ .text.__register_exitproc
+                0x000000000000535c       0xc0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+                0x000000000000535c                __register_exitproc
+ .text._exit    0x000000000000541c        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+                0x000000000000541c                _exit
+                0x0000000000005420                . = ALIGN (0x4)
+ *(.ctors)
+                0x0000000000005420                . = ALIGN (0x4)
+ *(.dtors)
+                0x0000000000005420                . = ALIGN (0x4)
+                0x0000000000005420                __init_array_start = .
+ *(.init_array*)
+ .init_array    0x0000000000005420        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .init_array.00000
+                0x0000000000005424        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+                0x0000000000005428                __init_array_end = .
+ *(.init)
+ .init          0x0000000000005428        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000000005428                _init
+ .init          0x000000000000542c        0x8 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ *(.fini*)
+ .fini          0x0000000000005434        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+                0x0000000000005434                _fini
+ .fini_array    0x0000000000005438        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .fini          0x000000000000543c        0x8 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+                [!provide]                        PROVIDE (__etext, .)
+                [!provide]                        PROVIDE (_etext, .)
+                [!provide]                        PROVIDE (etext, .)
+
+.glue_7         0x0000000000005444        0x0
+ .glue_7        0x0000000000005444        0x0 linker stubs
+
+.glue_7t        0x0000000000005444        0x0
+ .glue_7t       0x0000000000005444        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000005444        0x0
+ .vfp11_veneer  0x0000000000005444        0x0 linker stubs
+
+.v4_bx          0x0000000000005444        0x0
+ .v4_bx         0x0000000000005444        0x0 linker stubs
+
+.iplt           0x0000000000005444        0x0
+ .iplt          0x0000000000005444        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+
+.rodata         0x0000000000005444      0x208
+ *(.rodata)
+ .rodata        0x0000000000005444       0x19 ./ai.o
+ *fill*         0x000000000000545d        0x3 
+ .rodata        0x0000000000005460       0x53 ./lcd.o
+ *fill*         0x00000000000054b3        0x1 
+ .rodata        0x00000000000054b4       0x2e ./print.o
+ *fill*         0x00000000000054e2        0x2 
+ .rodata        0x00000000000054e4       0x29 ./scale.o
+ *fill*         0x000000000000550d        0x3 
+ .rodata        0x0000000000005510        0x4 ./string.o
+ .rodata        0x0000000000005514        0x5 ./tasks.o
+ *fill*         0x0000000000005519        0x3 
+ .rodata        0x000000000000551c      0x125 ./ui_keyboard.o
+ *(.rodata*)
+ *fill*         0x0000000000005641        0x1 
+ .rodata.heapSTRUCT_SIZE
+                0x0000000000005642        0x2 ./heap_2.o
+ .rodata.x1sec.5942
+                0x0000000000005644        0x4 ./scale.o
+ .rodata._global_impure_ptr
+                0x0000000000005648        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+                0x0000000000005648                _global_impure_ptr
+
+.eh_frame       0x000000000000564c        0x4
+ .eh_frame      0x000000000000564c        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .eh_frame      0x000000000000564c        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+
+.data           0x0000000020000000      0x444 load address 0x0000000000005650
+                0x0000000000005650                __data_load__ = LOADADDR (.data)
+                0x0000000020000000                __data_start__ = .
+ *(.data)
+ .data          0x0000000020000000        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+ .data          0x0000000020000000        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+                0x0000000020000000                __dso_handle
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+ .data          0x0000000020000004        0x0 ./ai.o
+ .data          0x0000000020000004        0x0 ./gpio.o
+ .data          0x0000000020000004        0x0 ./heap_2.o
+ .data          0x0000000020000004        0x0 ./lcd.o
+ .data          0x0000000020000004        0x0 ./list.o
+ .data          0x0000000020000004        0x0 ./main.o
+ .data          0x0000000020000004        0x0 ./port.o
+ .data          0x0000000020000004        0x0 ./print.o
+ .data          0x0000000020000004        0x0 ./queue.o
+ .data          0x0000000020000004        0x0 ./scale.o
+ .data          0x0000000020000004        0x0 ./startup_frt.o
+ .data          0x0000000020000004        0x0 ./stream_buffer.o
+ .data          0x0000000020000004        0x0 ./string.o
+ .data          0x0000000020000004        0x0 ./systick_frt.o
+ .data          0x0000000020000004        0x0 ./tasks.o
+ .data          0x0000000020000004        0x0 ./uart.o
+ .data          0x0000000020000004        0x0 ./ui_keyboard.o
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memcpy.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+ .data          0x0000000020000004        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ *(.data*)
+ .data.xFreeBytesRemaining
+                0x0000000020000004        0x4 ./heap_2.o
+ .data.uxCriticalNesting
+                0x0000000020000008        0x4 ./port.o
+ .data.scalefactor
+                0x000000002000000c        0x4 ./scale.o
+ .data.offset   0x0000000020000010        0x2 ./scale.o
+ *fill*         0x0000000020000012        0x2 
+ .data._impure_ptr
+                0x0000000020000014        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+                0x0000000020000014                _impure_ptr
+ .data.impure_data
+                0x0000000020000018      0x428 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+ .data.__atexit_recursive_mutex
+                0x0000000020000440        0x4 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+                0x0000000020000440                __atexit_recursive_mutex
+                0x0000000020000444                . = ALIGN (0x4)
+                0x0000000020000444                __data_end__ = .
+
+.igot.plt       0x0000000020000444        0x0 load address 0x0000000000005a94
+ .igot.plt      0x0000000020000444        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+
+.ARM.exidx      0x0000000000005a94        0x8
+                0x0000000000005a94                __exidx_start = .
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+ .ARM.exidx     0x0000000000005a94        0x8 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+                0x0000000000005a9c                __exidx_end = .
+
+.ARM.extab      0x0000000000005a9c        0x0
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+ .ARM.extab     0x0000000000005a9c        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+
+.rel.dyn        0x0000000000005a9c        0x0
+ .rel.iplt      0x0000000000005a9c        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+
+.bss            0x0000000020000444     0x1f38
+                0x0000000020000444                __bss_start__ = .
+ *(.shbss)
+ *(.bss)
+ .bss           0x0000000020000444        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+ .bss           0x0000000020000444       0x1c /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+ .bss           0x0000000020000460        0x0 ./ai.o
+ .bss           0x0000000020000460        0x0 ./gpio.o
+ .bss           0x0000000020000460        0x0 ./heap_2.o
+ .bss           0x0000000020000460        0x0 ./lcd.o
+ .bss           0x0000000020000460        0x0 ./list.o
+ .bss           0x0000000020000460        0x0 ./main.o
+ .bss           0x0000000020000460        0x0 ./port.o
+ .bss           0x0000000020000460        0x0 ./print.o
+ .bss           0x0000000020000460        0x0 ./queue.o
+ .bss           0x0000000020000460        0x0 ./scale.o
+ .bss           0x0000000020000460        0x0 ./startup_frt.o
+ .bss           0x0000000020000460        0x0 ./stream_buffer.o
+ .bss           0x0000000020000460        0x0 ./string.o
+ .bss           0x0000000020000460        0x0 ./systick_frt.o
+ .bss           0x0000000020000460        0x0 ./tasks.o
+ .bss           0x0000000020000460        0x0 ./uart.o
+ .bss           0x0000000020000460        0x0 ./ui_keyboard.o
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memcpy.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+ .bss           0x0000000020000460        0x0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+ *(.bss.*)
+ .bss.xSemaphoreAI
+                0x0000000020000460        0x4 ./ai.o
+ .bss.pAdcValue
+                0x0000000020000464        0x2 ./ai.o
+ *fill*         0x0000000020000466        0x2 
+ .bss.ucHeap    0x0000000020000468     0x1b58 ./heap_2.o
+ .bss.xStart    0x0000000020001fc0        0x8 ./heap_2.o
+ .bss.xEnd      0x0000000020001fc8        0x8 ./heap_2.o
+ .bss.xHeapHasBeenInitialised.6401
+                0x0000000020001fd0        0x4 ./heap_2.o
+ .bss.xMessageBufferLCD
+                0x0000000020001fd4        0x4 ./lcd.o
+ .bss.xSemaphoreLCDSend
+                0x0000000020001fd8        0x4 ./lcd.o
+ .bss.xSemaphoreLCDOwner
+                0x0000000020001fdc        0x4 ./lcd.o
+ .bss.xQueuePrintRX
+                0x0000000020001fe0        0x4 ./print.o
+ .bss.xQueuePrintTX
+                0x0000000020001fe4        0x4 ./print.o
+ .bss.xSemaphoreValue
+                0x0000000020001fe8        0x4 ./scale.o
+ .bss.pui32Stack
+                0x0000000020001fec      0x200 ./startup_frt.o
+ .bss.pxCurrentTCB
+                0x00000000200021ec        0x4 ./tasks.o
+                0x00000000200021ec                pxCurrentTCB
+ .bss.pxReadyTasksLists
+                0x00000000200021f0       0xc8 ./tasks.o
+ .bss.xDelayedTaskList1
+                0x00000000200022b8       0x14 ./tasks.o
+ .bss.xDelayedTaskList2
+                0x00000000200022cc       0x14 ./tasks.o
+ .bss.pxDelayedTaskList
+                0x00000000200022e0        0x4 ./tasks.o
+ .bss.pxOverflowDelayedTaskList
+                0x00000000200022e4        0x4 ./tasks.o
+ .bss.xPendingReadyList
+                0x00000000200022e8       0x14 ./tasks.o
+ .bss.xTasksWaitingTermination
+                0x00000000200022fc       0x14 ./tasks.o
+ .bss.uxDeletedTasksWaitingCleanUp
+                0x0000000020002310        0x4 ./tasks.o
+ .bss.xSuspendedTaskList
+                0x0000000020002314       0x14 ./tasks.o
+ .bss.uxCurrentNumberOfTasks
+                0x0000000020002328        0x4 ./tasks.o
+ .bss.xTickCount
+                0x000000002000232c        0x4 ./tasks.o
+ .bss.uxTopReadyPriority
+                0x0000000020002330        0x4 ./tasks.o
+ .bss.xSchedulerRunning
+                0x0000000020002334        0x4 ./tasks.o
+ .bss.uxPendedTicks
+                0x0000000020002338        0x4 ./tasks.o
+ .bss.xYieldPending
+                0x000000002000233c        0x4 ./tasks.o
+ .bss.xNumOfOverflows
+                0x0000000020002340        0x4 ./tasks.o
+ .bss.uxTaskNumber
+                0x0000000020002344        0x4 ./tasks.o
+ .bss.xNextTaskUnblockTime
+                0x0000000020002348        0x4 ./tasks.o
+ .bss.xIdleTaskHandle
+                0x000000002000234c        0x4 ./tasks.o
+ .bss.uxSchedulerSuspended
+                0x0000000020002350        0x4 ./tasks.o
+ .bss.xQueueKeyboard
+                0x0000000020002354        0x4 ./ui_keyboard.o
+ *(COMMON)
+ COMMON         0x0000000020002358       0x21 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+                0x0000000020002358                __lock___atexit_recursive_mutex
+                0x000000002000235c                __lock___arc4random_mutex
+                0x0000000020002360                __lock___env_recursive_mutex
+                0x0000000020002364                __lock___sinit_recursive_mutex
+                0x0000000020002368                __lock___malloc_recursive_mutex
+                0x000000002000236c                __lock___at_quick_exit_mutex
+                0x0000000020002370                __lock___dd_hash_mutex
+                0x0000000020002374                __lock___tz_mutex
+                0x0000000020002378                __lock___sfp_recursive_mutex
+                0x000000002000237c                . = ALIGN (0x4)
+ *fill*         0x0000000020002379        0x3 
+                0x000000002000237c                __bss_end__ = .
+
+.heap           0x000000002000237c        0x0
+                0x000000002000237c                __heap_start__ = .
+                0x000000002000237c                end = __heap_start__
+                0x000000002000237c                _end = end
+                0x000000002000237c                __end = end
+ *(.heap)
+                0x000000002000237c                __heap_end__ = .
+                0x000000002000237c                __HeapLimit = __heap_end__
+
+.stack          0x0000000020002380        0x0
+                0x0000000020002380                _stack = .
+                0x0000000020002380                __stack = .
+ *(.stack)
+START GROUP
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc.a
+END GROUP
+START GROUP
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/libgcc.a
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libc.a
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a
+END GROUP
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+LOAD /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+OUTPUT(assignment7_TilTry.out elf32-littlearm)
+
+.ARM.attributes
+                0x0000000000000000       0x30
+ .ARM.attributes
+                0x0000000000000000       0x22 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crti.o
+ .ARM.attributes
+                0x0000000000000022       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtbegin.o
+ .ARM.attributes
+                0x0000000000000056       0x20 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/crt0.o
+ .ARM.attributes
+                0x0000000000000076       0x39 ./ai.o
+ .ARM.attributes
+                0x00000000000000af       0x39 ./gpio.o
+ .ARM.attributes
+                0x00000000000000e8       0x39 ./heap_2.o
+ .ARM.attributes
+                0x0000000000000121       0x39 ./lcd.o
+ .ARM.attributes
+                0x000000000000015a       0x39 ./list.o
+ .ARM.attributes
+                0x0000000000000193       0x39 ./main.o
+ .ARM.attributes
+                0x00000000000001cc       0x39 ./port.o
+ .ARM.attributes
+                0x0000000000000205       0x39 ./print.o
+ .ARM.attributes
+                0x000000000000023e       0x39 ./queue.o
+ .ARM.attributes
+                0x0000000000000277       0x39 ./scale.o
+ .ARM.attributes
+                0x00000000000002b0       0x39 ./startup_frt.o
+ .ARM.attributes
+                0x00000000000002e9       0x39 ./stream_buffer.o
+ .ARM.attributes
+                0x0000000000000322       0x39 ./string.o
+ .ARM.attributes
+                0x000000000000035b       0x39 ./systick_frt.o
+ .ARM.attributes
+                0x0000000000000394       0x39 ./tasks.o
+ .ARM.attributes
+                0x00000000000003cd       0x39 ./uart.o
+ .ARM.attributes
+                0x0000000000000406       0x39 ./ui_keyboard.o
+ .ARM.attributes
+                0x000000000000043f       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+ .ARM.attributes
+                0x0000000000000473       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-impure.o)
+ .ARM.attributes
+                0x00000000000004a7       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+ .ARM.attributes
+                0x00000000000004db       0x20 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x00000000000004fb       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+ .ARM.attributes
+                0x000000000000052f       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .ARM.attributes
+                0x0000000000000563       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+ .ARM.attributes
+                0x0000000000000597       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+ .ARM.attributes
+                0x00000000000005cb       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+ .ARM.attributes
+                0x00000000000005ff       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+ .ARM.attributes
+                0x0000000000000633       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
+ .ARM.attributes
+                0x0000000000000667       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtend.o
+ .ARM.attributes
+                0x000000000000069b       0x22 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/thumb/v7e-m/fpv4-sp/hard/crtn.o
+
+.comment        0x0000000000000000       0x7e
+ .comment       0x0000000000000000       0x7e ./ai.o
+                                         0x7f (size before relaxing)
+ .comment       0x000000000000007e       0x7f ./gpio.o
+ .comment       0x000000000000007e       0x7f ./heap_2.o
+ .comment       0x000000000000007e       0x7f ./lcd.o
+ .comment       0x000000000000007e       0x7f ./list.o
+ .comment       0x000000000000007e       0x7f ./main.o
+ .comment       0x000000000000007e       0x7f ./port.o
+ .comment       0x000000000000007e       0x7f ./print.o
+ .comment       0x000000000000007e       0x7f ./queue.o
+ .comment       0x000000000000007e       0x7f ./scale.o
+ .comment       0x000000000000007e       0x7f ./startup_frt.o
+ .comment       0x000000000000007e       0x7f ./stream_buffer.o
+ .comment       0x000000000000007e       0x7f ./string.o
+ .comment       0x000000000000007e       0x7f ./systick_frt.o
+ .comment       0x000000000000007e       0x7f ./tasks.o
+ .comment       0x000000000000007e       0x7f ./uart.o
+ .comment       0x000000000000007e       0x7f ./ui_keyboard.o
+
+.debug_info     0x0000000000000000     0x737d
+ .debug_info    0x0000000000000000      0x1d1 ./ai.o
+ .debug_info    0x00000000000001d1       0xb2 ./gpio.o
+ .debug_info    0x0000000000000283      0xb0d ./heap_2.o
+ .debug_info    0x0000000000000d90      0x2f5 ./lcd.o
+ .debug_info    0x0000000000001085      0xae5 ./list.o
+ .debug_info    0x0000000000001b6a      0x112 ./main.o
+ .debug_info    0x0000000000001c7c      0x306 ./port.o
+ .debug_info    0x0000000000001f82      0x2fe ./print.o
+ .debug_info    0x0000000000002280     0x1814 ./queue.o
+ .debug_info    0x0000000000003a94      0x26e ./scale.o
+ .debug_info    0x0000000000003d02      0x18e ./startup_frt.o
+ .debug_info    0x0000000000003e90      0xd22 ./stream_buffer.o
+ .debug_info    0x0000000000004bb2      0x35c ./string.o
+ .debug_info    0x0000000000004f0e       0xc6 ./systick_frt.o
+ .debug_info    0x0000000000004fd4     0x1dc8 ./tasks.o
+ .debug_info    0x0000000000006d9c      0x227 ./uart.o
+ .debug_info    0x0000000000006fc3      0x3ba ./ui_keyboard.o
+
+.debug_abbrev   0x0000000000000000     0x1697
+ .debug_abbrev  0x0000000000000000       0xe0 ./ai.o
+ .debug_abbrev  0x00000000000000e0       0x5b ./gpio.o
+ .debug_abbrev  0x000000000000013b      0x24c ./heap_2.o
+ .debug_abbrev  0x0000000000000387      0x120 ./lcd.o
+ .debug_abbrev  0x00000000000004a7      0x1f9 ./list.o
+ .debug_abbrev  0x00000000000006a0       0x95 ./main.o
+ .debug_abbrev  0x0000000000000735      0x199 ./port.o
+ .debug_abbrev  0x00000000000008ce       0xf6 ./print.o
+ .debug_abbrev  0x00000000000009c4      0x2d2 ./queue.o
+ .debug_abbrev  0x0000000000000c96      0x11a ./scale.o
+ .debug_abbrev  0x0000000000000db0       0xca ./startup_frt.o
+ .debug_abbrev  0x0000000000000e7a      0x1db ./stream_buffer.o
+ .debug_abbrev  0x0000000000001055       0xe4 ./string.o
+ .debug_abbrev  0x0000000000001139       0x4a ./systick_frt.o
+ .debug_abbrev  0x0000000000001183      0x309 ./tasks.o
+ .debug_abbrev  0x000000000000148c       0xcb ./uart.o
+ .debug_abbrev  0x0000000000001557      0x140 ./ui_keyboard.o
+
+.debug_aranges  0x0000000000000000      0x700
+ .debug_aranges
+                0x0000000000000000       0x40 ./ai.o
+ .debug_aranges
+                0x0000000000000040       0x20 ./gpio.o
+ .debug_aranges
+                0x0000000000000060       0x40 ./heap_2.o
+ .debug_aranges
+                0x00000000000000a0       0x40 ./lcd.o
+ .debug_aranges
+                0x00000000000000e0       0x40 ./list.o
+ .debug_aranges
+                0x0000000000000120       0x20 ./main.o
+ .debug_aranges
+                0x0000000000000140       0x78 ./port.o
+ .debug_aranges
+                0x00000000000001b8       0x58 ./print.o
+ .debug_aranges
+                0x0000000000000210       0xf0 ./queue.o
+ .debug_aranges
+                0x0000000000000300       0x38 ./scale.o
+ .debug_aranges
+                0x0000000000000338       0x38 ./startup_frt.o
+ .debug_aranges
+                0x0000000000000370       0xc0 ./stream_buffer.o
+ .debug_aranges
+                0x0000000000000430       0x50 ./string.o
+ .debug_aranges
+                0x0000000000000480       0x30 ./systick_frt.o
+ .debug_aranges
+                0x00000000000004b0      0x1a0 ./tasks.o
+ .debug_aranges
+                0x0000000000000650       0x68 ./uart.o
+ .debug_aranges
+                0x00000000000006b8       0x48 ./ui_keyboard.o
+
+.debug_ranges   0x0000000000000000      0x5f0
+ .debug_ranges  0x0000000000000000       0x30 ./ai.o
+ .debug_ranges  0x0000000000000030       0x10 ./gpio.o
+ .debug_ranges  0x0000000000000040       0x30 ./heap_2.o
+ .debug_ranges  0x0000000000000070       0x30 ./lcd.o
+ .debug_ranges  0x00000000000000a0       0x30 ./list.o
+ .debug_ranges  0x00000000000000d0       0x10 ./main.o
+ .debug_ranges  0x00000000000000e0       0x68 ./port.o
+ .debug_ranges  0x0000000000000148       0x48 ./print.o
+ .debug_ranges  0x0000000000000190       0xe0 ./queue.o
+ .debug_ranges  0x0000000000000270       0x28 ./scale.o
+ .debug_ranges  0x0000000000000298       0x28 ./startup_frt.o
+ .debug_ranges  0x00000000000002c0       0xb0 ./stream_buffer.o
+ .debug_ranges  0x0000000000000370       0x40 ./string.o
+ .debug_ranges  0x00000000000003b0       0x20 ./systick_frt.o
+ .debug_ranges  0x00000000000003d0      0x190 ./tasks.o
+ .debug_ranges  0x0000000000000560       0x58 ./uart.o
+ .debug_ranges  0x00000000000005b8       0x38 ./ui_keyboard.o
+
+.debug_line     0x0000000000000000     0x39e9
+ .debug_line    0x0000000000000000      0x2ba ./ai.o
+ .debug_line    0x00000000000002ba      0x146 ./gpio.o
+ .debug_line    0x0000000000000400      0x38a ./heap_2.o
+ .debug_line    0x000000000000078a      0x371 ./lcd.o
+ .debug_line    0x0000000000000afb      0x3bd ./list.o
+ .debug_line    0x0000000000000eb8       0x9f ./main.o
+ .debug_line    0x0000000000000f57      0x31f ./port.o
+ .debug_line    0x0000000000001276      0x2fa ./print.o
+ .debug_line    0x0000000000001570      0x76b ./queue.o
+ .debug_line    0x0000000000001cdb      0x2a3 ./scale.o
+ .debug_line    0x0000000000001f7e      0x1cc ./startup_frt.o
+ .debug_line    0x000000000000214a      0x555 ./stream_buffer.o
+ .debug_line    0x000000000000269f      0x1d3 ./string.o
+ .debug_line    0x0000000000002872      0x1bb ./systick_frt.o
+ .debug_line    0x0000000000002a2d      0xa33 ./tasks.o
+ .debug_line    0x0000000000003460      0x24e ./uart.o
+ .debug_line    0x00000000000036ae      0x33b ./ui_keyboard.o
+
+.debug_str      0x0000000000000000     0x2466
+ .debug_str     0x0000000000000000      0x271 ./ai.o
+                                        0x2cd (size before relaxing)
+ .debug_str     0x0000000000000271       0x1a ./gpio.o
+                                        0x1fb (size before relaxing)
+ .debug_str     0x000000000000028b      0x56d ./heap_2.o
+                                        0x79f (size before relaxing)
+ .debug_str     0x00000000000007f8       0xfb ./lcd.o
+                                        0x378 (size before relaxing)
+ .debug_str     0x00000000000008f3      0x164 ./list.o
+                                        0x75c (size before relaxing)
+ .debug_str     0x0000000000000a57       0x20 ./main.o
+                                        0x226 (size before relaxing)
+ .debug_str     0x0000000000000a77      0x1c8 ./port.o
+                                        0x3dc (size before relaxing)
+ .debug_str     0x0000000000000c3f       0xd1 ./print.o
+                                        0x336 (size before relaxing)
+ .debug_str     0x0000000000000d10      0x564 ./queue.o
+                                        0xc9f (size before relaxing)
+ .debug_str     0x0000000000001274       0x6d ./scale.o
+                                        0x304 (size before relaxing)
+ .debug_str     0x00000000000012e1       0xfa ./startup_frt.o
+                                        0x2ce (size before relaxing)
+ .debug_str     0x00000000000013db      0x438 ./stream_buffer.o
+                                        0x7af (size before relaxing)
+ .debug_str     0x0000000000001813       0xa5 ./string.o
+                                        0x277 (size before relaxing)
+ .debug_str     0x00000000000018b8       0x93 ./systick_frt.o
+                                        0x274 (size before relaxing)
+ .debug_str     0x000000000000194b      0x9d2 ./tasks.o
+                                       0x123b (size before relaxing)
+ .debug_str     0x000000000000231d       0xbc ./uart.o
+                                        0x2d2 (size before relaxing)
+ .debug_str     0x00000000000023d9       0x8d ./ui_keyboard.o
+                                        0x340 (size before relaxing)
+
+.debug_frame    0x0000000000000000     0x1b7c
+ .debug_frame   0x0000000000000000       0xb8 ./ai.o
+ .debug_frame   0x00000000000000b8       0x38 ./gpio.o
+ .debug_frame   0x00000000000000f0       0xc0 ./heap_2.o
+ .debug_frame   0x00000000000001b0       0xb0 ./lcd.o
+ .debug_frame   0x0000000000000260       0xd8 ./list.o
+ .debug_frame   0x0000000000000338       0x30 ./main.o
+ .debug_frame   0x0000000000000368      0x170 ./port.o
+ .debug_frame   0x00000000000004d8      0x134 ./print.o
+ .debug_frame   0x000000000000060c      0x3f4 ./queue.o
+ .debug_frame   0x0000000000000a00       0x9c ./scale.o
+ .debug_frame   0x0000000000000a9c       0x7c ./startup_frt.o
+ .debug_frame   0x0000000000000b18      0x324 ./stream_buffer.o
+ .debug_frame   0x0000000000000e3c      0x128 ./string.o
+ .debug_frame   0x0000000000000f64       0x70 ./systick_frt.o
+ .debug_frame   0x0000000000000fd4      0x708 ./tasks.o
+ .debug_frame   0x00000000000016dc      0x178 ./uart.o
+ .debug_frame   0x0000000000001854       0xe8 ./ui_keyboard.o
+ .debug_frame   0x000000000000193c       0x28 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-exit.o)
+ .debug_frame   0x0000000000001964       0x2c /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-init.o)
+ .debug_frame   0x0000000000001990       0x38 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-memset.o)
+ .debug_frame   0x00000000000019c8       0x5c /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000001a24       0x20 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000001a44       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-fini.o)
+ .debug_frame   0x0000000000001a78       0xb0 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-lock.o)
+ .debug_frame   0x0000000000001b28       0x34 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libg.a(lib_a-__atexit.o)
+ .debug_frame   0x0000000000001b5c       0x20 /Users/Tilman/Documents/CCS/ccsv8/tools/compiler/gcc-arm-none-eabi-7-2017-q4-major/bin/../lib/gcc/arm-none-eabi/7.2.1/../../../../arm-none-eabi/lib/thumb/v7e-m/fpv4-sp/hard/libnosys.a(_exit.o)
