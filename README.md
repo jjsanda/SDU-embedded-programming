@@ -12,7 +12,7 @@ graph TD
   keyboard((Keyboard Input Task))
   digi((Digiswitch Task))
   uart((UART RX/TX Task))
-  pc((PC Commands Task))
+  pc((PC Terminal Task))
   
   keyQ[(Key. In Queue)]
   digiQ[(Digi. In Queue)]
