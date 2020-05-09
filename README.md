@@ -5,16 +5,17 @@ graph TD
 
   gsEG(user state event group)
 
-  pay((Payment Task))
-  fuelsel((Fuelsel. Task))
-  fueling((Fueling Task))
+  pay((prvPaymentTask))
+  fuelsel((prvFuelselTask))
+  fueling((prvFuelingTask))
   lcd((prvLcdOut))
-  keyboard((Keyboard Input Task))
+  keyboard((prvKeyboardTask))
   digi((Digiswitch Task))
-  uart((UART Print Task))
-  pc((PC Terminal Task))
+  uartRX((prvRxTask))
+  uartTX((prvTxTask))
+  pc((prvPc_terminalTask))
   
-  keyQ[(Key. In Queue)]
+  keyQ[(xQueueKeyboard)]
   digiQ[(xQueueDigi)]
   rxQ[(xQueuePrintRX)]
   txQ[(xQueuePrintTX)]
@@ -25,16 +26,16 @@ graph TD
 
   keyQ--waitForNextKey-->fuelsel
   gsEG-->fuelsel
-  pc--setPrice-->fuelsel
+  pc--setPrice:xSemaphoreFuelsel-->fuelsel
   fuelsel--sendToLcd-->lcdB
   fuelsel--startPumping-->gsEG
   
 
-  uart-->rxQ
+  uartRX-->rxQ
   rxQ--getNextLine-->pc
-  pc--print-->txQ
+  pc--uartPrint-->txQ
   logB--getAllLogs-->pc
-  txQ-->uart
+  txQ-->uartTX
 
   keyboard-->keyQ 
   keyQ--waitForNextKey-->pay
@@ -51,7 +52,7 @@ graph TD
 
   gsEG-->fueling
   fueling--sendToLcd-->lcdB
-  fueling--getPrice-->fuelsel
+  fueling--getPrice:xSemaphoreFuelsel-->fuelsel
   fueling--getPaymentOption-->pay
   fueling--getCashBalance-->pay
   fueling--teminateSession-->gsEG
