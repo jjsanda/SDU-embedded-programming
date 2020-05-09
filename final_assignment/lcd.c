@@ -13,9 +13,8 @@
 
 #define LCD_LINE_LENGTH 16
 
-static MessageBufferHandle_t xMessageBufferLCD = NULL;
+static MessageBufferHandle_t xMessageBufferLCD = NULL; // needs semaphore for consistent write
 static SemaphoreHandle_t xSemaphoreLCDSend = NULL;
-static SemaphoreHandle_t xSemaphoreLCDOwner = NULL;
 
 typedef struct displayPayload {
   char line1[LCD_LINE_LENGTH];
@@ -26,14 +25,8 @@ typedef struct displayPayload {
 // static function declarations. static fns must be declared before first use.
 static void prvLcdOut( void *pvParameters );
 
-void lcd_take(){
-  xSemaphoreTake( xSemaphoreLCDOwner, portMAX_DELAY );
-}
-void lcd_give(){
-  xSemaphoreGive( xSemaphoreLCDOwner );
-}
 
-int lcd_send(char *line1, char *line2){
+int sendToLcd(char *line1, char *line2){
   const TickType_t xBlockTime = pdMS_TO_TICKS( 100 );
   displayPayload payload;
   //for(int i=0; i<LCD_LINE_LENGTH && line1[i]!='\0'; i++){
@@ -79,8 +72,7 @@ int lcd_send(char *line1, char *line2){
 BOOLEAN init_lcd( void ){
   xMessageBufferLCD = xMessageBufferCreate( sizeof( displayPayload ) + sizeof( size_t ) ); //2 row display with 16 chars each
   xSemaphoreLCDSend = xSemaphoreCreateMutex();
-  xSemaphoreLCDOwner = xSemaphoreCreateMutex();
-  if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL && xSemaphoreLCDOwner != NULL){
+  if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL ){
     xTaskCreate( prvLcdOut, "LCD out", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     tilPrint("lcd initialized\r\n");
     return 1;

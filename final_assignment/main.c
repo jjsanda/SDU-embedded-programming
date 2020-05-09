@@ -27,8 +27,13 @@
 #include "gpio.h"
 #include "lcd.h"
 #include "print.h"
+#include "digi.h"
 
-//#include "main_blinky.c"
+#include "fueling.h"
+#include "payment.h"
+#include "fuelsel.h"
+#include "pc_terminal.h"
+
 /*****************************    Defines    *******************************/
 //#define configCREATE_SIMPLE_TICKLESS_DEMO   1
 /*****************************   Constants   *******************************/
@@ -51,15 +56,15 @@ int main(void)
   BOOLEAN print = init_print();       // UART RX/TX Task
   BOOLEAN lcd = init_lcd();           // LCD Display Task
   BOOLEAN keyboard = init_keyboard(); // Keyboard Input Task
+  BOOLEAN digi = init_digi();         // Digiswitch Task
 
-  // BOOLEAN digi = init_digi();         // Digiswitch Task
-  // BOOLEAN fueling = init_fueling();   // Fueling Task
-  // BOOLEAN payment = init_payment();   // Payment Task
-  // BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
-  // BOOLEAN pc_terminal = init_pc_terminal(); // PC Terminal Task
+  BOOLEAN fueling = init_fueling();   // Fueling Task
+  BOOLEAN payment = init_payment();   // Payment Task
+  BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
+  BOOLEAN pc_terminal = init_pc_terminal(); // PC Terminal Task
 
   //if( ui_keyboard && print && lcd && ai) {
-  if( keyboard && print && lcd ) {
+  if( print && lcd && keyboard && digi && fueling && payment && fuelsel && pc_terminal ) {
     vTaskStartScheduler();     /* Start the tasks and timer running. */
   }
 

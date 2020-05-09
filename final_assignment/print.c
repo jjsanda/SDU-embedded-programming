@@ -19,7 +19,18 @@ static QueueHandle_t xQueuePrintTX = NULL;
 static void prvRxTask( void *pvParameters );
 static void prvTxTask( void *pvParameters );
 
-void tilConcat(char* target, char* source1, char* source2){
+void getNextLine(unsigned char * stringLineBuf, int maxLineLength, TickType_t xTicksToWaitForChar){
+  unsigned char ucReceivedValue;
+  int i = 0;
+  //pseudocode
+  //do{
+  //  xQueueReceive( xQueuePrintRX, &ucReceivedValue, xTicksToWait );
+  //  stringLineBuf[i++] = ucReceivedValue;
+  //} while(ucReceivedValue != '\r' && i < maxLineLength)
+  return stringLineBuf
+}
+
+void uartConcat(char* target, char* source1, char* source2){
   while(*source1!='\0'){
     *(target++) = *(source1++);
     //target++;
@@ -31,10 +42,10 @@ void tilConcat(char* target, char* source1, char* source2){
   *(target)='\0';
 }
 
-void tilPrint(char *string){
+void uartPrint(char *string){
   while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 0U );
 }
-void tilPrintDec(char * buf, int val, INT8U size){
+void uartPrintDec(char * buf, int val, INT8U size){
   int weight = 1, i=0;
   while(size-- > 1) weight *= 10;
   unsigned char digit = 11;
@@ -51,12 +62,12 @@ void tilPrintDec(char * buf, int val, INT8U size){
   }
   buf[i]='\0';
 }
-void tilPrint16U(INT16U val, INT8U size){
+void uartPrint16U(INT16U val, INT8U size){
   char buf[size+1];
-  tilPrintDec(buf,val,size);
-  tilPrint(buf);
+  uartPrintDec(buf,val,size);
+  uartPrint(buf);
 }
-void tilBlockingPrint(char *string){
+void uartBlockingPrint(char *string){
   while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 10U );
 }
 /*-----------------------------------------------------------*/
@@ -67,7 +78,7 @@ BOOLEAN init_print( void ){
   if( xQueuePrintRX != NULL && xQueuePrintTX != NULL ){
     xTaskCreate( prvRxTask, "print-RX", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     xTaskCreate( prvTxTask, "print-TX", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 4 ), NULL );
-    tilPrint("\r\nprint initialized\r\n");
+    uartPrint("\r\nprint initialized\r\n");
     return 1;
   } else {
     return 0;

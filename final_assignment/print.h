@@ -27,9 +27,9 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-void tilPrint(char *string);
-void tilPrintDec(char * buf, int val, INT8U size);
-void tilConcat(char* target, char* source1, char* source2);
+void uartPrint(char *string);
+void uartPrintDec(char * buf, int val, INT8U size);
+void uartConcat(char* target, char* source1, char* source2);
 BOOLEAN init_print( void );
 /*****************************************************************************
 *   Input    : -

@@ -17,8 +17,12 @@
 *
 *****************************************************************************/
 
-#ifndef _LCD_H
-  #define _LCD_H
+#ifndef _FUELSEL_H
+  #define _FUELSEL_H
+
+#define DIESEL       0
+#define LEAD_FREE_92 1
+#define LEAD_FREE_95 2
 
 /***************************** Include files *******************************/
 
@@ -27,8 +31,8 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-int sendToLcd(char *line1, char *line2);
-BOOLEAN init_lcd( void );
+INT16U get_fuelsel();
+BOOLEAN init_fuelsel( void );
 /*****************************************************************************
 *   Input    : -
 *   Output   : -

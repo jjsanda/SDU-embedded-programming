@@ -17,8 +17,8 @@
 *
 *****************************************************************************/
 
-#ifndef _LCD_H
-  #define _LCD_H
+#ifndef _PC_TERMINAL_H
+  #define _PC_TERMINAL_H
 
 /***************************** Include files *******************************/
 
@@ -27,8 +27,8 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-int sendToLcd(char *line1, char *line2);
-BOOLEAN init_lcd( void );
+INT16U get_pc_terminal();
+BOOLEAN init_pc_terminal( void );
 /*****************************************************************************
 *   Input    : -
 *   Output   : -
