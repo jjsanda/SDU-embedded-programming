@@ -14,7 +14,7 @@ graph TD
   uart((UART Print Task))
   pc((PC Terminal Task))
   
-  keyQ[(Key. In Queue)]
+  keyQ[(Key. In Queue, xQueueDigi)]
   digiQ[(Digi. In Queue)]
   rxQ[(UART RX Queue)]
   txQ[(UART TX Queue)]
