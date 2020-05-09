@@ -40,7 +40,7 @@ graph TD
   keyQ--waitForNextKey-->pay
   gsEG-->pay
   digi-->digiQ
-  digiQ-->pay
+  digiQ--getDigiRotation-->pay
   pay-->lcdB
   pay--startFuelSel-->gsEG
 
