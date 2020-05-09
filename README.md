@@ -11,7 +11,7 @@ graph TD
   lcd((LCD Display Task))
   keyboard((Keyboard Input Task))
   digi((Digiswitch Task))
-  uart((UART RX/TX (print) Task))
+  uart((UART Print Task))
   pc((PC Terminal Task))
   
   keyQ[(Key. In Queue)]
