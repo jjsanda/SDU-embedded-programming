@@ -33,6 +33,9 @@ graph TD
   pc--setPrice-->dieselPrice
   pc--setPrice-->leadfr92Price
   pc--setPrice-->leadfr95Price
+  fuelsel---dieselPrice
+  fuelsel---leadfr92Price
+  fuelsel---leadfr95Price
   fuelsel--sendToLcd-->lcdB
   fuelsel--startPumping-->gsEG
   
@@ -58,8 +61,7 @@ graph TD
 
   gsEG-->fueling
   fueling--sendToLcd-->lcdB
-  fueling--getPrice:xSemaphoreFuelsel-->fuelsel fuelPrice
-  fueling--getPrice:xSemaphoreFuelsel-->fuelsel fuelPrice
+  fueling--getPrice:xSemaphoreFuelsel-->fuelsel
   fueling--getPaymentOption-->pay
   fueling--getCashBalance-->pay
   fueling--teminateSession-->gsEG
