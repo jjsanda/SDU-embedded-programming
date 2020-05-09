@@ -20,22 +20,16 @@ graph TD
   rxQ[(xQueuePrintRX)]
   txQ[(xQueuePrintTX)]
   
-  dieselPrice[pFuelselDieselPrice +<br/>xSemaphoreFuelsel]
-  leadfr92Price[pFuelselLeadfr92Price +<br/>xSemaphoreFuelsel]
-  leadfr95Price[pFuelselLeadfr95Price +<br/>xSemaphoreFuelsel]
+  fuelPrices[- pFuelselDieselPrice<br/>- pFuelselLeadfr92Price<br/>- pFuelselLeadfr95Price<br/> <br/>sem: xSemaphoreFuelsel]
 
-  lcdB>xMessageBufferLCD +<br/>xSemaphoreLCDSend]
+  lcdB>xMessageBufferLCD<br/>sem: xSemaphoreLCDSend]
   logB>Fuelling Log Buffer]
 
 
   keyQ--waitForNextKey-->fuelsel
   gsEG-->fuelsel
-  pc--setPrice-->dieselPrice
-  pc--setPrice-->leadfr92Price
-  pc--setPrice-->leadfr95Price
-  fuelsel---dieselPrice
-  fuelsel---leadfr92Price
-  fuelsel---leadfr95Price
+  pc--setPrice-->fuelPrices
+  fuelsel---fuelPrices
   fuelsel--sendToLcd-->lcdB
   fuelsel--startPumping-->gsEG
   
@@ -61,7 +55,9 @@ graph TD
 
   gsEG-->fueling
   fueling--sendToLcd-->lcdB
-  fueling--getPrice:xSemaphoreFuelsel-->fuelsel
+
+  fueling--getPrice-->fuelPrices
+  
   fueling--getPaymentOption-->pay
   fueling--getCashBalance-->pay
   fueling--teminateSession-->gsEG
