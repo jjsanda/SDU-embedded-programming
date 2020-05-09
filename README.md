@@ -8,25 +8,25 @@ graph TD
   pay((Payment Task))
   fuelsel((Fuelsel. Task))
   fueling((Fueling Task))
-  lcd((LCD Display Task))
+  lcd((prvLcdOut))
   keyboard((Keyboard Input Task))
   digi((Digiswitch Task))
   uart((UART Print Task))
   pc((PC Terminal Task))
   
-  keyQ[(Key. In Queue, xQueueDigi)]
-  digiQ[(Digi. In Queue)]
-  rxQ[(UART RX Queue)]
-  txQ[(UART TX Queue)]
+  keyQ[(Key. In Queue)]
+  digiQ[(xQueueDigi)]
+  rxQ[(xQueuePrintRX)]
+  txQ[(xQueuePrintTX)]
 
-  lcdB>LCD Buffer]
+  lcdB>xMessageBufferLCD +<br/>xSemaphoreLCDSend]
   logB>Fuelling Log Buffer]
 
 
   keyQ--waitForNextKey-->fuelsel
   gsEG-->fuelsel
   pc--setPrice-->fuelsel
-  fuelsel-->lcdB
+  fuelsel--sendToLcd-->lcdB
   fuelsel--startPumping-->gsEG
   
 
@@ -41,7 +41,7 @@ graph TD
   gsEG-->pay
   digi-->digiQ
   digiQ--getDigiRotation-->pay
-  pay-->lcdB
+  pay--sendToLcd-->lcdB
   pay--startFuelSel-->gsEG
 
 
@@ -50,7 +50,7 @@ graph TD
 
 
   gsEG-->fueling
-  fueling-->lcdB
+  fueling--sendToLcd-->lcdB
   fueling--getPrice-->fuelsel
   fueling--getPaymentOption-->pay
   fueling--getCashBalance-->pay
