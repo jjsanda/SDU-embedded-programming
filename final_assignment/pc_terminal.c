@@ -32,7 +32,7 @@ BOOLEAN init_pc_terminal( void ){
   xSemaphorePc_terminal = xSemaphoreCreateMutex();
   if( xSemaphorePc_terminal != NULL ){
     xTaskCreate( prvPc_terminalTask, "pc_terminal task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("pc_terminal initialized\r\n");
+    uartPrint("pc_terminal initialized\r\n");
     return 1;
   } else {
     return 0;

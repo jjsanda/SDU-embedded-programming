@@ -18,7 +18,6 @@
 *****************************************************************************/
 
 /***************************** Include files *******************************/
-#include <scale.h>
 #include <stdint.h>
 #include "FreeRTOS.h"
 #include "task.h"
@@ -63,9 +62,11 @@ int main(void)
   BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
   BOOLEAN pc_terminal = init_pc_terminal(); // PC Terminal Task
 
-  //if( ui_keyboard && print && lcd && ai) {
   if( print && lcd && keyboard && digi && fueling && payment && fuelsel && pc_terminal ) {
+  //if( print && lcd && keyboard && digi && fueling && payment && fuelsel) {
     vTaskStartScheduler();     /* Start the tasks and timer running. */
+  } else {
+    for( ;; ); //one of the tasks could not initialized (to less heap for task itself)
   }
 
   /* If all is well, the scheduler will now be running, and the following

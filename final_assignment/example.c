@@ -32,7 +32,7 @@ BOOLEAN init_example( void ){
   xSemaphoreExample = xSemaphoreCreateMutex();
   if( xSemaphoreExample != NULL ){
     xTaskCreate( prvExampleTask, "example task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("example initialized\r\n");
+    uartPrint("example initialized\r\n");
     return 1;
   } else {
     return 0;

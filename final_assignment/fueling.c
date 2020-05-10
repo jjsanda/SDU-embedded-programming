@@ -32,7 +32,7 @@ BOOLEAN init_fueling( void ){
   xSemaphoreFueling = xSemaphoreCreateMutex();
   if( xSemaphoreFueling != NULL ){
     xTaskCreate( prvFuelingTask, "fueling task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("fueling initialized\r\n");
+    uartPrint("fueling initialized\r\n");
     return 1;
   } else {
     return 0;
@@ -81,10 +81,10 @@ static void prvUiTask( void *pvParameters )
     xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY );
 
     //TIL: print key for debugging
-    tilPrint("\r\nkey: ");
+    uartPrint("\r\nkey: ");
     ch2str[0]=ucReceivedValue; ch2str[1]='\0';
-    tilPrint(ch2str);
-    tilPrint("\r\n");
+    uartPrint(ch2str);
+    uartPrint("\r\n");
 
     switch(state) {
       case IDLE:
@@ -117,11 +117,11 @@ static void prvUiTask( void *pvParameters )
           local_offset *= 10;
           local_offset += digit;
           local_offset %= 10000; //make sure it only uses 5 digits
-          tilPrintDec(offset_buf, local_offset, 4);
+          uartPrintDec(offset_buf, local_offset, 4);
           lcd_send("new offset:", offset_buf);
         } else if(ucReceivedValue=='#'){
           set_offset(local_offset);
-          tilPrintDec(offset_buf, local_offset, 8);
+          uartPrintDec(offset_buf, local_offset, 8);
           lcd_send("saved offset:", offset_buf);
           state = IDLE;
           lcd_give();
@@ -139,13 +139,13 @@ static void prvUiTask( void *pvParameters )
           local_scale *= 10;
           local_scale += digit;
           local_scale %= 10000; //make sure it only uses 5 digits
-          tilPrintDec(scale_buf, local_scale, 4);
+          uartPrintDec(scale_buf, local_scale, 4);
           lcd_send("new: scale / 100:", scale_buf);
         } else if(ucReceivedValue=='#'){
           float factor = 1;
           factor = (float) local_scale / 100;
           set_scalefactor(factor);
-          tilPrintDec(scale_buf, local_scale, 8);
+          uartPrintDec(scale_buf, local_scale, 8);
           lcd_send("saved scale:", scale_buf);
           state = IDLE;
           lcd_give();

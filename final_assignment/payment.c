@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "semphr.h"
 #include "tm4c123gh6pm.h"
+#include "print.h"
 #include "emp_type.h"
 
 static SemaphoreHandle_t xSemaphorePayment = NULL;
@@ -31,12 +32,16 @@ INT16U get_payment(){
 BOOLEAN init_payment( void ){
   xSemaphorePayment = xSemaphoreCreateMutex();
   if( xSemaphorePayment != NULL ){
-    xTaskCreate( prvPaymentTask, "payment task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("payment initialized\r\n");
-    return 1;
+    if(xTaskCreate( prvPaymentTask, "payment task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+      uartPrint("payment initialized\r\n");
+      return 1;
+    } else {
+      uartPrint("ERROR: payment TASK NOT initialized\r\n");
+    }
   } else {
-    return 0;
+    uartPrint("ERROR: payment SEM NOT initialized\r\n");
   }
+  return 0;
 }
 
 static void prvPaymentTask( void *pvParameters )

@@ -31,7 +31,8 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-INT16U get_fuelsel();
+int getPrice(int fuel_type);
+int setPrice(float fuelselPrice, int fuel_type);
 BOOLEAN init_fuelsel( void );
 /*****************************************************************************
 *   Input    : -

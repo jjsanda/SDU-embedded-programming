@@ -2,7 +2,6 @@
 //#include <stdio.h>
 
 /* Kernel includes. */
-#include <scale.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -27,7 +26,8 @@ void getNextLine(unsigned char * stringLineBuf, int maxLineLength, TickType_t xT
   //  xQueueReceive( xQueuePrintRX, &ucReceivedValue, xTicksToWait );
   //  stringLineBuf[i++] = ucReceivedValue;
   //} while(ucReceivedValue != '\r' && i < maxLineLength)
-  return stringLineBuf
+  stringLineBuf[i++] = '\0';
+  return 1;
 }
 
 void uartConcat(char* target, char* source1, char* source2){

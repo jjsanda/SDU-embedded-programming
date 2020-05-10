@@ -74,7 +74,7 @@ BOOLEAN init_lcd( void ){
   xSemaphoreLCDSend = xSemaphoreCreateMutex();
   if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL ){
     xTaskCreate( prvLcdOut, "LCD out", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("lcd initialized\r\n");
+    uartPrint("lcd initialized\r\n");
     return 1;
   } else {
     return 0;
@@ -99,19 +99,19 @@ static void prvLcdOut( void *pvParameters )
     {
       /* A ucRxData contains a message that is xReceivedBytes long.  Process
       the message here.... */
-      tilPrint("\r\n\r\nsimulate LCD screen:\r\n");
-      tilPrint("----------------\r\n");
+      uartPrint("\r\n\r\nsimulate LCD screen:\r\n");
+      uartPrint("----------------\r\n");
       char buf1[20];
-      tilConcat(buf1,ucRxData.line1," "); //make sure we have a '\0' to terminate the string
+      uartConcat(buf1,ucRxData.line1," "); //make sure we have a '\0' to terminate the string
       buf1[16]='\0';
-      tilPrint(buf1);
-      tilPrint("\r\n");
+      uartPrint(buf1);
+      uartPrint("\r\n");
       char buf2[20];
-      tilConcat(buf2,ucRxData.line2," "); //make sure we have a '\0' to terminate the string
+      uartConcat(buf2,ucRxData.line2," "); //make sure we have a '\0' to terminate the string
       buf2[16]='\0';
-      tilPrint(buf2);
-      tilPrint("\r\n");
-      tilPrint("----------------\r\n");
+      uartPrint(buf2);
+      uartPrint("\r\n");
+      uartPrint("----------------\r\n");
     }
   }
 }

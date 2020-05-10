@@ -2,7 +2,6 @@
 //#include <stdio.h>
 
 /* Kernel includes. */
-#include <scale.h>
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -28,7 +27,7 @@ BOOLEAN init_keyboard( void ){
   if( xQueueKeyboard != NULL ){
     xTaskCreate( prvKeyboardTask, "Keyboard Task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
 //    xTaskCreate( prvUiTask, "UI Task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 4 ), NULL );
-    tilPrint("UI & keyboard initialized\r\n");
+    uartPrint("keyboard initialized\r\n");
     return 1;
   } else {
     return 0;

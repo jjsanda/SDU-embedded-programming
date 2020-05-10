@@ -19,6 +19,8 @@
 
 #ifndef _PRINT_H
   #define _PRINT_H
+#include "emp_type.h"
+
 
 /***************************** Include files *******************************/
 

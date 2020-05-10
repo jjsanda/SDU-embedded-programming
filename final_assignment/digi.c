@@ -18,7 +18,7 @@ static void prvDigiTask( void *pvParameters );
 
 /* getter and setters */
 int getDigiRotation(unsigned char * digiBuf, TickType_t xTicksToWait){
-  return xQueueReceive( xQueuePrintTX, &digiBuf, xTicksToWait );
+  return xQueueReceive( xQueueDigi, &digiBuf, xTicksToWait );
 }
 
 
@@ -27,7 +27,7 @@ BOOLEAN init_digi( void ){
   xQueueDigi = xQueueCreate( 1024, sizeof( unsigned char ) ); //l = left turn, r=right turn
   if( xQueueDigi != NULL ){
     xTaskCreate( prvDigiTask, "digi task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    tilPrint("digi initialized\r\n");
+    uartPrint("digi initialized\r\n");
     return 1;
   } else {
     return 0;
