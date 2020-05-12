@@ -10,108 +10,476 @@
 #include "emp_type.h"
 #include "print.h"
 #include "message_buffer.h"
+#include "uart.h"
+#include "lcd.h"
+
 
 #define LCD_LINE_LENGTH 16
 
+
+/*****************************************************************************
+* University of Southern Denmark
+* Embedded C Programming (ECP)
+*
+* MODULENAME.: leds.c
+*
+* PROJECT....: ECP
+*
+* DESCRIPTION: See module specification file (.h-file).
+*
+* Change Log:
+******************************************************************************
+* Date    Id    Change
+* YYMMDD
+* --------------------
+* 050128  KA    Module created.
+*
+*****************************************************************************/
+
+/***************************** Include files *******************************/
+#include <stdint.h>
+#include "tm4c123gh6pm.h"
+#include "emp_type.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "glob_def.h"
+#include "lcd.h"
+#include "string.h"
+
+
+/*****************************    Defines    *******************************/
+
+#define QUEUE_LEN   128
 static MessageBufferHandle_t xMessageBufferLCD = NULL; // needs semaphore for consistent write
 static SemaphoreHandle_t xSemaphoreLCDSend = NULL;
+//Q_LCD = xQueueCreate( 128, sizeof(INT8U) );
 
 typedef struct displayPayload {
   char line1[LCD_LINE_LENGTH];
   char line2[LCD_LINE_LENGTH];
 } displayPayload;
 
-/*-----------------------------------------------------------*/
-// static function declarations. static fns must be declared before first use.
-static void prvLcdOut( void *pvParameters );
+enum LCD_states
+{
+  LCD_POWER_UP,
+  LCD_INIT,
+  LCD_READY,
+  LCD_ESC_RECEIVED,
+};
+
+/*****************************   Constants   *******************************/
+const INT8U LCD_init_sequense[]=
+{
+  0x30,     // Reset
+  0x30,     // Reset
+  0x30,     // Reset
+  0x20,     // Set 4bit interface
+  0x28,     // 2 lines Display
+  0x0C,     // Display ON, Cursor OFF, Blink OFF
+  0x06,     // Cursor Increment
+  0x01,     // Clear Display
+  0x02,         // Home
+  0xFF      // stop
+};
+
+/*****************************   Variables   *******************************/
+//INT8U LCD_buf[QUEUE_LEN];
+//INT8U LCD_buf_head = 0;
+//INT8U LCD_buf_tail = 0;
+//INT8U LCD_buf_len  = 0;
+
+enum LCD_states LCD_state = LCD_POWER_UP;
+INT8U LCD_init;
 
 
-int sendToLcd(char *line1, char *line2){
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 100 );
-  displayPayload payload;
-  //for(int i=0; i<LCD_LINE_LENGTH && line1[i]!='\0'; i++){
-  for(int i=0; i<LCD_LINE_LENGTH; i++){
-    payload.line1[i] = line1[i];
-  }
-  for(int i=0; i<LCD_LINE_LENGTH; i++){
-    payload.line2[i] = line2[i];
-  }
-  size_t xBytesSent;
 
-  // Obtain the semaphore - block 100ms if the semaphore is not available
-  if( xSemaphoreTake( xSemaphoreLCDSend, 0 ) ){
-      // We now have the semaphore and can access the shared resource.
+/*****************************   Functions   *******************************/
+INT8U wr_ch_LCD( INT8U Ch )
+/*****************************************************************************
+*   OBSERVE  : LCD_PROC NEEDS 20 mS TO PRINT OUT ONE CHARACTER
+*   Function : See module specification (.h-file).
+*****************************************************************************/
+{
 
-      /* Send an array to the message buffer, blocking for a maximum of 100ms to
-      wait for enough space to be available in the message buffer. */
-      xBytesSent = xMessageBufferSend( xMessageBufferLCD,
-                                       ( void * ) &payload,
-                                       sizeof( payload ),
-                                       xBlockTime );
-      // We have finished accessing the shared resource so can free the
-      // semaphore.
-      if( xSemaphoreGive( xSemaphoreLCDSend ) != pdTRUE )
-      {
-          // We would not expect this call to fail because we must have
-          // obtained the semaphore to get here.
-          return 0; //send FAILED
-      }
-  } else {
-    return 0; //send FAILED
-  }
 
-  if( xBytesSent != sizeof( payload ) ){
-    return 0; //send FAILED
-  } else {
-    return 1; //send SUCCEEDED
-  }
-
+  return (xQueueSendToBack( Q_LCD, &Ch, portMAX_DELAY));
 }
 
-/*-----------------------------------------------------------*/
-BOOLEAN init_lcd( void ){
-  xMessageBufferLCD = xMessageBufferCreate( sizeof( displayPayload ) + sizeof( size_t ) ); //2 row display with 16 chars each
-  xSemaphoreLCDSend = xSemaphoreCreateMutex();
-  if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL ){
-    xTaskCreate( prvLcdOut, "LCD out", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-    uartPrint("lcd initialized\r\n");
-    return 1;
-  } else {
-    return 0;
+void wr_str_LCD( INT8U *pStr )
+/*****************************************************************************
+*   Function : See module specification (.h-file).
+*****************************************************************************/
+{
+
+  while( *pStr )
+  {
+    wr_ch_LCD( *pStr );
+    pStr++;
   }
 }
 
-static void prvLcdOut( void *pvParameters )
+void move_LCD( INT8U x, INT8U y )
+/*****************************************************************************
+*   Function : See module specification (.h-file).
+*****************************************************************************/
+{
+  INT8U Pos;
+
+  Pos = y*0x40 + x;
+  Pos |= 0x80;
+  wr_ch_LCD( ESC );
+  wr_ch_LCD( Pos );
+}
+//----------------------------
+
+void wr_ctrl_LCD_low( INT8U Ch )
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Write low part of control data to LCD.
+******************************************************************************/
+{
+  INT8U temp;
+  volatile int i;
+
+  temp = GPIO_PORTC_DATA_R & 0x0F;
+  temp  = temp | ((Ch & 0x0F) << 4);
+  GPIO_PORTC_DATA_R  = temp;
+  for( i=0; i<1000; i )
+      i++;
+  GPIO_PORTD_DATA_R &= 0xFB;        // Select Control mode, write
+  for( i=0; i<1000; i )
+      i++;
+  GPIO_PORTD_DATA_R |= 0x08;        // Set E High
+
+  for( i=0; i<1000; i )
+      i++;
+
+  GPIO_PORTD_DATA_R &= 0xF7;        // Set E Low
+
+  for( i=0; i<1000; i )
+      i++;
+}
+
+void wr_ctrl_LCD_high( INT8U Ch )
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Write high part of control data to LCD.
+******************************************************************************/
+{
+  wr_ctrl_LCD_low(( Ch & 0xF0 ) >> 4 );
+}
+
+void out_LCD_low( INT8U Ch )
+/*****************************************************************************
+*   Input    : Mask
+*   Output   : -
+*   Function : Send low part of character to LCD.
+*              This function works only in 4 bit data mode.
+******************************************************************************/
+{
+  INT8U temp;
+
+  temp = GPIO_PORTC_DATA_R & 0x0F;
+  GPIO_PORTC_DATA_R  = temp | ((Ch & 0x0F) << 4);
+  //GPIO_PORTD_DATA_R &= 0x7F;        // Select write
+  GPIO_PORTD_DATA_R |= 0x04;        // Select data mode
+  GPIO_PORTD_DATA_R |= 0x08;        // Set E High
+  GPIO_PORTD_DATA_R &= 0xF7;        // Set E Low
+}
+
+void out_LCD_high( INT8U Ch )
+/*****************************************************************************
+*   Input    : Mask
+*   Output   : -
+*   Function : Send high part of character to LCD.
+*              This function works only in 4 bit data mode.
+******************************************************************************/
+{
+  out_LCD_low((Ch & 0xF0) >> 4);
+}
+
+void wr_ctrl_LCD( INT8U Ch )
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Write control data to LCD.
+******************************************************************************/
+{
+  static INT8U Mode4bit = 0;
+  INT16U i;
+
+  wr_ctrl_LCD_high( Ch );
+  if( Mode4bit )
+  {
+    for(i=0; i<1000; i++);
+    wr_ctrl_LCD_low( Ch );
+  }
+  else
+  {
+    if( (Ch & 0x30) == 0x20 )
+      Mode4bit = 1;
+  }
+}
+
+void clr_LCD()
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Clear LCD.
+******************************************************************************/
+{
+  //gfprintf(1, "%c%c                                                                                       ", 0x1B, 0x80);
+  wr_ctrl_LCD( 0x01 );
+}
+
+
+void home_LCD()
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Return cursor to the home position.
+******************************************************************************/
+{
+  wr_ctrl_LCD( 0x02 );
+}
+
+void Set_cursor( INT8U Ch )
+/*****************************************************************************
+*   Input    : New Cursor position
+*   Output   : -
+*   Function : Place cursor at given position.
+******************************************************************************/
+{
+  wr_ctrl_LCD( Ch );
+}
+
+
+void out_LCD( INT8U Ch )
+/*****************************************************************************
+*   Input    : -
+*   Output   : -
+*   Function : Write control data to LCD.
+******************************************************************************/
+{
+  INT16U i;
+
+  out_LCD_high( Ch );
+  for(i=0; i<1000; i++);
+  out_LCD_low( Ch );
+}
+
+
+void prvLcdOut(void)
 {
   displayPayload ucRxData;
   size_t xReceivedBytes;
-  for( ;; )
-  {
+  const char home = 0xFE;
+  const char secondLine = 0xFD;
+//  for( ;; )
+//  {
     /* Receive the next message from the message buffer.  Wait in the Blocked
     state (so not using any CPU processing time) for portMAX_DELAY ticks for
     a message to become available. */
-    xReceivedBytes = xMessageBufferReceive( xMessageBufferLCD,
+     xReceivedBytes = xMessageBufferReceive( xMessageBufferLCD,
                                             ( void * ) &ucRxData,
                                             sizeof( ucRxData ),
                                             portMAX_DELAY );
 
     if( xReceivedBytes > 0 )
     {
-      /* A ucRxData contains a message that is xReceivedBytes long.  Process
-      the message here.... */
-      uartPrint("\r\n\r\nsimulate LCD screen:\r\n");
-      uartPrint("----------------\r\n");
-      char buf1[20];
-      uartConcat(buf1,ucRxData.line1," "); //make sure we have a '\0' to terminate the string
-      buf1[16]='\0';
-      uartPrint(buf1);
-      uartPrint("\r\n");
-      char buf2[20];
-      uartConcat(buf2,ucRxData.line2," "); //make sure we have a '\0' to terminate the string
-      buf2[16]='\0';
-      uartPrint(buf2);
-      uartPrint("\r\n");
-      uartPrint("----------------\r\n");
+        xQueueSendToBack(Q_LCD, &home, 0);
+        for (int i = 0; i < LCD_LINE_LENGTH; i++)
+        {
+
+            xQueueSendToBack(Q_LCD, &ucRxData.line1[i], 0);
+            if (i == LCD_LINE_LENGTH - 1)
+                xQueueSendToBack(Q_LCD, &secondLine, 0);
+        }
+        for (int i = 0; i < LCD_LINE_LENGTH; i++)
+        {
+            xQueueSendToBack(Q_LCD, &ucRxData.line2[i], 0);
+
+        }
+
     }
+
+}
+
+
+BOOLEAN init_lcd( void )
+{
+  xMessageBufferLCD = xMessageBufferCreate( sizeof( displayPayload ) + sizeof( size_t ) ); //2 row display with 16 chars each
+  xSemaphoreLCDSend = xSemaphoreCreateMutex();
+  Q_LCD = xQueueCreate(128, sizeof(INT8U));
+//  if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL ){
+    xTaskCreate( lcd_task, "LCD out", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
+////    tilPrint("lcd initialized\r\n");
+//    return 1;
+//  } else {
+//    return 0;
+//  }
+  return 1;
+}
+
+
+int sendToLcd(char* line1, char* line2) {
+    const TickType_t xBlockTime = pdMS_TO_TICKS(100);
+    displayPayload payload;
+    //for(int i=0; i<LCD_LINE_LENGTH && line1[i]!='\0'; i++){
+    BOOLEAN lineEnd = 0;
+
+    for (int i = 0; i < LCD_LINE_LENGTH; i++) {
+        if (line1[i] == '\0')
+            lineEnd = 1;
+        if (lineEnd)
+            payload.line1[i] = ' ';
+        else
+            payload.line1[i] = line1[i];
+    }
+    lineEnd = 0;
+    for (int i = 0; i < LCD_LINE_LENGTH; i++) {
+        if (line2[i] == '\0')
+            lineEnd = 1;
+        if (lineEnd)
+            payload.line2[i] = ' ';
+        else
+            payload.line2[i] = line2[i];
+    }
+    size_t xBytesSent;
+
+    // Obtain the semaphore - block 100ms if the semaphore is not available
+    if (xSemaphoreTake(xSemaphoreLCDSend, 0)) {
+        // We now have the semaphore and can access the shared resource.
+
+        /* Send an array to the message buffer, blocking for a maximum of 100ms to
+        wait for enough space to be available in the message buffer. */
+        xBytesSent = xMessageBufferSend(xMessageBufferLCD,
+            (void*)&payload,
+            sizeof(payload),
+            xBlockTime);
+        // We have finished accessing the shared resource so can free the
+        // semaphore.
+        if (xSemaphoreGive(xSemaphoreLCDSend) != pdTRUE)
+        {
+            // We would not expect this call to fail because we must have
+            // obtained the semaphore to get here.
+            return 0; //send FAILED
+        }
+    }
+    else {
+        return 0; //send FAILED
+    }
+
+    if (xBytesSent != sizeof(payload)) {
+        return 0; //send FAILED
+    }
+    else {
+        prvLcdOut();
+        return 1; //send SUCCEEDED
+    }
+
+}
+
+
+void lcd_task()
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+  INT8U ch;
+  INT8U lcd_state = LCD_POWER_UP;
+
+  while (1)
+  {
+  switch( lcd_state )
+  {
+    case LCD_POWER_UP:
+      LCD_init = 0;
+      lcd_state = LCD_INIT ;
+
+      vTaskDelay(  50 / portTICK_PERIOD_MS);
+      break;
+
+    case LCD_INIT:
+      if( LCD_init_sequense[LCD_init] != 0xFF )
+        wr_ctrl_LCD( LCD_init_sequense[LCD_init++] );
+      else
+      {
+        lcd_state = LCD_READY ;
+      }
+      vTaskDelay(  50 / portTICK_PERIOD_MS);
+      break;
+
+    case LCD_READY:
+        if(xQueueReceive( Q_LCD, &ch, portMAX_DELAY  ))
+        {
+            switch( ch )
+            {
+              case 0xFF:
+                clr_LCD();
+                break;
+              case ESC:
+                lcd_state = LCD_ESC_RECEIVED ;
+                break;
+              case HOME:
+                  home_LCD();
+                  break;
+              case SECOND_LINE:
+                  move_LCD(1, 2);
+                  break;
+              default:
+                out_LCD( ch );
+                vTaskDelay(  5 / portTICK_PERIOD_MS);
+            }
+        }
+        break;
+
+    case LCD_ESC_RECEIVED:
+      if( xQueueReceive( Q_LCD, &ch, portMAX_DELAY ))
+      {
+        if( ch & 0x80 )
+        {
+            Set_cursor( ch );
+        }
+        else
+        {
+          switch( ch )
+          {
+            case '@':
+                home_LCD();
+              break;
+          }
+        }
+        lcd_state = LCD_READY ;
+        vTaskDelay(  5 / portTICK_PERIOD_MS);
+      }
+      break;
+      }
   }
 }
+
+
+/****************************** End Of Module *******************************/
+
+
+
+
+
+/*-----------------------------------------------------------*/
+// static function declarations. static fns must be declared before first use.
+//static void prvLcdOut( void *pvParameters );
+
+
+
+
+
+
+/*-----------------------------------------------------------*/
+
+
+

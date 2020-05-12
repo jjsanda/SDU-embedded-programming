@@ -1,10 +1,10 @@
 /*****************************************************************************
 * University of Southern Denmark
-* Embedded Programming (EMP)
+* Embedded C Programming (ECP)
 *
-* MODULENAME.: uart.h
+* MODULENAME.: leds.h
 *
-* PROJECT....: EMP
+* PROJECT....: ECP
 *
 * DESCRIPTION: Test.
 *
@@ -13,7 +13,7 @@
 * Date    Id    Change
 * YYMMDD
 * --------------------
-* 150228  MoH   Module created.
+* 050128  KA    Module created.
 *
 *****************************************************************************/
 
@@ -21,18 +21,39 @@
   #define _LCD_H
 
 /***************************** Include files *******************************/
-
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
 /*****************************    Defines    *******************************/
+// Special ASCII characters
+// ------------------------
+
+
+
+#define LF      0x0A
+#define FF      0x0C
+#define CR      0x0D
+
+#define ESC     0x1B
+#define HOME    0xFE
+#define SECOND_LINE 0xFD
+QueueHandle_t Q_LCD;
 
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-int sendToLcd(char *line1, char *line2);
-BOOLEAN init_lcd( void );
+void wr_str_LCD( INT8U* );
+void move_LCD( INT8U, INT8U );
+INT8U wr_ch_LCD( INT8U Ch );
+
+
+
+void lcd_task();
 /*****************************************************************************
 *   Input    : -
 *   Output   : -
-*   Function : Initialize uart 0
+*   Function : Test function
 ******************************************************************************/
 
 
