@@ -85,7 +85,7 @@ static void prvFuelselTask( void *pvParameters )
 //
 //      xSemaphoreGive( xSemaphoreFuelsel );
 //    }
-    uartPrint("fuelsel beeep\r\n");
+    //uartPrint("fuelsel beeep\r\n");
     vTaskDelay( xBlockTime );
   }
 }

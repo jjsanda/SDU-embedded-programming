@@ -46,9 +46,9 @@
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_7.0.compilerID.INCLUDE_PATH.721995679" name="Include paths (-I)" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_7.0.compilerID.INCLUDE_PATH" valueType="includePath">
 									<listOptionValue builtIn="false" value="${PROJECT_ROOT}"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_INCLUDE_PATH}"/>
-									<listOptionValue builtIn="false" value="/Users/Tilman/Documents/Programme/C/SDU/embedded-programming-sdu/headers"/>
-									<listOptionValue builtIn="false" value="/Users/Tilman/Documents/Programme/C/SDU/embedded-programming-sdu/frt10/inc"/>
-									<listOptionValue builtIn="false" value="/Users/Tilman/Documents/Programme/C/SDU/embedded-programming-sdu/frt10/port/TivaM4"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/final_assignment/headers}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/final_assignment/frt10/port/TivaM4}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/final_assignment/frt10/inc}&quot;"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.TMS470_GNU_7.0.compilerID.ASM_SPECIFIC_FLAGS.2028819312" name="Miscellaneous assembly source specific flags" superClass="com.ti.ccstudio.buildDefinitions.TMS470_GNU_7.0.compilerID.ASM_SPECIFIC_FLAGS" useByScannerDiscovery="false" valueType="stringList">
 									<listOptionValue builtIn="false" value="-x assembler-with-cpp"/>
@@ -159,6 +159,6 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
-	<storageModule moduleId="scannerConfiguration"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration"/>
 </cproject>
