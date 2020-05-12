@@ -24,41 +24,4 @@
 		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>heap_2.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/port/MemMang/heap_2.c</locationURI>
-		</link>
-		<link>
-			<name>list.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/src/list.c</locationURI>
-		</link>
-		<link>
-			<name>port.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/port/TivaM4/port.c</locationURI>
-		</link>
-		<link>
-			<name>queue.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/src/queue.c</locationURI>
-		</link>
-		<link>
-			<name>startup_frt.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/port/TivaM4/startup_frt.c</locationURI>
-		</link>
-		<link>
-			<name>systick_frt.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/port/TivaM4/systick_frt.c</locationURI>
-		</link>
-		<link>
-			<name>tasks.c</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/frt10/src/tasks.c</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
