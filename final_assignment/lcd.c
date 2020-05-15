@@ -261,43 +261,43 @@ void out_LCD( INT8U Ch )
 }
 
 
-void prvLcdOut(void)
-{
-  displayPayload ucRxData;
-  size_t xReceivedBytes;
-//  for( ;; )
-//  {
-    /* Receive the next message from the message buffer.  Wait in the Blocked
-    state (so not using any CPU processing time) for portMAX_DELAY ticks for
-    a message to become available. */
-     xReceivedBytes = xMessageBufferReceive( xMessageBufferLCD,
-                                            ( void * ) &ucRxData,
-                                            sizeof( ucRxData ),
-                                            portMAX_DELAY );
-
-    if( xReceivedBytes > 0 )
-    {
-        
-        for (int i = 0; i < LCD_LINE_LENGTH; i++)
-        {
-            
-            xQueueSendToBack(Q_LCD, &ucRxData.line1[i], 0);
-            if (i == LCD_LINE_LENGTH - 1)
-                move_LCD(0, 1);
-
-
-        }
-        for (int i = 0; i < LCD_LINE_LENGTH; i++)
-        {
-            xQueueSendToBack(Q_LCD, &ucRxData.line2[i], 0);
-            if (i == LCD_LINE_LENGTH - 1)
-                move_LCD(0, 0); // Go back to home
-
-        }
-
-    }
-
-}
+//void prvLcdOut(void)
+//{
+//  displayPayload ucRxData;
+//  size_t xReceivedBytes;
+////  for( ;; )
+////  {
+//    /* Receive the next message from the message buffer.  Wait in the Blocked
+//    state (so not using any CPU processing time) for portMAX_DELAY ticks for
+//    a message to become available. */
+//     xReceivedBytes = xMessageBufferReceive( xMessageBufferLCD,
+//                                            ( void * ) &ucRxData,
+//                                            sizeof( ucRxData ),
+//                                            portMAX_DELAY );
+//
+//    if( xReceivedBytes > 0 )
+//    {
+//
+//        for (int i = 0; i < LCD_LINE_LENGTH; i++)
+//        {
+//
+//            xQueueSendToBack(Q_LCD, &ucRxData.line1[i], 0);
+//            if (i == LCD_LINE_LENGTH - 1)
+//                move_LCD(0, 1);
+//
+//
+//        }
+//        for (int i = 0; i < LCD_LINE_LENGTH; i++)
+//        {
+//            xQueueSendToBack(Q_LCD, &ucRxData.line2[i], 0);
+//            if (i == LCD_LINE_LENGTH - 1)
+//                move_LCD(0, 0); // Go back to home
+//
+//        }
+//
+//    }
+//
+//}
 
 
 BOOLEAN init_lcd( void )
@@ -321,36 +321,48 @@ int sendToLcd(char* line1, char* line2) {
     displayPayload payload;
     //for(int i=0; i<LCD_LINE_LENGTH && line1[i]!='\0'; i++){
     BOOLEAN lineEnd = 0;
-
-    for (int i = 0; i < LCD_LINE_LENGTH; i++) {
-        if (line1[i] == '\0')
-            lineEnd = 1;
-        if (lineEnd)
-            payload.line1[i] = ' ';
-        else
-            payload.line1[i] = line1[i];
-    }
-    lineEnd = 0;
-    for (int i = 0; i < LCD_LINE_LENGTH; i++) {
-        if (line2[i] == '\0')
-            lineEnd = 1;
-        if (lineEnd)
-            payload.line2[i] = ' ';
-        else
-            payload.line2[i] = line2[i];
-    }
-    size_t xBytesSent;
+    char stuffing = ' ';
 
     // Obtain the semaphore - block 100ms if the semaphore is not available
     if (xSemaphoreTake(xSemaphoreLCDSend, 0)) {
         // We now have the semaphore and can access the shared resource.
 
-        /* Send an array to the message buffer, blocking for a maximum of 100ms to
-        wait for enough space to be available in the message buffer. */
-        xBytesSent = xMessageBufferSend(xMessageBufferLCD,
-            (void*)&payload,
-            sizeof(payload),
-            xBlockTime);
+        for (int i = 0; i < LCD_LINE_LENGTH; i++) {
+
+           if (line1[i] == '\0')
+                lineEnd = 1;
+           if (lineEnd)
+               xQueueSendToBack(Q_LCD, &stuffing, 0);
+           else
+            xQueueSendToBack(Q_LCD, &line1[i], 0);
+           if (i == LCD_LINE_LENGTH - 1)
+                move_LCD(0, 1);
+        }
+
+        lineEnd = 0;
+
+        for (int i = 0; i < LCD_LINE_LENGTH; i++) {
+            if (line1[i] == '\0')
+                lineEnd = 1;
+            if (lineEnd)
+                xQueueSendToBack(Q_LCD, &stuffing, 0);
+            else
+                xQueueSendToBack(Q_LCD, &line2[i], 0);
+            if (i == LCD_LINE_LENGTH - 1)
+                move_LCD(0, 0);
+        }
+
+
+
+//        /* Send an array to the message buffer, blocking for a maximum of 100ms to
+//        wait for enough space to be available in the message buffer. */
+//        xBytesSent = xMessageBufferSend(xMessageBufferLCD,
+//            (void*)&payload,
+//            sizeof(payload),
+//            xBlockTime);
+//
+
+
         // We have finished accessing the shared resource so can free the
         // semaphore.
         if (xSemaphoreGive(xSemaphoreLCDSend) != pdTRUE)
@@ -359,18 +371,19 @@ int sendToLcd(char* line1, char* line2) {
             // obtained the semaphore to get here.
             return 0; //send FAILED
         }
+        return 1;
     }
     else {
         return 0; //send FAILED
     }
 
-    if (xBytesSent != sizeof(payload)) {
-        return 0; //send FAILED
-    }
-    else {
-        prvLcdOut();
-        return 1; //send SUCCEEDED
-    }
+//    if (xBytesSent != sizeof(payload)) {
+//        return 0; //send FAILED
+//    }
+//    else {
+//        prvLcdOut();
+//        return 1; //send SUCCEEDED
+//    }
 
 }
 
@@ -426,7 +439,6 @@ void lcd_task()
             }
         }
         break;
-
     case LCD_ESC_RECEIVED:
       if( xQueueReceive( Q_LCD, &ch, portMAX_DELAY ))
       {

@@ -55,13 +55,14 @@ static void prvDigiTask( void *pvParameters )
 //    INT8U AB = 0x00;
 //    INT8U lastAB = 0x00;
 //    INT8U lastState = 0;
+    INT8U count = 0;
     INT8U valid_test;
     char output[4];
 
     //  Right + 100 
     //  Left + 10
     while (1) {
-
+        count++;
         //A = 0x20  
         //B = 0x40
 
@@ -102,11 +103,12 @@ static void prvDigiTask( void *pvParameters )
         output[2] = ((value % 100) / 10) + '0';
         output[3] = ((value % 10) / 1) + '0';
 
+
         move_LCD( 0, 0 );
         wr_str_LCD("Trn 2 enter price");
         move_LCD( 0, 1 );
         wr_str_LCD(output);
-        //sendToLcd("Digi switch: ", &output);
+       //sendToLcd("Digi switch: ", &output);
 
         vTaskDelay(pdMS_TO_TICKS(1));
 
