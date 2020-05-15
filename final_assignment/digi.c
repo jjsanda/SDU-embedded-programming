@@ -8,10 +8,19 @@
 #include "semphr.h"
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
+#include "digi.h"
+
 
 static QueueHandle_t xQueueDigi = NULL;
 static INT16U pDigiValue = 0;
-
+INT8U AHIGH = 0;
+INT8U BHIGH = 0;
+INT8U countRight = 0;
+INT8U countLeft = 0;
+INT8U AB = 0x00;
+INT8U lastAB = 0x00;
+INT8U lastState = 0;
+INT16U value = 0;
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvDigiTask( void *pvParameters );
@@ -34,13 +43,135 @@ BOOLEAN init_digi( void ){
   }
 }
 
+
+
 static void prvDigiTask( void *pvParameters )
 {
-  unsigned char ucValueToSend;
-  for( ;; ){
-    //get digi rotation (PSEUDOCODE)
-    //ucValueToSend = digi_getRotation(); //l = left turn, r=right turn
-    // then send it to queue
-    //xQueueSend( xQueuePrintRX, &ucValueToSend, 0U );
-  }
+    unsigned char ucValueToSend;
+//    INT16U value = 0;
+
+//    INT8U countRight = 0;
+//    INT8U countLeft = 0;
+//    INT8U AB = 0x00;
+//    INT8U lastAB = 0x00;
+//    INT8U lastState = 0;
+    INT8U count = 0;
+    INT8U valid_test;
+    char output[4];
+
+    //  Right + 100 
+    //  Left + 10
+    while (1) {
+        count++;
+        //A = 0x20  
+        //B = 0x40
+
+        AB = (inputA | inputB);
+        if (AB != lastAB) {
+            if (lastState == 0) {               // hvis vi starter lavt 
+                if (AB == 0x20) {                 // hvis A bliver høj    //0b0110 0000 0x20 0x40
+                    value += 100;
+                    countRight++;               //CW
+                }
+                else if (AB == 0x40) {            // hvis B bliver høj først
+                    value += 10;
+                    countLeft++;                //CCW
+                }
+            }
+            else if (lastState == 1) {
+                if (AB == 0x20) {                // hvis B bliver lav først
+                    value += 10;
+                    countLeft++;                //CCW
+                }
+                else if (AB == 0x40) {            // hvis A bliver lav først
+                    value += 100;
+                    countRight++;               //CW
+                }
+            }
+        }
+        
+        if (AB)
+            lastState = 1;
+        else
+            lastState = 0; 
+
+        lastAB = AB;
+
+
+        output[0] = (value / 1000) + '0';               // gets most significant digit
+        output[1] = ((value % 1000) / 100) + '0';
+        output[2] = ((value % 100) / 10) + '0';
+        output[3] = ((value % 10) / 1) + '0';
+
+
+        move_LCD( 0, 0 );
+        wr_str_LCD("Trn 2 enter price");
+        move_LCD( 0, 1 );
+        wr_str_LCD(output);
+       //sendToLcd("Digi switch: ", &output);
+
+        vTaskDelay(pdMS_TO_TICKS(1));
+
+        //------------------------------
+
+//        //vTaskDelay(10);
+//        AB = (inputA | inputB);
+//
+//
+//
+//
+//        valid_test = (AB >> 5) | lastAB;
+//
+//        switch (valid_test)
+//        {
+//        case 0:
+//            break;
+//        case 1:
+//            countRight++;
+//            value++;
+//            ucValueToSend = 'r';
+//            break;
+//        case 2:
+//            countLeft++;
+//            value--;
+//            ucValueToSend = 'l';
+//            break;
+//        case 4:
+////            countLeft++;
+//            ucValueToSend = 'l';
+//            break;
+//        case 7:
+////            countRight++;
+//            ucValueToSend = 'r';
+//            break;
+//        case 8:
+////            countRight++;
+//            ucValueToSend = 'r';
+//            break;
+//        case 11:
+////            countLeft++;
+//            ucValueToSend = 'l';
+//            break;
+//        case 14:
+//            countRight++;
+//            value++;
+//            ucValueToSend = 'r';
+//            break;
+//        case 13:
+//            countLeft++;
+//            value--;
+//            ucValueToSend = 'l';
+//            break;
+//        default: break;
+//        }
+//
+//        lastAB = AB >> 3;
+//        //ucValueToSend = value;
+//
+//        //xQueueSend(xQueueDigi, &ucValueToSend, 0U);
+
+
+
+
+    }
 }

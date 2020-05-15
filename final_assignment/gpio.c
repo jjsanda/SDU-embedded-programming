@@ -53,7 +53,7 @@ void init_gpio(void)
   GPIO_PORTF_DIR_R = 0x0E;
 
   // Enable the GPIO pins for digital function (PF0, PF1, PF2, PF3, PF4).
-  GPIO_PORTA_DEN_R = 0x1C;
+  GPIO_PORTA_DEN_R = 0xFC;
   GPIO_PORTC_DEN_R = 0xF0;
   GPIO_PORTD_DEN_R = 0x4C;
   GPIO_PORTE_DEN_R = 0x0F;
