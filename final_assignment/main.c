@@ -56,24 +56,19 @@ int main(void)
   BOOLEAN print = init_print();       // UART RX/TX Task
   BOOLEAN lcd = init_lcd();           // LCD Display Task
   BOOLEAN keyboard = init_keyboard(); // Keyboard Input Task
- // BOOLEAN digi = init_digi();         // Digiswitch Task
+  BOOLEAN digi = init_digi();         // Digiswitch Task
 
 //  BOOLEAN fueling = init_fueling();   // Fueling Task
 //  BOOLEAN payment = init_payment();   // Payment Task
 //  BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
 //  BOOLEAN pc_terminal = init_pc_terminal(); // PC Terminal Task
-//
-  char test[] = "Hej med dig";
-  char test1[] = "1 2 3 4 5 6 7 8 ";
-  sendToLcd(test, test1);
 
 
-  if( print && lcd && keyboard  && led) { //&& digi && fueling && payment && fuelsel && pc_terminal
   //if( print && lcd && keyboard && digi && fueling && payment && fuelsel) {
     vTaskStartScheduler();     /* Start the tasks and timer running. */
-  } else {
-    for( ;; ); //one of the tasks could not initialized (to less heap for task itself)
-  }
+
+
+
 
   /* If all is well, the scheduler will now be running, and the following
   line will never be reached.  If the following line does execute, then

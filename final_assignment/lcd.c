@@ -1,20 +1,3 @@
-/* Standard includes. */
-//#include <stdio.h>
-
-/* Kernel includes. */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "queue.h"
-#include "semphr.h"
-#include "tm4c123gh6pm.h"
-#include "emp_type.h"
-#include "print.h"
-#include "message_buffer.h"
-#include "uart.h"
-#include "lcd.h"
-
-
-#define LCD_LINE_LENGTH 16
 
 
 /*****************************************************************************
@@ -37,23 +20,27 @@
 *****************************************************************************/
 
 /***************************** Include files *******************************/
-#include <stdint.h>
-#include "tm4c123gh6pm.h"
-#include "emp_type.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "glob_def.h"
+#include "semphr.h"
+#include "tm4c123gh6pm.h"
+#include "emp_type.h"
+#include "print.h"
+#include "message_buffer.h"
+#include "uart.h"
 #include "lcd.h"
-#include "string.h"
 
 
 /*****************************    Defines    *******************************/
 
+
+
+#define LCD_LINE_LENGTH 16
 #define QUEUE_LEN   128
 static MessageBufferHandle_t xMessageBufferLCD = NULL; // needs semaphore for consistent write
 static SemaphoreHandle_t xSemaphoreLCDSend = NULL;
-//Q_LCD = xQueueCreate( 128, sizeof(INT8U) );
 
 typedef struct displayPayload {
   char line1[LCD_LINE_LENGTH];
@@ -68,6 +55,8 @@ enum LCD_states
   LCD_ESC_RECEIVED,
 };
 
+INT8U Q_space = 0;
+
 /*****************************   Constants   *******************************/
 const INT8U LCD_init_sequense[]=
 {
@@ -79,7 +68,7 @@ const INT8U LCD_init_sequense[]=
   0x0C,     // Display ON, Cursor OFF, Blink OFF
   0x06,     // Cursor Increment
   0x01,     // Clear Display
-  0x02,         // Home
+  0x02,     // Home
   0xFF      // stop
 };
 
@@ -276,8 +265,6 @@ void prvLcdOut(void)
 {
   displayPayload ucRxData;
   size_t xReceivedBytes;
-  const char home = 0xFE;
-  const char secondLine = 0xFD;
 //  for( ;; )
 //  {
     /* Receive the next message from the message buffer.  Wait in the Blocked
@@ -290,17 +277,21 @@ void prvLcdOut(void)
 
     if( xReceivedBytes > 0 )
     {
-        xQueueSendToBack(Q_LCD, &home, 0);
+        
         for (int i = 0; i < LCD_LINE_LENGTH; i++)
         {
-
+            
             xQueueSendToBack(Q_LCD, &ucRxData.line1[i], 0);
             if (i == LCD_LINE_LENGTH - 1)
-                xQueueSendToBack(Q_LCD, &secondLine, 0);
+                move_LCD(0, 1);
+
+
         }
         for (int i = 0; i < LCD_LINE_LENGTH; i++)
         {
             xQueueSendToBack(Q_LCD, &ucRxData.line2[i], 0);
+            if (i == LCD_LINE_LENGTH - 1)
+                move_LCD(0, 0); // Go back to home
 
         }
 
@@ -394,8 +385,11 @@ void lcd_task()
   INT8U ch;
   INT8U lcd_state = LCD_POWER_UP;
 
+
   while (1)
   {
+      Q_space = uxQueueSpacesAvailable(Q_LCD);
+
   switch( lcd_state )
   {
     case LCD_POWER_UP:
@@ -426,12 +420,6 @@ void lcd_task()
               case ESC:
                 lcd_state = LCD_ESC_RECEIVED ;
                 break;
-              case HOME:
-                  home_LCD();
-                  break;
-              case SECOND_LINE:
-                  move_LCD(1, 2);
-                  break;
               default:
                 out_LCD( ch );
                 vTaskDelay(  5 / portTICK_PERIOD_MS);
@@ -466,20 +454,6 @@ void lcd_task()
 
 /****************************** End Of Module *******************************/
 
-
-
-
-
-/*-----------------------------------------------------------*/
-// static function declarations. static fns must be declared before first use.
-//static void prvLcdOut( void *pvParameters );
-
-
-
-
-
-
-/*-----------------------------------------------------------*/
 
 
 

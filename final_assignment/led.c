@@ -74,7 +74,7 @@ void status_led_task(void *pvParameters)
     //gfprintf( COM1, "hej Speed: %d Reference: Voltage:....\r", value );
     //value += 10;
 
-    vTaskDelay( pdMS_TO_TICKS( 1000 ));
+    vTaskDelay( pdMS_TO_TICKS( 2000 ));
   }
 }
 
