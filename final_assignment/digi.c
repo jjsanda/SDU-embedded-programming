@@ -13,36 +13,27 @@
 
 static QueueHandle_t xQueueDigi = NULL;
 static INT16U pDigiValue = 0;
-INT8U AHIGH = 0;
-INT8U BHIGH = 0;
-INT8U countRight = 0;
-INT8U countLeft = 0;
-INT8U AB = 0x00;
-INT8U lastAB = 0x00;
-INT8U lastState = 0;
-INT16U value = 0;
+
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvDigiTask( void *pvParameters );
 
 /* getter and setters */
-INT8U getDigiRotation(){
-    INT8U data;
-    if (xQueueReceive(xQueueDigi, &data, 0))
+int getDigiRotation(){
+    INT16U data = 0;
+    if (xQueueReceive(xQueueDigi, &data, portMAX_DELAY) == pdTRUE)
         return data;
     else
-        return 0; 
+        return 0;
 }
 
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_digi( void ){
-    unsigned char initValueToSend = 'B';
-  xQueueDigi = xQueueCreate( 1, sizeof( INT8U ) ); //l = left turn, r=right turn
+  xQueueDigi = xQueueCreate( 100, sizeof( INT16U ) ); //l = left turn, r=right turn
   if( xQueueDigi != NULL ){
     xTaskCreate( prvDigiTask, "digi task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     uartPrint("digi initialized\r\n");
-    xQueueSend(xQueueDigi, &initValueToSend, 0U);
     return 1;
   } else {
     return 0;
@@ -50,49 +41,41 @@ BOOLEAN init_digi( void ){
 }
 
 
-
 static void prvDigiTask( void *pvParameters )
 {
-    unsigned char ucValueToSend;
-//    INT16U value = 0;
+
+    INT16U ucValueToSend = 0;
     INT16U lastValue = 0;
-//    INT8U countRight = 0;
-//    INT8U countLeft = 0;
-//    INT8U AB = 0x00;
-//    INT8U lastAB = 0x00;
-//    INT8U lastState = 0;
-    INT8U count = 0;
-    INT8U valid_test;
+
+    INT8U AB = 0x00;
+    INT8U lastAB = 0x00;
+    INT8U lastState = 0;
     char output[] = "0000";
 
-    //  Right + 100 
-    //  Left + 10
     while (1) {
-        count++;
         AB = (inputA | inputB);
         if (AB != lastAB) {
-            if (lastState == 0) {               // hvis vi starter lavt 
-                if (AB == 0x20) {                 // hvis A bliver høj    //0b0110 0000 0x20 0x40
-                    value += 100;
-                    countRight++;               //CW
+            if (lastState == 0) {                       // If A and B is low to start with
+                if (AB == 0x20) {                       // If A turns high first    //0b0110 0000 0x20 0x40
+                    ucValueToSend = 100;               // Then it is a clock wise rotation
+                    xQueueSend(xQueueDigi, &ucValueToSend, portMAX_DELAY);
                 }
-                else if (AB == 0x40) {            // hvis B bliver høj først
-                    value += 10;
-                    countLeft++;                //CCW
+                else if (AB == 0x40) {                  // If B turns high first 
+                    ucValueToSend = 10;                // Then it is a counter clock wise rotation
+                    xQueueSend(xQueueDigi, &ucValueToSend, portMAX_DELAY);
                 }
             }
-            else if (lastState == 1) {
-                if (AB == 0x20) {                // hvis B bliver lav først
-                    value += 10;
-                    countLeft++;                //CCW
+            else if (lastState == 1) {                  // If A and B is high to start with
+                if (AB == 0x20) {                       // and B turns low first
+                    ucValueToSend = 10;                // then is a counter clock wise rotation
+                    xQueueSend(xQueueDigi, &ucValueToSend, portMAX_DELAY);
                 }
-                else if (AB == 0x40) {            // hvis A bliver lav først
-                    value += 100;
-                    countRight++;               //CW
+                else if (AB == 0x40) {                  // But if A turns low first
+                    ucValueToSend = 100;               // Then it is a clock wise rotation
+                    xQueueSend(xQueueDigi, &ucValueToSend, portMAX_DELAY);
                 }
             }
         }
-        
         if (AB)
             lastState = 1;
         else
@@ -100,21 +83,21 @@ static void prvDigiTask( void *pvParameters )
 
         lastAB = AB;
         
-        xQueueOverwrite(xQueueDigi, &value);
+        //xQueueSend(xQueueDigi, &ucValueToSend);
 
-        output[0] = (value / 1000) + '0';               // gets most significant digit
-        output[1] = ((value % 1000) / 100) + '0';
-        output[2] = ((value % 100) / 10) + '0';
-        output[3] = ((value % 10) / 1) + '0';
-
-        if (lastValue != value)
-        {
-            uartPrint(" digiswitch value is: ");
-            uartPrint(output);   
-            uartPrint("\r\n");
-            lastValue = value;
-        }
-
+//        output[0] = (ucValueToSend / 1000) + '0';               // gets most significant digit
+//        output[1] = ((ucValueToSend % 1000) / 100) + '0';
+//        output[2] = ((ucValueToSend % 100) / 10) + '0';
+//        output[3] = ((ucValueToSend % 10) / 1) + '0';
+//
+//        if (lastValue != ucValueToSend)
+//        {
+//            uartPrint(" digiswitch value is: ");
+//            uartPrint(output);
+//            uartPrint("\r\n");
+//            lastValue = ucValueToSend;
+//        }
+//        ucValueToSend = 0;
         //move_LCD( 0, 0 );
         //wr_str_LCD("Trn 2 enter price");
         //move_LCD( 0, 1 );
@@ -122,64 +105,6 @@ static void prvDigiTask( void *pvParameters )
 
 
         vTaskDelay(pdMS_TO_TICKS(1));
-
-        //------------------------------
-
-//        //vTaskDelay(10);
-//        AB = (inputA | inputB);
-//
-//
-//
-//
-//        valid_test = (AB >> 5) | lastAB;
-//
-//        switch (valid_test)
-//        {
-//        case 0:
-//            break;
-//        case 1:
-//            countRight++;
-//            value++;
-//            ucValueToSend = 'r';
-//            break;
-//        case 2:
-//            countLeft++;
-//            value--;
-//            ucValueToSend = 'l';
-//            break;
-//        case 4:
-////            countLeft++;
-//            ucValueToSend = 'l';
-//            break;
-//        case 7:
-////            countRight++;
-//            ucValueToSend = 'r';
-//            break;
-//        case 8:
-////            countRight++;
-//            ucValueToSend = 'r';
-//            break;
-//        case 11:
-////            countLeft++;
-//            ucValueToSend = 'l';
-//            break;
-//        case 14:
-//            countRight++;
-//            value++;
-//            ucValueToSend = 'r';
-//            break;
-//        case 13:
-//            countLeft++;
-//            value--;
-//            ucValueToSend = 'l';
-//            break;
-//        default: break;
-//        }
-//
-//        lastAB = AB >> 3;
-//        //ucValueToSend = value;
-//
-//        //xQueueSend(xQueueDigi, &ucValueToSend, 0U);
 
 
 
