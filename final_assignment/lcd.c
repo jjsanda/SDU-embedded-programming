@@ -261,43 +261,7 @@ void out_LCD( INT8U Ch )
 }
 
 
-//void prvLcdOut(void)
-//{
-//  displayPayload ucRxData;
-//  size_t xReceivedBytes;
-////  for( ;; )
-////  {
-//    /* Receive the next message from the message buffer.  Wait in the Blocked
-//    state (so not using any CPU processing time) for portMAX_DELAY ticks for
-//    a message to become available. */
-//     xReceivedBytes = xMessageBufferReceive( xMessageBufferLCD,
-//                                            ( void * ) &ucRxData,
-//                                            sizeof( ucRxData ),
-//                                            portMAX_DELAY );
-//
-//    if( xReceivedBytes > 0 )
-//    {
-//
-//        for (int i = 0; i < LCD_LINE_LENGTH; i++)
-//        {
-//
-//            xQueueSendToBack(Q_LCD, &ucRxData.line1[i], 0);
-//            if (i == LCD_LINE_LENGTH - 1)
-//                move_LCD(0, 1);
-//
-//
-//        }
-//        for (int i = 0; i < LCD_LINE_LENGTH; i++)
-//        {
-//            xQueueSendToBack(Q_LCD, &ucRxData.line2[i], 0);
-//            if (i == LCD_LINE_LENGTH - 1)
-//                move_LCD(0, 0); // Go back to home
-//
-//        }
-//
-//    }
-//
-//}
+
 
 
 BOOLEAN init_lcd( void )
@@ -312,6 +276,38 @@ BOOLEAN init_lcd( void )
     return 0;
   }
   return 0;
+}
+
+
+int send_LCD(char* line1, char* line2)
+{
+    char firstLine[LCD_LINE_LENGTH];
+    char secondLine[LCD_LINE_LENGTH];
+    BOOLEAN lineEnd = 0;
+    for (int i = 0; i < LCD_LINE_LENGTH; i++)
+    {
+        if (line1[i] == '\0')
+            lineEnd = 1;
+        if (lineEnd)
+            firstLine[i] = ' ';
+        else
+            firstLine[i] = line1[i];
+    }
+    lineEnd = 0;
+    for (int i = 0; i < LCD_LINE_LENGTH; i++)
+    {
+        if (line2[i] == '\0')
+            lineEnd = 1;
+        if (lineEnd)
+            secondLine[i] = ' ';
+        else
+            secondLine[i] = line2[i];
+    }
+ 
+    move_LCD(0, 0);
+    wr_str_LCD(firstLine);
+    move_LCD(0, 1);
+    wr_str_LCD(secondLine);
 }
 
 

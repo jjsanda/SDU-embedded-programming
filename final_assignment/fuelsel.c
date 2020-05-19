@@ -88,6 +88,7 @@ static void prvFuelselTask( void *pvParameters )
     if(uxBits == EV_GROUP_fuelsel){
 
 
+
       //do stuff here
       //uartPrint("fuel selection task's turn\r\n");
       //vTaskDelay( xBlockTime );

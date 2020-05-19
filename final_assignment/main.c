@@ -47,7 +47,7 @@ int main(void)
 *   Output   :
 *   Function :
 ******************************************************************************/
-{
+    {
   init_gpio();
 
   EventBits_t uxBits;
@@ -71,7 +71,7 @@ int main(void)
     if(uxBits != EV_GROUP_payment){
       uartPrint("ERROR: set of EV_GROUP_fuelsel was not successful\r\n");
     } else {
-      uartPrint("EV_GROUP_payment: fuel sel. task allowed to run");
+      uartPrint("EV_GROUP_payment: fuel sel. task allowed to run\r\n");
     }
     vTaskStartScheduler();     /* Start the tasks and timer running. */
   } else {
