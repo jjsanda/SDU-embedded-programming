@@ -11,6 +11,9 @@
 #include "print.h"
 #include "emp_type.h"
 #include "main.h"
+#include "digi.h"
+#include "keyboard.h"
+#include "lcd.h"
 
 static SemaphoreHandle_t xSemaphorePayment = NULL;
 static INT16U pPaymentValue = 0;
@@ -48,18 +51,120 @@ BOOLEAN init_payment( void ){
 
 static void prvPaymentTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+    BOOLEAN CARD = 0;
+    BOOLEAN CASH = 0;
+    INT8U key = 0;
+    INT8U pinNr = 0; 
+    INT16U cardNr = 0;
+    INT8U count = 0;
+    INT8U valid = 0;
+    int temp = 0;
+
+    char output[] = "0000";
+    INT8U digiRotation = 'A';
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 200 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_payment, pdFALSE, pdTRUE, portMAX_DELAY );
-    if(uxBits == EV_GROUP_payment){
+    if (uxBits == EV_GROUP_payment) {
+       
+        if (!CARD && !CASH)
+        {
+            move_LCD(0, 0);
+            wr_str_LCD("Press * for card");
+            move_LCD(0, 1);
+            wr_str_LCD("Press # for cash");
+        }
+        
+        key = waitForNextKey();
+        if (key == '*')
+        {
+            
+            move_LCD(0, 0);
+            wr_str_LCD("Enter card number");
+            move_LCD(0, 1);
+            wr_str_LCD("                   ");
+
+            CARD = 1;
+        }
+            
+        if (key == '#')
+            CASH = 1;
+
+        if ((key != 0) && (key != '*') && CARD )
+        {
+            
+            
+            count++;
+            switch (count)
+            {
+            case 1 ... 7:
+                move_LCD(0, 0);
+                wr_str_LCD("Enter card number");
+                move_LCD(count - 1, 1);
+                wr_ch_LCD(key);
+                cardNr += key;
+                break;
+            case 8:
+                cardNr += key;
+                temp = cardNr % 2;
+                move_LCD(count - 1, 1);
+                wr_ch_LCD(key);
 
 
+                move_LCD(0, 0);
+                wr_str_LCD("Enter pin number");
+                move_LCD(count, 1);
+                wr_ch_LCD(' ');
+                break;
+            case 9 ... 11:
+                pinNr += key;
+                move_LCD(count, 1);
+                wr_ch_LCD(key);
+                break;
+            case 12: 
+                pinNr += key;
+                valid = pinNr % 2;
+                valid = valid - temp;  
+                move_LCD(count, 1);
+                wr_ch_LCD(key);
+            default:
+                break;
+            }
+
+            if (valid == 1)
+            {
+                move_LCD(0, 0);
+                wr_str_LCD("Card and pin    ");
+                move_LCD(0, 1);
+                wr_str_LCD("is korrect        ");
+            }
+        }
+        
+
+         
+        //-------------------------------------------------------------------------------
+        // Cash payment 
+
+        if ((key != 0) && (key != '#') && CASH)
+        {
+            digiRotation = getDigiRotation(); // get the value from the digiswitch. 
+
+            output[0] = (digiRotation / 1000) + '0';               // gets most significant digit
+            output[1] = ((digiRotation % 1000) / 100) + '0';
+            output[2] = ((digiRotation % 100) / 10) + '0';
+            output[3] = ((digiRotation % 10) / 1) + '0';
+
+            uartPrint("digirotation er: ");
+            uartPrint(output);
+            uartPrint("\r\n");
+        }
+  
       //do stuff here
-      uartPrint("fuel selection task's turn\r\n");
+      //uartPrint("fuel selection task's turn\r\n");
       vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+      //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
 
 

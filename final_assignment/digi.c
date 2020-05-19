@@ -26,17 +26,23 @@ INT16U value = 0;
 static void prvDigiTask( void *pvParameters );
 
 /* getter and setters */
-int getDigiRotation(unsigned char * digiBuf, TickType_t xTicksToWait){
-  return xQueueReceive( xQueueDigi, &digiBuf, xTicksToWait );
+INT8U getDigiRotation(){
+    INT8U data;
+    if (xQueueReceive(xQueueDigi, &data, 0))
+        return data;
+    else
+        return 0; 
 }
 
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_digi( void ){
-  xQueueDigi = xQueueCreate( 1024, sizeof( unsigned char ) ); //l = left turn, r=right turn
+    unsigned char initValueToSend = 'B';
+  xQueueDigi = xQueueCreate( 1, sizeof( INT8U ) ); //l = left turn, r=right turn
   if( xQueueDigi != NULL ){
     xTaskCreate( prvDigiTask, "digi task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     uartPrint("digi initialized\r\n");
+    xQueueSend(xQueueDigi, &initValueToSend, 0U);
     return 1;
   } else {
     return 0;
@@ -49,7 +55,7 @@ static void prvDigiTask( void *pvParameters )
 {
     unsigned char ucValueToSend;
 //    INT16U value = 0;
-
+    INT16U lastValue = 0;
 //    INT8U countRight = 0;
 //    INT8U countLeft = 0;
 //    INT8U AB = 0x00;
@@ -57,15 +63,12 @@ static void prvDigiTask( void *pvParameters )
 //    INT8U lastState = 0;
     INT8U count = 0;
     INT8U valid_test;
-    char output[4];
+    char output[] = "0000";
 
     //  Right + 100 
     //  Left + 10
     while (1) {
         count++;
-        //A = 0x20  
-        //B = 0x40
-
         AB = (inputA | inputB);
         if (AB != lastAB) {
             if (lastState == 0) {               // hvis vi starter lavt 
@@ -96,19 +99,27 @@ static void prvDigiTask( void *pvParameters )
             lastState = 0; 
 
         lastAB = AB;
-
+        
+        xQueueOverwrite(xQueueDigi, &value);
 
         output[0] = (value / 1000) + '0';               // gets most significant digit
         output[1] = ((value % 1000) / 100) + '0';
         output[2] = ((value % 100) / 10) + '0';
         output[3] = ((value % 10) / 1) + '0';
 
+        if (lastValue != value)
+        {
+            uartPrint(" digiswitch value is: ");
+            uartPrint(output);   
+            uartPrint("\r\n");
+            lastValue = value;
+        }
 
-        move_LCD( 0, 0 );
-        wr_str_LCD("Trn 2 enter price");
-        move_LCD( 0, 1 );
-        wr_str_LCD(output);
-       //sendToLcd("Digi switch: ", &output);
+        //move_LCD( 0, 0 );
+        //wr_str_LCD("Trn 2 enter price");
+        //move_LCD( 0, 1 );
+        //wr_str_LCD(output);
+
 
         vTaskDelay(pdMS_TO_TICKS(1));
 

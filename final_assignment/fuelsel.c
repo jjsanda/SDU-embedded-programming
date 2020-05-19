@@ -80,7 +80,7 @@ BOOLEAN init_fuelsel( void ){
 
 static void prvFuelselTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 200 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
@@ -88,10 +88,11 @@ static void prvFuelselTask( void *pvParameters )
     if(uxBits == EV_GROUP_fuelsel){
 
 
+
       //do stuff here
-      uartPrint("fuel selection task's turn\r\n");
+      //uartPrint("fuel selection task's turn\r\n");
       vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+      //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
 
 

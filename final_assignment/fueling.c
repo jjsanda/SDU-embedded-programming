@@ -43,7 +43,7 @@ BOOLEAN init_fueling( void ){
 
 static void prvFuelingTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 200 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
@@ -52,9 +52,9 @@ static void prvFuelingTask( void *pvParameters )
 
 
       //do stuff here
-      uartPrint("fueling task's turn\r\n");
+      //uartPrint("fueling task's turn\r\n");
       vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+      //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
 
 

@@ -27,10 +27,11 @@
 #define inputA (GPIO_PORTA_DATA_R & 0x20)
 #define inputB (GPIO_PORTA_DATA_R & 0x40)
 
+
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-int getDigiRotation();
+INT8U getDigiRotation();
 BOOLEAN init_digi( void );
 /*****************************************************************************
 *   Input    : -
