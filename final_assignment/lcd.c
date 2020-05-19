@@ -39,8 +39,8 @@
 
 #define LCD_LINE_LENGTH 16
 #define QUEUE_LEN   128
-static MessageBufferHandle_t xMessageBufferLCD = NULL; // needs semaphore for consistent write
 static SemaphoreHandle_t xSemaphoreLCDSend = NULL;
+static QueueHandle_t Q_LCD;
 
 typedef struct displayPayload {
   char line1[LCD_LINE_LENGTH];
@@ -302,17 +302,16 @@ void out_LCD( INT8U Ch )
 
 BOOLEAN init_lcd( void )
 {
-  xMessageBufferLCD = xMessageBufferCreate( sizeof( displayPayload ) + sizeof( size_t ) ); //2 row display with 16 chars each
   xSemaphoreLCDSend = xSemaphoreCreateMutex();
   Q_LCD = xQueueCreate(128, sizeof(INT8U));
-//  if( xMessageBufferLCD != NULL && xSemaphoreLCDSend != NULL ){
+  if( Q_LCD != NULL && xSemaphoreLCDSend != NULL ){
     xTaskCreate( lcd_task, "LCD out", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
-////    tilPrint("lcd initialized\r\n");
-//    return 1;
-//  } else {
-//    return 0;
-//  }
-  return 1;
+      uartPrint("lcd initialized\r\n");
+    return 1;
+  } else {
+    return 0;
+  }
+  return 0;
 }
 
 

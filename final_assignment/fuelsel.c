@@ -5,11 +5,14 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "event_groups.h"
 #include "semphr.h"
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
 #include "print.h"
 #include "fuelsel.h"
+#include "main.h"
+
 
 static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
 static float pFuelselDieselPrice = 8.49;
@@ -78,15 +81,39 @@ BOOLEAN init_fuelsel( void ){
 static void prvFuelselTask( void *pvParameters )
 {
   const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+  EventBits_t uxBits;
+  EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
-//    if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
-//
-//       //work with pFuelselValue
-//
-//      xSemaphoreGive( xSemaphoreFuelsel );
-//    }
-    //uartPrint("fuelsel beeep\r\n");
-    vTaskDelay( xBlockTime );
+    uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fuelsel, pdFALSE, pdTRUE, portMAX_DELAY );
+    if(uxBits == EV_GROUP_fuelsel){
+
+
+      //do stuff here
+      uartPrint("fuel selection task's turn\r\n");
+      vTaskDelay( xBlockTime );
+      uartPrint("giving to next task in 1sec \r\n");
+      vTaskDelay( xBlockTime );
+
+
+
+      //    if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
+      //
+      //       //work with pFuelselValue
+      //
+      //      xSemaphoreGive( xSemaphoreFuelsel );
+      //    }
+      //uartPrint("fuelsel beeep\r\n");
+
+      //if done - give to next task:
+      uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
+      if(uxBits != EV_GROUP_fuelsel){
+        uartPrint("ERROR: clear of EV_GROUP_fuesel was not successful\r\n");
+      }
+      uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_fueling ); // set bits for next task to be unblocked
+      if(uxBits != EV_GROUP_fueling){
+        uartPrint("ERROR: set of EV_GROUP_fueling was not successful\r\n");
+      }
+    }
   }
 }
 

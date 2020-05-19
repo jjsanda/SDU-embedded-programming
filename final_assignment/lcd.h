@@ -38,7 +38,6 @@
 #define ESC     0x1B
 #define HOME    0xFE
 #define SECOND_LINE 0x1F
-QueueHandle_t Q_LCD;
 
 /*****************************   Constants   *******************************/
 
