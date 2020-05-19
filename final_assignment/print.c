@@ -29,7 +29,20 @@ void getNextLine(unsigned char * stringLineBuf, int maxLineLength, TickType_t xT
   stringLineBuf[i++] = '\0';
   return 1;
 }
-
+//xSerialGetChar( xPort, &cRxedChar, portMAX_DELAY ) != pdPASS
+void uartGetChar(unsigned char * charBuf, TickType_t xTicksToWaitForChar){
+  return xQueueReceive( xQueuePrintRX, charBuf, xTicksToWaitForChar );
+}
+//xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
+void uartPutChar(unsigned char sendChar, TickType_t xTicksToWaitForChar){
+  return xQueueSend( xQueuePrintTX, sendChar, xTicksToWaitForChar );
+}
+void uartStrcpy(char* target, char* source1){
+  while(*source1!='\0'){
+    *(target++) = *(source1++);
+  }
+  *(target)='\0';
+}
 void uartConcat(char* target, char* source1, char* source2){
   while(*source1!='\0'){
     *(target++) = *(source1++);

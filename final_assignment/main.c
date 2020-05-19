@@ -65,6 +65,8 @@ int main(void)
   BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
   BOOLEAN fueling = init_fueling();   // Fueling Task
 
+  vUARTCommandConsoleStart( configMINIMAL_STACK_SIZE, ( tskIDLE_PRIORITY + 1 ) ); // localted in pc_terminal
+
 
   if( print && lcd && keyboard && digi && fueling && payment && fuelsel) {
     uxBits = xEventGroupSetBits( xTaskEventGroup, EV_GROUP_payment ); // set bits for next task to be unblocked

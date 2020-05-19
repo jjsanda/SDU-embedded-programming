@@ -52,9 +52,9 @@ static void prvFuelingTask( void *pvParameters )
 
 
       //do stuff here
-      uartPrint("fueling task's turn\r\n");
-      vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+      //uartPrint("fueling task's turn\r\n");
+      //vTaskDelay( xBlockTime );
+      //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
 
 
