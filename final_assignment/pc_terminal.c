@@ -257,13 +257,13 @@ static void prvUARTCommandConsoleTask( void *pvParameters )
 }
 
 /*-----------------------------------------------------------*/
-void vOutputString( const char * const pcMessage ) //i guess this is used by command functions itself
-{
-  if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
-  {
-    //vSerialPutString( xPort, ( signed char * ) pcMessage, ( unsigned short ) strlen( pcMessage ) );
-    uartPrint((unsigned char *) pcMessage);
-    xSemaphoreGive( xTxMutex );
-  }
-}
+//void vOutputString( const char * const pcMessage ) //i guess this is used by command functions itself
+//{
+//  if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
+//  {
+//    //vSerialPutString( xPort, ( signed char * ) pcMessage, ( unsigned short ) strlen( pcMessage ) );
+//    uartPrint((unsigned char *) pcMessage);
+//    xSemaphoreGive( xTxMutex );
+//  }
+//}
 /*-----------------------------------------------------------*/
