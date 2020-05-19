@@ -57,9 +57,9 @@ static void prvPaymentTask( void *pvParameters )
 
 
       //do stuff here
-      uartPrint("fuel selection task's turn\r\n");
-      vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+      //uartPrint("fuel selection task's turn\r\n");
+      //vTaskDelay( xBlockTime );
+      //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
 
 

@@ -35,7 +35,7 @@ void uartGetChar(unsigned char * charBuf, TickType_t xTicksToWaitForChar){
 }
 //xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
 void uartPutChar(unsigned char sendChar, TickType_t xTicksToWaitForChar){
-  return xQueueSend( xQueuePrintTX, sendChar, xTicksToWaitForChar );
+  return xQueueSend( xQueuePrintTX, &sendChar, xTicksToWaitForChar );
 }
 void uartStrcpy(char* target, char* source1){
   while(*source1!='\0'){
@@ -121,6 +121,7 @@ static void prvTxTask( void *pvParameters )
     if( uart0_tx_rdy() ){
       xQueueReceive( xQueuePrintTX, &ucReceivedValue, portMAX_DELAY );
       uart0_putc(ucReceivedValue);
+      //vTaskDelay( 1 );
     } else {
       //vTaskDelay( 1 );
     }
