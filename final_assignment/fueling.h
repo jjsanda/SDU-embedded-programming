@@ -30,6 +30,7 @@
 #define END_FUELING         4
 #define FUELING_TERMINATE   5
 #define LIFTED_NOZZLE       6
+#define END_FUELING_RETURN_TO_LIFTED_NOZZLE 7
 
 #define lever       (GPIO_PORTF_DATA_R & 0x01)
 #define nozzleBoot  (GPIO_PORTF_DATA_R & 0x10)
