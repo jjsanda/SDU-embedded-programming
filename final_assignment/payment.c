@@ -56,14 +56,11 @@ static void prvPaymentTask( void *pvParameters )
 {
     BOOLEAN CARD = 0;
     BOOLEAN CASH = 0;
-    INT8U key = 0;
-    INT8U pinNr = 0; 
-    INT16U cardNr = 0;
+    INT8U pinNr = 0;
+    INT16U cardNr = 0; 
     INT8U count = 0;
     INT8U validCard = 0;
-    int temp = 0;
-
-    char output[] = "0000";
+    char outputLCD[] = "0000";
     INT16U cashSum = 0;
   const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
   EventBits_t uxBits;
@@ -85,56 +82,67 @@ static void prvPaymentTask( void *pvParameters )
 
         if ((key != 0) && (key != '*') && CARD )
         {
-            count++;
+            
             switch (count)
             {
-            case 1 ... 7:
+            case 0 ... 6:
                 move_LCD(0, 0);
                 wr_str_LCD("Enter card number");
-                move_LCD(count - 1, 1);
+                move_LCD(count, 1);
                 wr_ch_LCD(key);
-                cardNr += key;
+                cardNr += key % 2;
                 break;
-            case 8:
-                cardNr += key;
-                temp = cardNr % 2;
-                move_LCD(count - 1, 1);
+            case 7:
+                cardNr += key % 2;
+                move_LCD(count, 1);
                 wr_ch_LCD(key);
 
                 move_LCD(0, 0);
                 wr_str_LCD("Enter pin number");
-                move_LCD(count, 1);
+                move_LCD(count + 1, 1);
                 wr_ch_LCD(' ');
                 break;
-            case 9 ... 11:
-                pinNr += key;
+            case 8 ... 10:
+                pinNr += key % 2;
                 move_LCD(count, 1);
                 wr_ch_LCD(key);
                 break;
-            case 12: 
-                pinNr += key;
-                validCard = pinNr % 2;
-                validCard = validCard - temp;
+            case 11: 
+                pinNr += key % 2;
                 move_LCD(count, 1);
                 wr_ch_LCD(key);
             default:
                 break;
             }
-
+            count++;
             // If the card and pin is valid the fuelselect task should run 
-            if (validCard == 1)
+          
+         
+            if (cardNr == 8 && pinNr == 0 && count >= 12)                  //Odd card number and even pin number 
+            {
+                pinNr = 0;
+                cardNr =0;
+                count = 0;
+                validCard = 1;
+                send_LCD("Card and pin", " is korrect");
+
+            }
+            else if (cardNr == 0 && pinNr == 4 && count >= 12)             //Even card number and odd pin number
             {
                 pinNr = 0;
                 cardNr = 0;
                 count = 0;
+                validCard = 1;
                 send_LCD("Card and pin", " is korrect");
             }
-//            else
-//            {
-//                pinNr = 0;
-//                cardNr = 0;
-//                send_LCD("Card or pin", "not korect");
-//            }
+            else if (count >= 12 && validCard != 1)
+            {
+
+                pinNr = 0;
+                cardNr = 0;
+                count = 0;
+                send_LCD("Card or pin", "not korrect");
+            }
                         
         }
         
@@ -155,12 +163,11 @@ static void prvPaymentTask( void *pvParameters )
             if (digiValue)
             {
                 cashSum += digiValue; // get the value from the digiswitch.
-                output[0] = (cashSum / 1000) + '0';               // gets most significant digit
-                output[1] = ((cashSum % 1000) / 100) + '0';
-                output[2] = ((cashSum % 100) / 10) + '0';
-                output[3] = ((cashSum % 10) / 1) + '0';
-
-                send_LCD("Total value", output);
+                outputLCD[0] = (cashSum / 1000) + '0';               // gets most significant digit
+                outputLCD[1] = ((cashSum % 1000) / 100) + '0';
+                outputLCD[2] = ((cashSum % 100) / 10) + '0';
+                outputLCD[3] = ((cashSum % 10) / 1) + '0';
+                send_LCD("Total value", outputLCD);
             }
         }
   
