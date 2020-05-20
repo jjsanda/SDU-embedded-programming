@@ -19,7 +19,7 @@ static float pFuelselDieselPrice = 8.49;
 static float pFuelselLeadfr92Price = 8.79;
 static float pFuelselLeadfr95Price = 8.12;
 //global value of choice fuel diesel=0;92=1;95=2 
-static INT16U pFuelSelValue = -1 //global value of choice fuel diesel=0;92=1;95=2 
+static INT16U pFuelSelValue = -1; //global value of choice fuel diesel=0;92=1;95=2
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvFuelselTask( void *pvParameters );
@@ -96,12 +96,12 @@ static void prvFuelselTask( void *pvParameters )
         if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
 
           // print choices
-          sendToLcd("choice fuel =>", "dies=0;92=1;95=2")
+          sendToLcd("choice fuel =>", "dies=0;92=1;95=2");
           // get key value
 
           while (pFuelselValueTemp < 0) // be in while until he presses the correct button
           {
-            xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY );
+            //xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY ); cant use that here...
 
             // print key for debug
             uartPrint("\r\nselected fuel: ");
@@ -111,21 +111,21 @@ static void prvFuelselTask( void *pvParameters )
             // /print
 
             switch(ucReceivedValue){
-              case "0":
+              case '0':
                 pFuelselValueTemp = DIESEL;
                 break;
-              case "1":
+              case '1':
                 pFuelselValueTemp = LEAD_FREE_92;
                 break;
-              case "2":
+              case '2':
                 pFuelselValueTemp = LEAD_FREE_95;
                 break;
               default:
-                sendToLcd("bad key", "dies=0;92=1;95=2")
+                sendToLcd("bad key", "dies=0;92=1;95=2");
             }
           }
 
-          pFuelselValue = pFuelselValueTemp;
+          pFuelSelValue = pFuelselValueTemp;
           xSemaphoreGive( xSemaphoreFuelsel );
         }
           uartPrint("fuelsel beeep\r\n");
@@ -145,7 +145,7 @@ static void prvFuelselTask( void *pvParameters )
       }
     }
   }
-  return pFuelSelValue //-1 if error, price of fuel else
+  return pFuelSelValue; //-1 if error, price of fuel else
 }
 
 /*-----------------------------------------------------------*/
