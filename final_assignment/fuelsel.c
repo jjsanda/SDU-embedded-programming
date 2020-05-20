@@ -91,14 +91,41 @@ BOOLEAN init_fuelsel( void ){
 #define FUELSEL_SEL_DIESEL   4
 #define FUELSEL_SEL_L92      5
 #define FUELSEL_SEL_L95      6
+#define FUELSEL_ERROR      7
 
 
 static void waitForFuelSelection(TickType_t xBlockTime){
   unsigned char key = waitForNextKey(xBlockTime);
   if(key == 0){ // no key selected before timeout, display next state
-
-  } else { //
-
+    switch(fuelSelState){
+      case FUELSEL_INIT:
+        fuelSelState = FUELSEL_PRICE_DIESEL;
+        break;
+      case FUELSEL_PRICE_DIESEL:
+        fuelSelState = FUELSEL_PRICE_L92;
+        break;
+      case FUELSEL_PRICE_L92:
+        fuelSelState = FUELSEL_PRICE_L95;
+        break;
+      case FUELSEL_PRICE_L95:
+        fuelSelState = FUELSEL_PRICE_DIESEL;
+        break;
+    }
+  } else { // we got a key, display selection message
+    switch(key){
+      case '1':
+        fuelSelState = FUELSEL_SEL_DIESEL;
+        break;
+      case '2':
+        fuelSelState = FUELSEL_SEL_L92;
+        break;
+      case '3':
+        fuelSelState = FUELSEL_SEL_L95;
+        break;
+      default:
+        fuelSelState = FUELSEL_ERROR;
+        break;
+    }
   }
 }
 
@@ -127,15 +154,19 @@ static void prvFuelselTask( void *pvParameters )
       switch(fuelSelState){
         case FUELSEL_INIT:
           sendToLcd("Select Fueltype","with Numpad");
+          waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_PRICE_DIESEL:
-          sendToLcd("1 for Diesel","Price: 8.49 DKK");
+          sendToLcd("1 for Diesel","Price: 8.49 DKK"); //TODO: change to snprintf
+          waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_PRICE_L92:
           sendToLcd("2 Leadfr. 92","Price: 8.49 DKK");
+          waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_PRICE_L95:
           sendToLcd("3 Leadfr. 95","Price: 8.49 DKK");
+          waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_SEL_DIESEL:
           sendToLcd("Diesel selected","");
@@ -151,6 +182,12 @@ static void prvFuelselTask( void *pvParameters )
           sendToLcd("Leadfree 95","selected");
           vTaskDelay( xBlockTime );
           setEVGroupFueling(localTaskEventGroup);
+          break;
+        case FUELSEL_ERROR:
+        default:
+          sendToLcd("ERROR: allowed","Number 1 to 3!");
+          vTaskDelay( xBlockTime );
+          fuelSelState = FUELSEL_INIT;
           break;
 
       }
