@@ -21,7 +21,7 @@ static void prvDigiTask( void *pvParameters );
 /* getter and setters */
 int getDigiRotation(){
     INT16U data = 0;
-    if (xQueueReceive(xQueueDigi, &data, portMAX_DELAY) == pdTRUE)
+    if (xQueueReceive(xQueueDigi, &data, 0) == pdTRUE)
         return data;
     else
         return 0;
