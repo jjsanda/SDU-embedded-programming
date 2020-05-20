@@ -157,16 +157,17 @@ static void prvFuelingTask( void *pvParameters )
           sendToLcd(" Lift nozzle to ", " start fueling");
           break;
       case IDLE:
-          if (!nozzleBoot)
+          if (!nozzleBoot){
              while(!nozzleBoot){
                vTaskDelay(pdMS_TO_TICKS(10));
              }
              vTaskDelay(pdMS_TO_TICKS(30)); //debaunce sw1
              fuelingState = LIFTED_NOZZLE;
+          }
           break;
       case LIFTED_NOZZLE:                                   //The nozzle is lifted but the fueling hasn't started yet. 
-          sprintf(line1, "Added cash: %d", cashSum);
-          sprintf(line2, "Fuel price: %1.2f", fuelPrice);
+          sprintf(line1, "Cash: %4i", cashSum);
+          sprintf(line2, "Fuel price: %2.2f", fuelPrice);
           sendToLcd(line1, line2);
           GPIO_PORTF_DATA_R &= redLED;
           if (!lever)
@@ -181,7 +182,7 @@ static void prvFuelingTask( void *pvParameters )
           break;
       case START_FUELING: //Already fueling but slower
           GPIO_PORTF_DATA_R &=  yellowLED;
-          deliveredGas = pulses * (1/512);
+          deliveredGas = pulses * (1.0/512.0);
           totalPrice = deliveredGas * fuelPrice;
           sprintf(line1, "Liter: %4.2f", deliveredGas);
           sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
@@ -193,7 +194,7 @@ static void prvFuelingTask( void *pvParameters )
           //vTaskDelay( pdMS_TO_TICKS(slowPulseSpeed) ); // TODO: check if this will immprove lcd load
           break;
       case FUELING:                     // The timer will set the state when 2 seconds has passed.
-          deliveredGas = pulses * (1/512);
+          deliveredGas = pulses * (1.0/512.0);
           totalPrice = deliveredGas * fuelPrice;
           priceDifferece = cashSum - totalPrice;
           sprintf(line1, "Liter: %4.2f", deliveredGas);
@@ -201,37 +202,47 @@ static void prvFuelingTask( void *pvParameters )
           sendToLcd(line1, line2);
           GPIO_PORTF_DATA_R &= greenLED;
 
-          if (lever) //if lever is released
+
+          if(priceDifferece < 10){ //TODO calculate the exact value here with the current fuel price
+              xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
+              fuelingState = END_FUELING;
+          }
+          else if (lever) //if lever is released
           {
               xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
               fuelingState = END_FUELING_RETURN_TO_LIFTED_NOZZLE;
               tempPulses = pulses;
           }
-          if(priceDifferece < 10){
-              xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
-              fuelingState = END_FUELING;
-          }
           break;
       case END_FUELING_RETURN_TO_LIFTED_NOZZLE: // Still fueling but slower
+
+          deliveredGas = pulses * (1.0/512.0); //TODO: use function for that
+          totalPrice = deliveredGas * fuelPrice;
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sendToLcd(line1, line2);
+
           if ((pulses - tempPulses) >= 25){ //25 pulses = 1sec in slow speed
               fuelingState = LIFTED_NOZZLE;
               //TODO: and we reset and start the timeout timer which will change the state to FUELING_TERMINATE if 15sec are counted down;
           }
           GPIO_PORTF_DATA_R &= yellowLED;
+          break;
       case END_FUELING: // Still fueling but slower
-          deliveredGas = pulses * (1/512);
+          deliveredGas = pulses * (1.0/512.0);
           totalPrice = deliveredGas * fuelPrice;
           sprintf(line1, "Liter: %4.2f", deliveredGas);
           sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
           sendToLcd(line1, line2);
-          if (totalPrice >= cashSum){
+          if (totalPrice >= (float) cashSum){
               fuelingState = FUELING_TERMINATE;
           }
           GPIO_PORTF_DATA_R &= yellowLED;
+          break;
       case FUELING_TERMINATE:
-          //add log here
+
           xTimerStop(fuelPulse, portMAX_DELAY); //STOPS PUMP (timer simulates the pump)
-          deliveredGas = pulses * (1/512);
+          deliveredGas = pulses * (1.0/512.0);
           totalPrice = deliveredGas * fuelPrice;
 
           sprintf(line1, "Liter: %4.2f", deliveredGas);
@@ -239,8 +250,13 @@ static void prvFuelingTask( void *pvParameters )
           sendToLcd(line1, line2);
 
           uartPrint("Terminated\r\n");
-          //fuelingState = INIT;
-          //setEVGroupPayment(localTaskEventGroup);
+          if(paymentType == CARD_PAYMENT_TYPE){
+            appendLogEntry(10, fuelType, 100, totalPrice, "12341234"); //TODO: add card support, add day time, add operating time
+          } else {
+            appendLogEntry(10, fuelType, 100, totalPrice, "CASH"); //TODO: add card support, add day time, add operating time
+          }
+          fuelingState = INIT;
+          setEVGroupPayment(localTaskEventGroup);
           break;
 
       default:
