@@ -22,6 +22,7 @@
 #include "task.h"
 #include "event_groups.h"
 #include "emp_type.h"
+#include "glob_def.h"
 #include "tm4c123gh6pm.h"
 #include "gpio.h"
 #include "lcd.h"

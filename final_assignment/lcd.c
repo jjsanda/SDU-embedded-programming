@@ -279,7 +279,7 @@ BOOLEAN init_lcd( void )
 }
 
 
-int send_LCD(char* line1, char* line2)
+int sendToLcd(char* line1, char* line2)
 {
     char firstLine[LCD_LINE_LENGTH];
     char secondLine[LCD_LINE_LENGTH];
@@ -305,12 +305,20 @@ int send_LCD(char* line1, char* line2)
     }
  
     move_LCD(0, 0);
-    wr_str_LCD(firstLine);
+    wr_str_LCD((unsigned char *) firstLine);
     move_LCD(0, 1);
-    wr_str_LCD(secondLine);
+    wr_str_LCD((unsigned char *) secondLine);
+
+    uartPrint("simulate LCD:\r\n");
+    uartPrint("----------------\r\n");
+    uartPrint(firstLine);
+    uartPrint("\r\n");
+    uartPrint(secondLine);
+    uartPrint("\r\n");
+    uartPrint("----------------\r\n");
 }
 
-
+/*
 int sendToLcd(char* line1, char* line2) {
     const TickType_t xBlockTime = pdMS_TO_TICKS(100);
     displayPayload payload;
@@ -319,7 +327,7 @@ int sendToLcd(char* line1, char* line2) {
     char stuffing = ' ';
 
     // Obtain the semaphore - block 100ms if the semaphore is not available
-    if (xSemaphoreTake(xSemaphoreLCDSend, 0)) {
+    if (xSemaphoreTake(xSemaphoreLCDSend, xBlockTime)) {
         // We now have the semaphore and can access the shared resource.
 
         for (int i = 0; i < LCD_LINE_LENGTH; i++) {
@@ -349,8 +357,8 @@ int sendToLcd(char* line1, char* line2) {
 
 
 
-//        /* Send an array to the message buffer, blocking for a maximum of 100ms to
-//        wait for enough space to be available in the message buffer. */
+//        Send an array to the message buffer, blocking for a maximum of 100ms to
+//        wait for enough space to be available in the message buffer.
 //        xBytesSent = xMessageBufferSend(xMessageBufferLCD,
 //            (void*)&payload,
 //            sizeof(payload),
@@ -381,7 +389,7 @@ int sendToLcd(char* line1, char* line2) {
 //    }
 
 }
-
+*/
 
 void lcd_task()
 /*****************************************************************************

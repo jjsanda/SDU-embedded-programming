@@ -18,6 +18,7 @@ static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
 static float pFuelselDieselPrice = 8.49;
 static float pFuelselLeadfr92Price = 8.79;
 static float pFuelselLeadfr95Price = 8.12;
+static int fuelSelState = 0;
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvFuelselTask( void *pvParameters );
@@ -40,6 +41,10 @@ int getPrice(int fuel_type){
     xSemaphoreGive( xSemaphoreFuelsel );
   }
   return fuelselPrice; //-1 if error, value else
+}
+
+static void getFuelTypeAndReset(){
+
 }
 int setPrice(float fuelselPrice, int fuel_type){
   int success = -1;
@@ -78,41 +83,76 @@ BOOLEAN init_fuelsel( void ){
   return 0;
 }
 
+
+#define FUELSEL_INIT         0
+#define FUELSEL_PRICE_DIESEL 1
+#define FUELSEL_PRICE_L92    2
+#define FUELSEL_PRICE_L95    3
+#define FUELSEL_SEL_DIESEL   4
+#define FUELSEL_SEL_L92      5
+#define FUELSEL_SEL_L95      6
+
+
+static void waitForFuelSelection(TickType_t xBlockTime){
+  unsigned char key = waitForNextKey(xBlockTime);
+  if(key == 0){ // no key selected before timeout, display next state
+
+  } else { //
+
+  }
+}
+
+static void setEVGroupFueling(EventGroupHandle_t localTaskEventGroup){
+  //if done - give to next task:
+  EventBits_t uxBits;
+  uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
+  if(uxBits != EV_GROUP_fuelsel){
+    uartPrint("ERROR: clear of EV_GROUP_fuesel was not successful\r\n");
+  }
+  uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_fueling ); // set bits for next task to be unblocked
+  if(uxBits != EV_GROUP_fueling){
+    uartPrint("ERROR: set of EV_GROUP_fueling was not successful\r\n");
+  }
+}
+
 static void prvFuelselTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 1500 );
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fuelsel, pdFALSE, pdTRUE, portMAX_DELAY );
-    if(uxBits == EV_GROUP_fuelsel){
+    if(uxBits == EV_GROUP_fuelsel){ // task is unblocked by ev group here
+      //getPrice
+      switch(fuelSelState){
+        case FUELSEL_INIT:
+          sendToLcd("Select Fueltype","with Numpad");
+          break;
+        case FUELSEL_PRICE_DIESEL:
+          sendToLcd("1 for Diesel","Price: 8.49 DKK");
+          break;
+        case FUELSEL_PRICE_L92:
+          sendToLcd("2 Leadfr. 92","Price: 8.49 DKK");
+          break;
+        case FUELSEL_PRICE_L95:
+          sendToLcd("3 Leadfr. 95","Price: 8.49 DKK");
+          break;
+        case FUELSEL_SEL_DIESEL:
+          sendToLcd("Diesel selected","");
+          vTaskDelay( xBlockTime );
+          setEVGroupFueling(localTaskEventGroup);
+          break;
+        case FUELSEL_SEL_L92:
+          sendToLcd("Leadfree 92","selected");
+          vTaskDelay( xBlockTime );
+          setEVGroupFueling(localTaskEventGroup);
+          break;
+        case FUELSEL_SEL_L95:
+          sendToLcd("Leadfree 95","selected");
+          vTaskDelay( xBlockTime );
+          setEVGroupFueling(localTaskEventGroup);
+          break;
 
-
-
-      //do stuff here
-      uartPrint("fuel selection task's turn\r\n");
-      vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
-      vTaskDelay( xBlockTime );
-
-
-
-      //    if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
-      //
-      //       //work with pFuelselValue
-      //
-      //      xSemaphoreGive( xSemaphoreFuelsel );
-      //    }
-      //uartPrint("fuelsel beeep\r\n");
-
-      //if done - give to next task:
-      uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
-      if(uxBits != EV_GROUP_fuelsel){
-        uartPrint("ERROR: clear of EV_GROUP_fuesel was not successful\r\n");
-      }
-      uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_fueling ); // set bits for next task to be unblocked
-      if(uxBits != EV_GROUP_fueling){
-        uartPrint("ERROR: set of EV_GROUP_fueling was not successful\r\n");
       }
     }
   }
