@@ -56,6 +56,7 @@ static void prvPaymentTask( void *pvParameters )
 {
     BOOLEAN CARD = 0;
     BOOLEAN CASH = 0;
+    INT8U key = 0;
     INT8U pinNr = 0;
     INT16U cardNr = 0; 
     INT8U count = 0;
