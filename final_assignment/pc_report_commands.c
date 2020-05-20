@@ -31,7 +31,7 @@ typedef struct LogEntry {
   unsigned int operatingTime; //in seconds
 //  float quantity; //in liters
   float totalPrice; //in DKK
-  unsigned char accountNumber[9];
+  unsigned char accountNumber[9]; //or credit card number
 //  unsigned char * accountNumber;
 } LogEntry;
 
@@ -67,6 +67,12 @@ void vRegisterReportCLICommands( void )
 	appendLogEntry(15, LEAD_FREE_95, 100, 30.23f, (unsigned char *) "11123334");
 }
 
+
+// TODO: add another command, were we can set the current system Time in seconds
+
+long getSystemTimeSeconds(){
+  //use system timer here, loop over after 60 * 60 * 24 = 86.400
+}
 void deleteLog(){
   logIndex = 0;
   logFull = 0;
