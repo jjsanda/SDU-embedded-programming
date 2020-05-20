@@ -10,6 +10,9 @@
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
 #include "main.h"
+#include "fuelsel.h"
+#include "print.h"
+#include "lcd.h"
 
 static SemaphoreHandle_t xSemaphoreFueling = NULL;
 static INT16U pFuelingValue = 0;
@@ -33,7 +36,7 @@ INT16U get_fueling(){
 BOOLEAN init_fueling( void ){
   xSemaphoreFueling = xSemaphoreCreateMutex();
   if( xSemaphoreFueling != NULL ){
-    xTaskCreate( prvFuelingTask, "fueling task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
+    xTaskCreate( prvFuelingTask, "fueling task", 200 , NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     uartPrint("fueling initialized\r\n");
     return 1;
   } else {
@@ -50,9 +53,15 @@ static void prvFuelingTask( void *pvParameters )
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fueling, pdFALSE, pdTRUE, portMAX_DELAY );
     if(uxBits == EV_GROUP_fueling){
 
-
+      int fuelType = getFuelTypeAndReset();
+      if(fuelType == -1) continue; //error in fueltype dialog
+      float fuelPrice = getPrice(fuelType);
       //do stuff here
-      //uartPrint("fueling task's turn\r\n");
+      char line1[16];
+      char line2[16];
+      sprintf(line1, "Fuel Type: %i",fuelType);
+      sprintf(line2, "Price: %4.2f",fuelPrice);
+      sendToLcd(line1,line2);
       //vTaskDelay( xBlockTime );
       //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );

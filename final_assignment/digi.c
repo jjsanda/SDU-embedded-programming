@@ -12,7 +12,7 @@
 
 
 static QueueHandle_t xQueueDigi = NULL;
-static INT16U pDigiValue = 0;
+//static INT16U pDigiValue = 0;
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -32,7 +32,7 @@ int getDigiRotation(){
 BOOLEAN init_digi( void ){
   xQueueDigi = xQueueCreate( 100, sizeof( INT16U ) ); //l = left turn, r=right turn
   if( xQueueDigi != NULL ){
-    xTaskCreate( prvDigiTask, "digi task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
+    xTaskCreate( prvDigiTask, "digi task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ) , NULL );
     uartPrint("digi initialized\r\n");
     return 1;
   } else {
@@ -105,6 +105,7 @@ static void prvDigiTask( void *pvParameters )
 
 
         vTaskDelay(pdMS_TO_TICKS(1));
+        //vTaskDelay( 1 );
 
 
 

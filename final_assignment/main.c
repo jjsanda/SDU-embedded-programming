@@ -48,7 +48,7 @@ int main(void)
 *   Output   :
 *   Function :
 ******************************************************************************/
-    {
+{
   init_gpio();
 
   EventBits_t uxBits;

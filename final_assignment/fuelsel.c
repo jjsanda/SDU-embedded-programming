@@ -12,7 +12,7 @@
 #include "print.h"
 #include "fuelsel.h"
 #include "main.h"
-
+#include <stdlib.h>
 
 static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
 static float pFuelselDieselPrice = 8.49;
@@ -24,8 +24,8 @@ static int fuelSelState = 0;
 static void prvFuelselTask( void *pvParameters );
 
 /* getter and setters */
-int getPrice(int fuel_type){
-  int fuelselPrice = -1;
+float getPrice(int fuel_type){
+  float fuelselPrice = -1;
   if( xSemaphoreTake( xSemaphoreFuelsel, portMAX_DELAY ) ){
     switch(fuel_type){
       case DIESEL:
@@ -43,9 +43,6 @@ int getPrice(int fuel_type){
   return fuelselPrice; //-1 if error, value else
 }
 
-static void getFuelTypeAndReset(){
-
-}
 int setPrice(float fuelselPrice, int fuel_type){
   int success = -1;
   if( xSemaphoreTake( xSemaphoreFuelsel, portMAX_DELAY ) ){
@@ -94,6 +91,23 @@ BOOLEAN init_fuelsel( void ){
 #define FUELSEL_ERROR      7
 
 
+int getFuelTypeAndReset(){
+  switch(fuelSelState){
+    case FUELSEL_SEL_DIESEL:
+      fuelSelState = FUELSEL_INIT;
+      return DIESEL;
+    case FUELSEL_SEL_L92:
+      fuelSelState = FUELSEL_INIT;
+      return LEAD_FREE_92;
+    case FUELSEL_SEL_L95:
+      fuelSelState = FUELSEL_INIT;
+      return LEAD_FREE_95;
+    default: //error occureced should only request this function if selection dialog was finished
+      uartPrint("\r\nERROR: requested getFuelTypeAndReset before selection dialog was finished\r\n");
+      return -1;
+      break;
+  }
+}
 static void waitForFuelSelection(TickType_t xBlockTime){
   unsigned char key = waitForNextKey(xBlockTime);
   if(key == 0){ // no key selected before timeout, display next state
@@ -146,7 +160,7 @@ static void prvFuelselTask( void *pvParameters )
 {
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1500 );
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 2000 );
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fuelsel, pdFALSE, pdTRUE, portMAX_DELAY );
     if(uxBits == EV_GROUP_fuelsel){ // task is unblocked by ev group here
@@ -154,7 +168,7 @@ static void prvFuelselTask( void *pvParameters )
       switch(fuelSelState){
         case FUELSEL_INIT:
           sendToLcd("Select Fueltype","with Numpad");
-          waitForFuelSelection( xBlockTime );
+          waitForFuelSelection( pdMS_TO_TICKS( 3000 ) ); //a little bit more time for reading the instructions
           break;
         case FUELSEL_PRICE_DIESEL:
           sendToLcd("1 for Diesel","Price: 8.49 DKK"); //TODO: change to snprintf

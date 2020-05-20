@@ -17,24 +17,24 @@ static QueueHandle_t xQueuePrintTX = NULL;
 // static function declarations. static fns must be declared before first use.
 static void prvRxTask( void *pvParameters );
 static void prvTxTask( void *pvParameters );
-
-void getNextLine(unsigned char * stringLineBuf, int maxLineLength, TickType_t xTicksToWaitForChar){
-  unsigned char ucReceivedValue;
-  int i = 0;
-  //pseudocode
-  //do{
-  //  xQueueReceive( xQueuePrintRX, &ucReceivedValue, xTicksToWait );
-  //  stringLineBuf[i++] = ucReceivedValue;
-  //} while(ucReceivedValue != '\r' && i < maxLineLength)
-  stringLineBuf[i++] = '\0';
-  return 1;
-}
+//
+//void getNextLine(unsigned char * stringLineBuf, int maxLineLength, TickType_t xTicksToWaitForChar){
+//  unsigned char ucReceivedValue;
+//  int i = 0;
+//  //pseudocode
+//  //do{
+//  //  xQueueReceive( xQueuePrintRX, &ucReceivedValue, xTicksToWait );
+//  //  stringLineBuf[i++] = ucReceivedValue;
+//  //} while(ucReceivedValue != '\r' && i < maxLineLength)
+//  stringLineBuf[i++] = '\0';
+//  return 1;
+//}
 //xSerialGetChar( xPort, &cRxedChar, portMAX_DELAY ) != pdPASS
-void uartGetChar(unsigned char * charBuf, TickType_t xTicksToWaitForChar){
+BaseType_t uartGetChar(unsigned char * charBuf, TickType_t xTicksToWaitForChar){
   return xQueueReceive( xQueuePrintRX, charBuf, xTicksToWaitForChar );
 }
 //xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
-void uartPutChar(unsigned char sendChar, TickType_t xTicksToWaitForChar){
+BaseType_t uartPutChar(unsigned char sendChar, TickType_t xTicksToWaitForChar){
   return xQueueSend( xQueuePrintTX, &sendChar, xTicksToWaitForChar );
 }
 void uartStrcpy(char* target, char* source1){

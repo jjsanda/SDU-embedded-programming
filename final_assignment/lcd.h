@@ -43,6 +43,7 @@
 
 /*****************************   Functions   *******************************/
 void wr_str_LCD( INT8U* );
+int sendToLcd(char* line1, char* line2);
 void move_LCD( INT8U, INT8U );
 INT8U wr_ch_LCD( INT8U Ch );
 
