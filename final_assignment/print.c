@@ -10,8 +10,13 @@
 #include "emp_type.h"
 #include "uart.h"
 
+#define LOG_WARNINGS 1
+#define LOG_ERRORS 1
+#define LOG_DEBUG 1
+
 static QueueHandle_t xQueuePrintRX = NULL;
 static QueueHandle_t xQueuePrintTX = NULL;
+static SemaphoreHandle_t xPrintMutex = NULL;
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -56,7 +61,43 @@ void uartConcat(char* target, char* source1, char* source2){
 }
 
 void uartPrint(char *string){
+  if( xSemaphoreTake( xPrintMutex, portMAX_DELAY ) ){ //make sure the whole string is written at once
+    while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 0U );
+    xSemaphoreGive( xPrintMutex );
+  }
+}
+void uartPrint_unsafe(char *string){
   while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 0U );
+}
+void uartWarning(char *string){
+  if(LOG_WARNINGS){
+    if( xSemaphoreTake( xPrintMutex, portMAX_DELAY ) ){ //make sure the whole string is written at once
+      uartPrint_unsafe("\r\nWARNING: ");
+      uartPrint_unsafe(string);
+      uartPrint_unsafe("\r\n>");
+      xSemaphoreGive( xPrintMutex );
+    }
+  }
+}
+void uartError(char *string){
+  if(LOG_ERRORS){
+    if( xSemaphoreTake( xPrintMutex, portMAX_DELAY ) ){ //make sure the whole string is written at once
+      uartPrint_unsafe("\r\nERROR: ");
+      uartPrint_unsafe(string);
+      uartPrint_unsafe("\r\n>");
+      xSemaphoreGive( xPrintMutex );
+    }
+  }
+}
+void uartDebug(char *string){
+  if(LOG_DEBUG){
+    if( xSemaphoreTake( xPrintMutex, portMAX_DELAY ) ){ //make sure the whole string is written at once
+      uartPrint_unsafe("\r\nDEBUG: ");
+      uartPrint_unsafe(string);
+      uartPrint_unsafe("\r\n>");
+      xSemaphoreGive( xPrintMutex );
+    }
+  }
 }
 void uartPrintDec(char * buf, int val, INT8U size){
   int weight = 1, i=0;
@@ -81,14 +122,18 @@ void uartPrint16U(INT16U val, INT8U size){
   uartPrint(buf);
 }
 void uartBlockingPrint(char *string){
-  while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 10U );
+  if( xSemaphoreTake( xPrintMutex, portMAX_DELAY ) ){ //make sure the whole string is written at once
+    while(*string!='\0') xQueueSend( xQueuePrintTX, (unsigned char *) string++, 0 );
+    xSemaphoreGive( xPrintMutex );
+  }
 }
 /*-----------------------------------------------------------*/
 BOOLEAN init_print( void ){
   uart0_init( 9600, 8, 1, 'n' );
   xQueuePrintRX = xQueueCreate( 1024, sizeof( unsigned char ) );
   xQueuePrintTX = xQueueCreate( 1024, sizeof( unsigned char ) );
-  if( xQueuePrintRX != NULL && xQueuePrintTX != NULL ){
+  xPrintMutex = xSemaphoreCreateMutex();
+  if( xQueuePrintRX != NULL && xQueuePrintTX != NULL && xPrintMutex != NULL){
     xTaskCreate( prvRxTask, "print-RX", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     xTaskCreate( prvTxTask, "print-TX", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 4 ), NULL );
     uartPrint("\r\nprint initialized\r\n");

@@ -17,25 +17,18 @@
 *
 *****************************************************************************/
 
-#ifndef _PRINT_H
-  #define _PRINT_H
-#include "emp_type.h"
-
+#ifndef _REPORT_COMMANDS_H
+  #define _REPORT_COMMANDS_H
 
 /***************************** Include files *******************************/
 
 /*****************************    Defines    *******************************/
-
+#define MAX_LOG_ENTRYS 8
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-void uartPrint(char *string);
-void uartWarning(char *string);
-void uartError(char *string);
-void uartDebug(char *string);
-void uartPrintDec(char * buf, int val, INT8U size);
-void uartConcat(char* target, char* source1, char* source2);
-BOOLEAN init_print( void );
+void appendLogEntry(long time, int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput);
+void vRegisterReportCLICommands( void );
 /*****************************************************************************
 *   Input    : -
 *   Output   : -

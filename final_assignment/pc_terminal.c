@@ -86,52 +86,21 @@ static INT16U pPc_terminalValue = 0;
 // static function declarations. static fns must be declared before first use.
 static void prvUARTCommandConsoleTask( void *pvParameters );
 
-/* getter and setters */
-INT16U get_pc_terminal(){
-  INT16U pc_terminalVal = -1;
-  if( xSemaphoreTake( xSemaphorePc_terminal, portMAX_DELAY ) ){
-    pc_terminalVal = pPc_terminalValue;
-    xSemaphoreGive( xSemaphorePc_terminal );
-  }
-  return pc_terminalVal; //-1 if error, value else
-}
-
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_pc_terminal( void ){
   xTxMutex = xSemaphoreCreateMutex();
   //vRegisterSampleCLICommands();
   vRegisterFuelCLICommands();
+  vRegisterReportCLICommands();
   if( xTxMutex != NULL ){
-    xTaskCreate( prvUARTCommandConsoleTask, "pc_terminal task", 300, NULL, ( tskIDLE_PRIORITY + 1 ), NULL );
+    xTaskCreate( prvUARTCommandConsoleTask, "pc_terminal task", 300, NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     uartPrint("pc_terminal initialized\r\n");
     return 1;
   } else {
     return 0;
   }
 }
-
-static void prvPc_terminalTask( void *pvParameters )
-{
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
-  for( ;; ){
-    if( xSemaphoreTake( xSemaphorePc_terminal, 0 ) ){
-
-       //work with pPc_terminalValue
-
-      xSemaphoreGive( xSemaphorePc_terminal );
-    }
-    vTaskDelay( xBlockTime );
-  }
-}
-
-
-
-
-
-
-
-
 
 
 
