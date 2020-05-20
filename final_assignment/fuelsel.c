@@ -18,6 +18,8 @@ static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
 static float pFuelselDieselPrice = 8.49;
 static float pFuelselLeadfr92Price = 8.79;
 static float pFuelselLeadfr95Price = 8.12;
+//global value of choice fuel diesel=0;92=1;95=2 
+static INT16U pFuelSelValue = -1 //global value of choice fuel diesel=0;92=1;95=2 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvFuelselTask( void *pvParameters );
@@ -80,29 +82,57 @@ BOOLEAN init_fuelsel( void ){
 
 static void prvFuelselTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fuelsel, pdFALSE, pdTRUE, portMAX_DELAY );
     if(uxBits == EV_GROUP_fuelsel){
 
+      const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+      unsigned char pFuelselValueTemp = -1; 
+      unsigned char ucReceivedValue;
+      char ch2str[2];
+      for( ;; ){
+        if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
 
-      //do stuff here
-      //uartPrint("fuel selection task's turn\r\n");
-      //vTaskDelay( xBlockTime );
-      //uartPrint("giving to next task in 1sec \r\n");
+          // print choices
+          sendToLcd("choice fuel =>", "dies=0;92=1;95=2")
+          // get key value
+
+          while (pFuelselValueTemp < 0) // be in while until he presses the correct button
+          {
+            xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY );
+
+            // print key for debug
+            uartPrint("\r\nselected fuel: ");
+            ch2str[0]=ucReceivedValue; ch2str[1]='\0';
+            uartPrint(ch2str);
+            uartPrint("\r\n");
+            // /print
+
+            switch(ucReceivedValue){
+              case "0":
+                pFuelselValueTemp = DIESEL;
+                break;
+              case "1":
+                pFuelselValueTemp = LEAD_FREE_92;
+                break;
+              case "2":
+                pFuelselValueTemp = LEAD_FREE_95;
+                break;
+              default:
+                sendToLcd("bad key", "dies=0;92=1;95=2")
+            }
+          }
+
+          pFuelselValue = pFuelselValueTemp;
+          xSemaphoreGive( xSemaphoreFuelsel );
+        }
+          uartPrint("fuelsel beeep\r\n");
+          vTaskDelay( xBlockTime );
+      uartPrint("fuel selection task's turn\r\n");
       vTaskDelay( xBlockTime );
-
-
-
-      //    if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
-      //
-      //       //work with pFuelselValue
-      //
-      //      xSemaphoreGive( xSemaphoreFuelsel );
-      //    }
-      //uartPrint("fuelsel beeep\r\n");
+      uartPrint("giving to next task in 1sec \r\n");
 
       //if done - give to next task:
       uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
@@ -115,6 +145,7 @@ static void prvFuelselTask( void *pvParameters )
       }
     }
   }
+  return pFuelSelValue //-1 if error, price of fuel else
 }
 
 /*-----------------------------------------------------------*/

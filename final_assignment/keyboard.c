@@ -17,8 +17,12 @@ static QueueHandle_t xQueueKeyboard = NULL;
 static void prvKeyboardTask( void *pvParameters );
 
 /* --- public getter & setter functions ---*/
-int waitForNextKey(unsigned char keyBuffer, TickType_t xTicksToWait){
-  return xQueueReceive( xQueueKeyboard, &keyBuffer, xTicksToWait );
+int waitForNextKey(){
+    unsigned char keyBuffer;
+    if (xQueueReceive(xQueueKeyboard, &keyBuffer, 0) == pdTRUE)
+        return keyBuffer;
+    else
+        return 0;
 }
 
 /*-----------------------------------------------------------*/

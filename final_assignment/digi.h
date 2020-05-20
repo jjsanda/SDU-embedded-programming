@@ -27,6 +27,7 @@
 #define inputA (GPIO_PORTA_DATA_R & 0x20)
 #define inputB (GPIO_PORTA_DATA_R & 0x40)
 
+
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
