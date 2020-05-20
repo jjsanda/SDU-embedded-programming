@@ -125,7 +125,7 @@ static void prvPaymentTask( void *pvParameters )
                 cardNr =0;
                 count = 0;
                 validCard = 1;
-                send_LCD("Card and pin", " is korrect");
+                sendToLcd("Card and pin", " is korrect");
 
             }
             else if (cardNr == 0 && pinNr == 4 && count >= 12)             //Even card number and odd pin number
@@ -134,7 +134,7 @@ static void prvPaymentTask( void *pvParameters )
                 cardNr = 0;
                 count = 0;
                 validCard = 1;
-                send_LCD("Card and pin", " is korrect");
+                sendToLcd("Card and pin", " is korrect");
             }
             else if (count >= 12 && validCard != 1)
             {
@@ -142,7 +142,7 @@ static void prvPaymentTask( void *pvParameters )
                 pinNr = 0;
                 cardNr = 0;
                 count = 0;
-                send_LCD("Card or pin", "not korrect");
+                sendToLcd("Card or pin", "not korrect");
             }
                         
         }
@@ -168,7 +168,7 @@ static void prvPaymentTask( void *pvParameters )
                 outputLCD[1] = ((cashSum % 1000) / 100) + '0';
                 outputLCD[2] = ((cashSum % 100) / 10) + '0';
                 outputLCD[3] = ((cashSum % 10) / 1) + '0';
-                send_LCD("Total value", outputLCD);
+                sendToLcd("Total value", outputLCD);
             }
         }
   
