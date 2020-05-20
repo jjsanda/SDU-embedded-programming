@@ -17,9 +17,9 @@ static QueueHandle_t xQueueKeyboard = NULL;
 static void prvKeyboardTask( void *pvParameters );
 
 /* --- public getter & setter functions ---*/
-int waitForNextKey(){
+unsigned char waitForNextKey(TickType_t xTicksToWait){ //pleaseeee use wait here and do not change to zero... Need this for fuelsel
     unsigned char keyBuffer;
-    if (xQueueReceive(xQueueKeyboard, &keyBuffer, 0) == pdTRUE)
+    if (xQueueReceive(xQueueKeyboard, &keyBuffer, xTicksToWait) == pdTRUE)
         return keyBuffer;
     else
         return 0;

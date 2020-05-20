@@ -28,7 +28,7 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-int waitForNextKey();
+unsigned char waitForNextKey();
 INT16U get_example();
 INT8U row( INT8U y );
 INT8U key_catch( INT8U x, INT8U y);

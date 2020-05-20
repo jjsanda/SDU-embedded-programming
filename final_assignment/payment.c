@@ -73,12 +73,12 @@ static void prvPaymentTask( void *pvParameters )
     if (uxBits == EV_GROUP_payment) {
        
         if (!CARD && !CASH)
-            send_LCD("Press * for card", "Press # for cash");
+            sendToLcd("Press * for card", "Press # for cash");
         
         key = waitForNextKey();
         if (key == '*')
         {
-            send_LCD("Enter card number","");
+            sendToLcd("Enter card number","");
             CARD = 1;
         }
             
@@ -127,13 +127,13 @@ static void prvPaymentTask( void *pvParameters )
                 pinNr = 0;
                 cardNr = 0;
                 count = 0;
-                send_LCD("Card and pin", " is korrect");
+                sendToLcd("Card and pin", " is korrect");
             }
 //            else
 //            {
 //                pinNr = 0;
 //                cardNr = 0;
-//                send_LCD("Card or pin", "not korect");
+//                sendToLcd("Card or pin", "not korect");
 //            }
                         
         }
@@ -144,7 +144,7 @@ static void prvPaymentTask( void *pvParameters )
         if (key == '#' && !CASH && !CARD)
         {
             key = 0;
-            send_LCD("Turn digiswitch", "R = 100 & L = 10");;
+            sendToLcd("Turn digiswitch", "R = 100 & L = 10");;
             CASH = 1;
         }
 
@@ -160,7 +160,7 @@ static void prvPaymentTask( void *pvParameters )
                 output[2] = ((cashSum % 100) / 10) + '0';
                 output[3] = ((cashSum % 10) / 1) + '0';
 
-                send_LCD("Total value", output);
+                sendToLcd("Total value", output);
             }
         }
   

@@ -18,8 +18,7 @@ static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
 static float pFuelselDieselPrice = 8.49;
 static float pFuelselLeadfr92Price = 8.79;
 static float pFuelselLeadfr95Price = 8.12;
-//global value of choice fuel diesel=0;92=1;95=2 
-static INT16U pFuelSelValue = -1; //global value of choice fuel diesel=0;92=1;95=2
+static int fuelSelState = 0;
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvFuelselTask( void *pvParameters );
@@ -42,6 +41,10 @@ int getPrice(int fuel_type){
     xSemaphoreGive( xSemaphoreFuelsel );
   }
   return fuelselPrice; //-1 if error, value else
+}
+
+static void getFuelTypeAndReset(){
+
 }
 int setPrice(float fuelselPrice, int fuel_type){
   int success = -1;
@@ -80,72 +83,79 @@ BOOLEAN init_fuelsel( void ){
   return 0;
 }
 
+
+#define FUELSEL_INIT         0
+#define FUELSEL_PRICE_DIESEL 1
+#define FUELSEL_PRICE_L92    2
+#define FUELSEL_PRICE_L95    3
+#define FUELSEL_SEL_DIESEL   4
+#define FUELSEL_SEL_L92      5
+#define FUELSEL_SEL_L95      6
+
+
+static void waitForFuelSelection(TickType_t xBlockTime){
+  unsigned char key = waitForNextKey(xBlockTime);
+  if(key == 0){ // no key selected before timeout, display next state
+
+  } else { //
+
+  }
+}
+
+static void setEVGroupFueling(EventGroupHandle_t localTaskEventGroup){
+  //if done - give to next task:
+  EventBits_t uxBits;
+  uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
+  if(uxBits != EV_GROUP_fuelsel){
+    uartPrint("ERROR: clear of EV_GROUP_fuesel was not successful\r\n");
+  }
+  uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_fueling ); // set bits for next task to be unblocked
+  if(uxBits != EV_GROUP_fueling){
+    uartPrint("ERROR: set of EV_GROUP_fueling was not successful\r\n");
+  }
+}
+
 static void prvFuelselTask( void *pvParameters )
 {
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 1500 );
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fuelsel, pdFALSE, pdTRUE, portMAX_DELAY );
-    if(uxBits == EV_GROUP_fuelsel){
-
-      const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
-      unsigned char pFuelselValueTemp = -1; 
-      unsigned char ucReceivedValue;
-      char ch2str[2];
-      for( ;; ){
-        if( xSemaphoreTake( xSemaphoreFuelsel, 0 ) ){ //or use getPrice
-
-          // print choices
-          sendToLcd("choice fuel =>", "dies=0;92=1;95=2");
-          // get key value
-
-          while (pFuelselValueTemp < 0) // be in while until he presses the correct button
-          {
-            //xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY ); cant use that here...
-
-            // print key for debug
-            uartPrint("\r\nselected fuel: ");
-            ch2str[0]=ucReceivedValue; ch2str[1]='\0';
-            uartPrint(ch2str);
-            uartPrint("\r\n");
-            // /print
-
-            switch(ucReceivedValue){
-              case '0':
-                pFuelselValueTemp = DIESEL;
-                break;
-              case '1':
-                pFuelselValueTemp = LEAD_FREE_92;
-                break;
-              case '2':
-                pFuelselValueTemp = LEAD_FREE_95;
-                break;
-              default:
-                sendToLcd("bad key", "dies=0;92=1;95=2");
-            }
-          }
-
-          pFuelSelValue = pFuelselValueTemp;
-          xSemaphoreGive( xSemaphoreFuelsel );
-        }
-          uartPrint("fuelsel beeep\r\n");
+    if(uxBits == EV_GROUP_fuelsel){ // task is unblocked by ev group here
+      //getPrice
+      switch(fuelSelState){
+        case FUELSEL_INIT:
+          sendToLcd("Select Fueltype","with Numpad");
+          break;
+        case FUELSEL_PRICE_DIESEL:
+          sendToLcd("1 for Diesel","Price: 8.49 DKK");
+          break;
+        case FUELSEL_PRICE_L92:
+          sendToLcd("2 Leadfr. 92","Price: 8.49 DKK");
+          break;
+        case FUELSEL_PRICE_L95:
+          sendToLcd("3 Leadfr. 95","Price: 8.49 DKK");
+          break;
+        case FUELSEL_SEL_DIESEL:
+          sendToLcd("Diesel selected","");
           vTaskDelay( xBlockTime );
-      uartPrint("fuel selection task's turn\r\n");
-      vTaskDelay( xBlockTime );
-      uartPrint("giving to next task in 1sec \r\n");
+          setEVGroupFueling(localTaskEventGroup);
+          break;
+        case FUELSEL_SEL_L92:
+          sendToLcd("Leadfree 92","selected");
+          vTaskDelay( xBlockTime );
+          setEVGroupFueling(localTaskEventGroup);
+          break;
+        case FUELSEL_SEL_L95:
+          sendToLcd("Leadfree 95","selected");
+          vTaskDelay( xBlockTime );
+          setEVGroupFueling(localTaskEventGroup);
+          break;
 
-      //if done - give to next task:
-      uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fuelsel ); // clear current bits first
-      if(uxBits != EV_GROUP_fuelsel){
-        uartPrint("ERROR: clear of EV_GROUP_fuesel was not successful\r\n");
-      }
-      uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_fueling ); // set bits for next task to be unblocked
-      if(uxBits != EV_GROUP_fueling){
-        uartPrint("ERROR: set of EV_GROUP_fueling was not successful\r\n");
       }
     }
   }
-  return pFuelSelValue; //-1 if error, price of fuel else
 }
 
 /*-----------------------------------------------------------*/
