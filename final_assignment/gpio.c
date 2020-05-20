@@ -46,11 +46,16 @@ void init_gpio(void)
   // Do a dummy read to insert a few cycles after enabling the peripheral.
   dummy = SYSCTL_RCGC2_R;
 
+  GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;   //To unlock switch 2
+  GPIO_PORTF_CR_R |= 0x01;             //To enable switch 2
+
   // Set the direction as output (PF1, PF2 and PF3).
   GPIO_PORTA_DIR_R = 0x1C;
   GPIO_PORTC_DIR_R = 0xF0;
   GPIO_PORTD_DIR_R = 0x4C;
   GPIO_PORTF_DIR_R = 0x0E;
+
+
 
   // Enable the GPIO pins for digital function (PF0, PF1, PF2, PF3, PF4).
   GPIO_PORTA_DEN_R = 0xFC;

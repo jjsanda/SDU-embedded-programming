@@ -6,6 +6,7 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
+#include "timers.h"
 #include "event_groups.h"
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
@@ -14,9 +15,16 @@
 #include "print.h"
 #include "lcd.h"
 #include "payment.h"
+#include "fueling.h"
+
+
 
 static SemaphoreHandle_t xSemaphoreFueling = NULL;
 static INT16U pFuelingValue = 0;
+float timerCallBackTimeSekunds = 1.0;
+static TimerHandle_t fuelPulse = NULL;
+int fuelingState = INIT;
+float deliveredGas = 0;
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -32,9 +40,47 @@ INT16U get_fueling(){
   return fuelingVal; //-1 if error, value else
 }
 
+void callBackFunction(TimerHandle_t localFuelPulse)
+{
+    int callBackCount;
+
+    callBackCount = (int)pvTimerGetTimerID(fuelPulse);
+    callBackCount++; 
+  
+
+    switch (fuelingState)
+    {
+    case START_FUELING:
+        deliveredGas += 0.05 / timerCallBackTimeSekunds;
+        if (callBackCount >= (2 / timerCallBackTimeSekunds))
+            fuelingState = FUELING;
+        else
+            vTimerSetTimerID(fuelPulse, (void*)callBackCount);
+        break;
+    case FUELING:
+        deliveredGas += 0.3 / timerCallBackTimeSekunds;
+        break;
+    case END_FUELING:
+        deliveredGas += 0.05 / timerCallBackTimeSekunds;
+        if (callBackCount >= (5 / timerCallBackTimeSekunds))
+        {
+            fuelingState = FUELING_TERMINATE;
+            uartPrint("Fueling has been terminated\r\n");
+        }
+        else
+        {
+            vTimerSetTimerID(fuelPulse, (void*)callBackCount);
+            uartPrint("ved at være slut med fueling\r\n");
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_fueling( void ){
+    fuelPulse = xTimerCreate("Timer", pdMS_TO_TICKS(1000 * timerCallBackTimeSekunds ), pdTRUE, (void*) 0, callBackFunction) ;
   xSemaphoreFueling = xSemaphoreCreateMutex();
   if( xSemaphoreFueling != NULL ){
     xTaskCreate( prvFuelingTask, "fueling task", 200 , NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
@@ -45,167 +91,116 @@ BOOLEAN init_fueling( void ){
   }
 }
 
+static void setEVGroupPayment(EventGroupHandle_t localTaskEventGroup) {
+
+    //if done - give to next task:
+    EventBits_t uxBits;
+    uxBits = xEventGroupClearBits(localTaskEventGroup, EV_GROUP_fueling); // clear current bits first
+    if (uxBits != EV_GROUP_fueling) {
+        uartPrint("ERROR: clear of EV_GROUP_fueling was not successful\r\n");
+    }
+    uxBits = xEventGroupSetBits(localTaskEventGroup, EV_GROUP_payment); // set bits for next task to be unblocked
+    if (uxBits != EV_GROUP_payment) {
+        uartPrint("ERROR: set of EV_GROUP_payment was not successful\r\n");
+    }
+}
+
+
 static void prvFuelingTask( void *pvParameters )
 {
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+    float priceDifferece = 0;
+    float totalPrice = 0;
+    int fuelType = 0;
+    float fuelPrice = 0.0;
+    int cashSum = 0;
+    int paymentType = 0;
+    char line1[16];
+    char line2[16]; 
+    INT8U fuelNozzle = 0;
+
+  const TickType_t xBlockTime = pdMS_TO_TICKS( 50 );
+
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_fueling, pdFALSE, pdTRUE, portMAX_DELAY );
     if(uxBits == EV_GROUP_fueling){
 
-      int fuelType = getFuelTypeAndReset();
-      if(fuelType == -1) continue; //error in fueltype dialog
-      float fuelPrice = getPrice(fuelType);
-
-      int cashSum = getCashSum();
-      int paymentType = getPaymentType();
-
-      //do stuff here
-      char line1[16];
-      char line2[16];
-      sprintf(line1, "Fuel Type: %i",fuelType);
-      sprintf(line2, "Price: %4.2f",fuelPrice);
-      sendToLcd(line1,line2);
-      //vTaskDelay( xBlockTime );
-      //uartPrint("giving to next task in 1sec \r\n");
-      vTaskDelay( xBlockTime );
-      sprintf(line1, "Pay Type: %i",paymentType);
-      sprintf(line2, "Cash: %i",cashSum);
-      sendToLcd(line1,line2);
-
-
-      //    if( xSemaphoreTake( xSemaphoreFueling, 0 ) ){
-      //
-      //       //work with pFuelingValue
-      //
-      //      xSemaphoreGive( xSemaphoreFueling );
-      //    }
-      //    vTaskDelay( xBlockTime );
-
-
-      //if done - give to next task:
-      uxBits = xEventGroupClearBits( localTaskEventGroup, EV_GROUP_fueling ); // clear current bits first
-      if(uxBits != EV_GROUP_fueling){
-        uartPrint("ERROR: clear of EV_GROUP_fueling was not successful\r\n");
-      }
-      uxBits = xEventGroupSetBits( localTaskEventGroup, EV_GROUP_payment ); // set bits for next task to be unblocked
-      if(uxBits != EV_GROUP_payment){
-        uartPrint("ERROR: set of EV_GROUP_payment was not successful\r\n");
-      }
-    }
-  }
-}
-
-
-/*-----------------------------------------------------------*/
-/*
- * EXAMPLE Code for freeRTOS state machine. I guess fueling task should be done in a simmilar manner
- *
-#define IDLE          0
-#define MENU_OPTIONS  1
-#define EDIT_OFFSET   2
-#define EDIT_SCALE    3
-
-static void prvUiTask( void *pvParameters )
-{
-  unsigned char ucReceivedValue;
-  char ch2str[2];
-  INT8U state = 0;
-
-  INT16U local_offset = 0;
-  char offset_buf[9];
-  INT16U local_scale = 0;
-  char scale_buf[9];
-  INT8U digit = 100;
-
-  for( ;; )
-  {
-    // press any key to enter in menu mode:
-    xQueueReceive( xQueueKeyboard, &ucReceivedValue, portMAX_DELAY );
-
-    //TIL: print key for debugging
-    uartPrint("\r\nkey: ");
-    ch2str[0]=ucReceivedValue; ch2str[1]='\0';
-    uartPrint(ch2str);
-    uartPrint("\r\n");
-
-    switch(state) {
+       
+      switch (fuelingState)
+      {
+      case INIT: 
+          GPIO_PORTF_DATA_R &= ledOFF;
+          fuelType = getFuelTypeAndReset();
+          fuelPrice = getPrice(fuelType);
+          cashSum = getCashSum();
+          paymentType = getPaymentType();
+          fuelingState = IDLE;
+          break;
       case IDLE:
-        lcd_send("Options - exit:*",
-                 "offset:1 scale:2");
-        state = MENU_OPTIONS;
-        lcd_take();
-        break;
-      case MENU_OPTIONS:
-        if(ucReceivedValue=='1'){
-          lcd_send("type in offset",
-                   "submit with #");
-          state = EDIT_OFFSET;
-        } else if(ucReceivedValue=='2'){
-          lcd_send("type in scale",
-                   "submit with #");
-          state = EDIT_SCALE;
-        } else if(ucReceivedValue=='*'){
-          lcd_send("exit","");
-          state = IDLE;
-          lcd_give();
-        } else {
-          lcd_send("Options - 1: offset",
-                   "2: scale, *: exit");
-        }
-        break;
-      case EDIT_OFFSET:
-        digit = ucReceivedValue - 48; //48 is ascii offset
-        if(digit >= 0 && digit <= 9){
-          local_offset *= 10;
-          local_offset += digit;
-          local_offset %= 10000; //make sure it only uses 5 digits
-          uartPrintDec(offset_buf, local_offset, 4);
-          lcd_send("new offset:", offset_buf);
-        } else if(ucReceivedValue=='#'){
-          set_offset(local_offset);
-          uartPrintDec(offset_buf, local_offset, 8);
-          lcd_send("saved offset:", offset_buf);
-          state = IDLE;
-          lcd_give();
-        } else if(ucReceivedValue=='*'){
-          lcd_send("exit",
-                   "aborted change");
-          local_offset = 0;
-          state = IDLE;
-          lcd_give();
-        }
-        break;
-      case EDIT_SCALE:
-        digit = ucReceivedValue - 48; //48 is ascii offset
-        if(digit >= 0 && digit <= 9){
-          local_scale *= 10;
-          local_scale += digit;
-          local_scale %= 10000; //make sure it only uses 5 digits
-          uartPrintDec(scale_buf, local_scale, 4);
-          lcd_send("new: scale / 100:", scale_buf);
-        } else if(ucReceivedValue=='#'){
-          float factor = 1;
-          factor = (float) local_scale / 100;
-          set_scalefactor(factor);
-          uartPrintDec(scale_buf, local_scale, 8);
-          lcd_send("saved scale:", scale_buf);
-          state = IDLE;
-          lcd_give();
-        } else if(ucReceivedValue=='*'){
-          lcd_send("exit",
-                   "aborted change");
-          local_offset = 0;
-          state = IDLE;
-          lcd_give();
-        }
-        break;
+          sendToLcd(" Lift nozzle to ", " start fueling");
+          if (!nozzleBoot)
+              fuelingState = LIFTED_NOZZLE;
+          break;
+      case LIFTED_NOZZLE:                                   //The nozzle is lifted but the fueling hasn't started yet. 
+          sprintf(line1, "Added cash: %d", cashSum);
+          sprintf(line2, "Fuel price: %1.2f", fuelPrice);
+          sendToLcd(line1, line2);
+          GPIO_PORTF_DATA_R &= redLED;
+          if (!lever)
+          {
+              xTimerStart(fuelPulse, portMAX_DELAY);    //Start works as a reset of the timer
+              fuelingState = START_FUELING;
+          }         
+          break;
+      case START_FUELING: //Already fueling but slower
+          GPIO_PORTF_DATA_R &=  yellowLED;
+          totalPrice = deliveredGas * fuelPrice;
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sendToLcd(line1, line2);
+          break;
+      case FUELING:                     // The timer will set the state when 2 seconds has passed.
+          totalPrice = deliveredGas * fuelPrice;
+          priceDifferece = cashSum - totalPrice;
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sendToLcd(line1, line2);
+          GPIO_PORTF_DATA_R &= greenLED;
+
+          if (lever || (priceDifferece < 10))
+          {
+              vTimerSetTimerID(fuelPulse, (void * ) 0);
+              fuelingState = END_FUELING;
+          }
+          break;
+      case END_FUELING: // Still fueling but slower
+          totalPrice = deliveredGas * fuelPrice;
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sendToLcd(line1, line2);
+          if (totalPrice < cashSum)
+              vTimerSetTimerID(fuelPulse, (void*)0);
+          GPIO_PORTF_DATA_R &= yellowLED;
+      case FUELING_TERMINATE:
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sendToLcd(line1, line2);
+          uartPrint("Terminated\r\n");
+          xTimerStop(fuelPulse, pdMS_TO_TICKS(1000));
+          //fuelingState = INIT;
+          //setEVGroupPayment(localTaskEventGroup);
+          break;
+
+      default:
+          break;
+      }
+      vTaskDelay(xBlockTime);
+
+
 
     }
-    ucReceivedValue=0;
   }
 }
-*/
-/*-----------------------------------------------------------*/
+
 

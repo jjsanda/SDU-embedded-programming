@@ -89,6 +89,13 @@
 
 #define configUSE_STATS_FORMATTING_FUNCTIONS 1
 
+// Timers
+#define configSUPPORT_DYNAMIC_ALLOCATION 1
+#define configUSE_TIMERS  1
+#define configTIMER_TASK_PRIORITY (tskIDLE_PRIORITY + 3 )
+#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE)
+#define configTIMER_QUEUE_LENGTH 10
+
 
 #define configUSE_PREEMPTION		1
 #define configUSE_IDLE_HOOK			0

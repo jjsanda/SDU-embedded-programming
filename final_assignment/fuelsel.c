@@ -98,7 +98,7 @@ BOOLEAN init_fuelsel( void ){
 #define FUELSEL_SEL_DIESEL   4
 #define FUELSEL_SEL_L92      5
 #define FUELSEL_SEL_L95      6
-#define FUELSEL_ERROR      7
+#define FUELSEL_ERROR        7
 
 
 int getFuelTypeAndReset(){
@@ -113,7 +113,7 @@ int getFuelTypeAndReset(){
       fuelSelState = FUELSEL_INIT;
       return LEAD_FREE_95;
     default: //error occureced should only request this function if selection dialog was finished
-      uartPrint("\r\nERROR: requested getFuelTypeAndReset before selection dialog was finished\r\n");
+      //uartPrint("\r\nERROR: requested getFuelTypeAndReset before selection dialog was finished\r\n");
       return -1;
       break;
   }

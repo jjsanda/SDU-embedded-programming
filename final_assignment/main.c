@@ -29,6 +29,7 @@
 #include "print.h"
 #include "digi.h"
 #include "main.h"
+#include "timers.h"
 
 #include "fueling.h"
 #include "payment.h"
@@ -37,11 +38,15 @@
 
 static EventGroupHandle_t xTaskEventGroup = NULL; //non static so we can access it from outside
 
-
 /*****************************   Functions   *******************************/
 EventGroupHandle_t getEvGroup(){
   return xTaskEventGroup;
 }
+
+
+
+
+
 int main(void)
 /*****************************************************************************
 *   Input    :
@@ -50,6 +55,7 @@ int main(void)
 ******************************************************************************/
 {
   init_gpio();
+
 
   EventBits_t uxBits;
   xTaskEventGroup = xEventGroupCreate();
@@ -65,6 +71,8 @@ int main(void)
   BOOLEAN payment = init_payment();   // Payment Task
   BOOLEAN fuelsel = init_fuelsel();   // Fuelselection Task
   BOOLEAN fueling = init_fueling();   // Fueling Task
+  
+  
 
 
   if( print && lcd && keyboard && digi && fueling && payment && fuelsel) {
