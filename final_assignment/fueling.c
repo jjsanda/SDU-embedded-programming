@@ -13,6 +13,7 @@
 #include "fuelsel.h"
 #include "print.h"
 #include "lcd.h"
+#include "payment.h"
 
 static SemaphoreHandle_t xSemaphoreFueling = NULL;
 static INT16U pFuelingValue = 0;
@@ -56,6 +57,10 @@ static void prvFuelingTask( void *pvParameters )
       int fuelType = getFuelTypeAndReset();
       if(fuelType == -1) continue; //error in fueltype dialog
       float fuelPrice = getPrice(fuelType);
+
+      int cashSum = getCashSum();
+      int paymentType = getPaymentType();
+
       //do stuff here
       char line1[16];
       char line2[16];
@@ -65,6 +70,9 @@ static void prvFuelingTask( void *pvParameters )
       //vTaskDelay( xBlockTime );
       //uartPrint("giving to next task in 1sec \r\n");
       vTaskDelay( xBlockTime );
+      sprintf(line1, "Pay Type: %i",paymentType);
+      sprintf(line2, "Cash: %i",cashSum);
+      sendToLcd(line1,line2);
 
 
       //    if( xSemaphoreTake( xSemaphoreFueling, 0 ) ){

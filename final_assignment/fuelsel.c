@@ -42,6 +42,16 @@ float getPrice(int fuel_type){
   }
   return fuelselPrice; //-1 if error, value else
 }
+//char * getFuelTypeName(int fuel_type){
+//  switch(fuel_type){
+//    case DIESEL:
+//      return "Diesel";
+//    case LEAD_FREE_92:
+//      return "Leadfr. 92";
+//    case LEAD_FREE_95:
+//      return "Leadfr. 95";
+//  }
+//}
 
 int setPrice(float fuelselPrice, int fuel_type){
   int success = -1;

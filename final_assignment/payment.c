@@ -15,25 +15,23 @@
 #include "digi.h"
 #include "keyboard.h"
 #include "lcd.h"
+#include "payment.h"
 
 static SemaphoreHandle_t xSemaphorePayment = NULL;
-static INT16U pPaymentValue = 0;
+static int finalCashSum = 0;
+static int finalPaymentType = NO_PAYMENT_TYPE;
 
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
 static void prvPaymentTask( void *pvParameters );
 
-/* getter and setters */
-INT16U get_payment(){
-  INT16U paymentVal = -1;
-  if( xSemaphoreTake( xSemaphorePayment, portMAX_DELAY ) ){
-    paymentVal = pPaymentValue;
-    xSemaphoreGive( xSemaphorePayment );
-  }
-  return paymentVal; //-1 if error, value else
+int getCashSum(){
+  return finalCashSum;
 }
-
+int getPaymentType(){
+  return finalPaymentType;
+}
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_payment( void ){
@@ -69,6 +67,8 @@ static void prvPaymentTask( void *pvParameters )
   for( ;; ){
     uxBits = xEventGroupWaitBits( localTaskEventGroup, EV_GROUP_payment, pdFALSE, pdTRUE, portMAX_DELAY );
     if (uxBits == EV_GROUP_payment) {
+      finalCashSum = 0;
+      finalPaymentType = NO_PAYMENT_TYPE;
        
         if (!CARD && !CASH){
           sendToLcd("Press * for card", "Press # for cash");
@@ -128,7 +128,7 @@ static void prvPaymentTask( void *pvParameters )
             if (cardNr == 8 && pinNr == 0 && count >= 12)                  //Odd card number and even pin number 
             {
                 pinNr = 0;
-                cardNr =0;
+                cardNr = 0;
                 count = 0;
                 validCard = 1;
                 sendToLcd("Card and pin", " is korrect");
@@ -174,7 +174,7 @@ static void prvPaymentTask( void *pvParameters )
                 outputLCD[1] = ((cashSum % 1000) / 100) + '0';
                 outputLCD[2] = ((cashSum % 100) / 10) + '0';
                 outputLCD[3] = ((cashSum % 10) / 1) + '0';
-                sendToLcd("Total value", outputLCD);
+                sendToLcd("# to submit cash", outputLCD);
             }
         }
   
@@ -194,7 +194,13 @@ static void prvPaymentTask( void *pvParameters )
 //      }
 
       //if done - give to next task:
+
+
       if ( (CASH || validCard) && (key == '#' ) ) {
+          finalCashSum = cashSum;
+          if(CASH) finalPaymentType = CASH_PAYMENT_TYPE;
+          if(CARD) finalPaymentType = CARD_PAYMENT_TYPE;
+
           CASH = 0;
           CARD = 0;
           key = 0;

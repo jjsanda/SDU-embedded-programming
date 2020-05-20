@@ -23,11 +23,14 @@
 /***************************** Include files *******************************/
 
 /*****************************    Defines    *******************************/
-
+#define NO_PAYMENT_TYPE   0
+#define CASH_PAYMENT_TYPE 1
+#define CARD_PAYMENT_TYPE 2
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-INT16U get_payment();
+int getCashSum();
+int getPaymentType();
 BOOLEAN init_payment( void );
 /*****************************************************************************
 *   Input    : -
