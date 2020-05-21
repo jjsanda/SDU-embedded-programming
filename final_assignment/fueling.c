@@ -16,6 +16,7 @@
 #include "lcd.h"
 #include "payment.h"
 #include "fueling.h"
+#include "pc_report_commands.h"
 
 
 
@@ -255,10 +256,12 @@ static void prvFuelingTask( void *pvParameters )
           sendToLcd(line1, line2);
           vTaskDelay( pdMS_TO_TICKS(3000) );
 
+
           if(paymentType == CARD_PAYMENT_TYPE){
-            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, "12341234"); //TODO: add card support, add day time, add operating time
+            char * card = getCardNum();
+            appendLogEntry(fuelType, 100, totalPrice, card); //TODO: add operating time
           } else {
-            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, "CASH"); //TODO: add card support, add day time, add operating time
+            appendLogEntry(fuelType, 100, totalPrice, "CASH"); //TODO: add operating time
           }
           fuelingState = INIT;
           

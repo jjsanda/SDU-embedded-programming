@@ -91,16 +91,16 @@ void vRegisterReportCLICommands( void )
 	FreeRTOS_CLIRegisterCommand( &xParameterGetTime );
 	clock24h = xTimerCreate("Clock", pdMS_TO_TICKS(1000), pdTRUE, NULL, callBackFunctionClock);
 	xTimerStart(clock24h, portMAX_DELAY);
-	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, LEAD_FREE_92, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, LEAD_FREE_92, 100, 30.23f, (unsigned char *) "CASH");
-	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, LEAD_FREE_95, 100, 30.23f, (unsigned char *) "CASH");
-	appendLogEntry(15, LEAD_FREE_95, 100, 30.23f, (unsigned char *) "11123334");
-	appendLogEntry(15, LEAD_FREE_95, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(DIESEL, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(DIESEL, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(LEAD_FREE_92, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(DIESEL, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(LEAD_FREE_92, 100, 30.23f, (unsigned char *) "CASH");
+//	appendLogEntry(DIESEL, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(DIESEL, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(LEAD_FREE_95, 100, 30.23f, (unsigned char *) "CASH");
+//	appendLogEntry(LEAD_FREE_95, 100, 30.23f, (unsigned char *) "11123334");
+//	appendLogEntry(LEAD_FREE_95, 100, 30.23f, (unsigned char *) "11123334");
 }
 
 
@@ -120,11 +120,11 @@ static void deleteLog(){
   logFull = 0;
   //use free for log[i].accountNumber here
 }
-void appendLogEntry(long time, int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput){
+void appendLogEntry(int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput){
   if( xSemaphoreTake( xLogMutex, portMAX_DELAY ) ){
 //    strcpy(log[logIndex].accountNumber, accountNumber, ( size_t ) 8);
 
-    log[logIndex].time = time;
+    log[logIndex].time = getSystemTimeSeconds();
     log[logIndex].fuelType = fuelType;
     log[logIndex].operatingTime = operatingTime;
     log[logIndex].totalPrice = totalPrice;
