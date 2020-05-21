@@ -15,9 +15,9 @@
 #include <stdlib.h>
 
 static SemaphoreHandle_t xSemaphoreFuelsel = NULL;
-static float pFuelselDieselPrice = 8.49;
-static float pFuelselLeadfr92Price = 8.79;
-static float pFuelselLeadfr95Price = 8.12;
+static float pFuelselDieselPrice = 8.12;
+static float pFuelselLeadfr92Price = 8.49;
+static float pFuelselLeadfr95Price = 8.79;
 static int fuelSelState = 0;
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -78,7 +78,7 @@ int setPrice(float fuelselPrice, int fuel_type){
 BOOLEAN init_fuelsel( void ){
   xSemaphoreFuelsel = xSemaphoreCreateMutex();
   if( xSemaphoreFuelsel != NULL ){
-    if(xTaskCreate( prvFuelselTask, "fuelsel task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+    if(xTaskCreate( prvFuelselTask, "fuelsel task", 150, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
       uartPrint("fuelsel initialized\r\n");
       return 1;
     } else {
@@ -168,6 +168,8 @@ static void setEVGroupFueling(EventGroupHandle_t localTaskEventGroup){
 
 static void prvFuelselTask( void *pvParameters )
 {
+
+  char line2[32];
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   const TickType_t xBlockTime = pdMS_TO_TICKS( 2000 );
@@ -178,18 +180,21 @@ static void prvFuelselTask( void *pvParameters )
       switch(fuelSelState){
         case FUELSEL_INIT:
           sendToLcd("Select Fueltype","with Numpad");
-          waitForFuelSelection( pdMS_TO_TICKS( 3000 ) ); //a little bit more time for reading the instructions
+          waitForFuelSelection( pdMS_TO_TICKS( 2000 ) ); //a little bit more time for reading the instructions
           break;
         case FUELSEL_PRICE_DIESEL:
-          sendToLcd("1 for Diesel","Price: 8.49 DKK"); //TODO: change to snprintf
+          sprintf(line2, "Price: %2.2f", pFuelselDieselPrice);
+          sendToLcd("1 Diesel",line2); 
           waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_PRICE_L92:
-          sendToLcd("2 Leadfr. 92","Price: 8.49 DKK");
+          sprintf(line2, "Price: %2.2f", pFuelselLeadfr92Price);
+          sendToLcd("2 Leadfr. 92",line2);
           waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_PRICE_L95:
-          sendToLcd("3 Leadfr. 95","Price: 8.49 DKK");
+          sprintf(line2, "Price: %2.2f", pFuelselLeadfr95Price);
+          sendToLcd("3 Leadfr. 95", line2);
           waitForFuelSelection( xBlockTime );
           break;
         case FUELSEL_SEL_DIESEL:
