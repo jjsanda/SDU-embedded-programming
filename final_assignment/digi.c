@@ -6,9 +6,11 @@
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
+#include "event_groups.h"
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
 #include "digi.h"
+#include "main.h"
 
 
 static QueueHandle_t xQueueDigi = NULL;
@@ -44,6 +46,8 @@ BOOLEAN init_digi( void ){
 static void prvDigiTask( void *pvParameters )
 {
 
+    EventBits_t uxBits;
+    EventGroupHandle_t localTaskEventGroup = getEvGroup();
     INT16U ucValueToSend = 0;
     INT16U lastValue = 0;
 
@@ -51,6 +55,7 @@ static void prvDigiTask( void *pvParameters )
     INT8U lastAB = 0x00;
     INT8U lastState = 0;
     char output[] = "0000";
+
 
     while (1) {
         AB = (inputA | inputB);
@@ -82,33 +87,9 @@ static void prvDigiTask( void *pvParameters )
             lastState = 0; 
 
         lastAB = AB;
-        
-        //xQueueSend(xQueueDigi, &ucValueToSend);
 
-//        output[0] = (ucValueToSend / 1000) + '0';               // gets most significant digit
-//        output[1] = ((ucValueToSend % 1000) / 100) + '0';
-//        output[2] = ((ucValueToSend % 100) / 10) + '0';
-//        output[3] = ((ucValueToSend % 10) / 1) + '0';
-//
-//        if (lastValue != ucValueToSend)
-//        {
-//            uartPrint(" digiswitch value is: ");
-//            uartPrint(output);
-//            uartPrint("\r\n");
-//            lastValue = ucValueToSend;
-//        }
-//        ucValueToSend = 0;
-        //move_LCD( 0, 0 );
-        //wr_str_LCD("Trn 2 enter price");
-        //move_LCD( 0, 1 );
-        //wr_str_LCD(output);
-
-
-        vTaskDelay(pdMS_TO_TICKS(1));
-        //vTaskDelay( 1 );
-
-
-
-
+        vTaskDelay(pdMS_TO_TICKS(5));
     }
+
+    
 }

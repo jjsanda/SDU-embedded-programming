@@ -61,7 +61,6 @@ int main(void)
   xTaskEventGroup = xEventGroupCreate();
   if( xTaskEventGroup == NULL ) for( ;; ); //insufucent heap for the event group
 
-  BOOLEAN led = red_led_init();       // Status led.
   BOOLEAN print = init_print();       // UART RX/TX Task
   BOOLEAN lcd = init_lcd();           // LCD Display Task
   BOOLEAN keyboard = init_keyboard(); // Keyboard Input Task
