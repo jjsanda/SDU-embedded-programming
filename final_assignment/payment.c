@@ -39,7 +39,7 @@ BOOLEAN init_payment( void ){
 
   xSemaphorePayment = xSemaphoreCreateMutex();
   if( xSemaphorePayment != NULL ){
-    if(xTaskCreate( prvPaymentTask, "payment task", configMEDIUM_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+    if(xTaskCreate( prvPaymentTask, "payment task", 100, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
       uartPrint("payment initialized\r\n");
       return 1;
     } else {

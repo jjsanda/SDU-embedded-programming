@@ -92,8 +92,9 @@
 // Timers
 #define configSUPPORT_DYNAMIC_ALLOCATION 1
 #define configUSE_TIMERS  1
-#define configTIMER_TASK_PRIORITY (tskIDLE_PRIORITY + 3 )
-#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE)
+#define configTIMER_TASK_PRIORITY (tskIDLE_PRIORITY + 4 )
+//#define configTIMER_TASK_STACK_DEPTH (configMINIMAL_STACK_SIZE )
+#define configTIMER_TASK_STACK_DEPTH ( 200 )
 #define configTIMER_QUEUE_LENGTH 100
 
 
@@ -106,7 +107,7 @@
 //#define configMAX_PRIORITIES        ( ( unsigned portBASE_TYPE ) 10 )
 //orig: #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 70 )
 #define configMINIMAL_STACK_SIZE  ( ( unsigned short ) 70 )
-#define configMEDIUM_STACK_SIZE  ( ( unsigned short ) 500 )
+//#define configMEDIUM_STACK_SIZE  ( ( unsigned short ) 500 )
 //orig: #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 7000 ) )
 //after orig:#define configTOTAL_HEAP_SIZE   ( ( size_t ) ( 10000 ) )
 #define configTOTAL_HEAP_SIZE   ( ( size_t ) ( 25000 ) )

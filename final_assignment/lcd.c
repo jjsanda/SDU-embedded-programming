@@ -309,13 +309,13 @@ int sendToLcd(char* line1, char* line2)
     move_LCD(0, 1);
     wr_str_LCD((unsigned char *) secondLine);
 
-//    uartPrint("simulate LCD:\r\n");
-//    uartPrint("----------------\r\n");
-//    uartPrint(firstLine);
-//    uartPrint("\r\n");
-//    uartPrint(secondLine);
-//    uartPrint("\r\n");
-//    uartPrint("----------------\r\n");
+    uartPrint("simulate LCD:\r\n");
+    uartPrint("----------------\r\n");
+    uartPrint(firstLine);
+    uartPrint("\r\n");
+    uartPrint(secondLine);
+    uartPrint("\r\n");
+    uartPrint("----------------\r\n>");
 }
 
 /*
