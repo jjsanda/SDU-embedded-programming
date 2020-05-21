@@ -63,6 +63,7 @@ static void prvPaymentTask( void *pvParameters )
   BOOLEAN cardOdd = 0;
   char cardNr[9];
   char pinNr[5];
+  memset(finalCardNum,'-',8);
   memset(cardNr,'-',8);
   memset(pinNr,'-',4);
   cardNr[8] = '\0'; //make sure to zero terminate the strings! so sprintf will work
@@ -88,7 +89,7 @@ static void prvPaymentTask( void *pvParameters )
 
           //make sure to reset everything
           key = 0;
-          memset(finalCardNum,'-',8)
+          memset(finalCardNum,'-',8);
           memset(cardNr,'-',8);
           memset(pinNr,'-',4);
           finalCardNum[8] = '\0';

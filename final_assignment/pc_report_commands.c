@@ -2,6 +2,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
+#include "timers.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,23 +39,58 @@ typedef struct LogEntry {
 static SemaphoreHandle_t xLogMutex = NULL;
 static BaseType_t prvReportCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
 
+
+
 static LogEntry log[MAX_LOG_ENTRYS];
 static int logIndex = 0;
 static int logFull = 0;
 
 
-static const CLI_Command_Definition_t xParameterDiesel =
+static TimerHandle_t clock24h = NULL;
+#define FULL_DAY_IN_SEC 86400 //=60*60*24
+static unsigned long clockSeconds = 0; //we save the whole day in seconds
+void callBackFunctionClock(TimerHandle_t timer){
+  clockSeconds++;
+  if( clockSeconds >= FULL_DAY_IN_SEC ){
+    clockSeconds = 0;
+  }
+}
+
+static BaseType_t prvReportCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
+static BaseType_t prvSetTimeCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
+static BaseType_t prvGetTimeCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
+
+
+static const CLI_Command_Definition_t xParameterReport =
 {
   "report",
   "\r\nreport:\r\n get the report based on the logs\r\n",
   prvReportCommand, /* The function to run. */
   0 /* The user can enter any number of commands. */
 };
+static const CLI_Command_Definition_t xParameterSetTime =
+{
+  "set-time",
+  "\r\nset-time <hours> <minutes> <seconds>:\r\n sets the internal time used for logging\r\n",
+  prvSetTimeCommand,
+  3
+};
+static const CLI_Command_Definition_t xParameterGetTime =
+{
+  "get-time",
+  "\r\nget-time:\r\n returns the internal time used for logging\r\n",
+  prvGetTimeCommand,
+  0
+};
 
 void vRegisterReportCLICommands( void )
 {
   xLogMutex = xSemaphoreCreateMutex();
-	FreeRTOS_CLIRegisterCommand( &xParameterDiesel );
+	FreeRTOS_CLIRegisterCommand( &xParameterReport );
+	FreeRTOS_CLIRegisterCommand( &xParameterSetTime );
+	FreeRTOS_CLIRegisterCommand( &xParameterGetTime );
+	clock24h = xTimerCreate("Clock", pdMS_TO_TICKS(1000), pdTRUE, NULL, callBackFunctionClock);
+	xTimerStart(clock24h, portMAX_DELAY);
 	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
 	appendLogEntry(15, DIESEL, 100, 30.23f, (unsigned char *) "11123334");
 	appendLogEntry(15, LEAD_FREE_92, 100, 30.23f, (unsigned char *) "11123334");
@@ -68,12 +104,18 @@ void vRegisterReportCLICommands( void )
 }
 
 
-// TODO: add another command, were we can set the current system Time in seconds
+static BaseType_t setSystemTimeSeconds(int hours, int minutes, int seconds){
+  if(hours > 23 || hours < 0) return pdFAIL;
+  if(minutes > 59 || minutes < 0) return pdFAIL;
+  if(seconds > 59 || seconds < 0) return pdFAIL;
+  clockSeconds = (hours * 60 * 60) + (minutes * 60) + seconds;
+  return pdPASS;
+}
 
 long getSystemTimeSeconds(){
-  //use system timer here, loop over after 60 * 60 * 24 = 86.400
+  return clockSeconds;
 }
-void deleteLog(){
+static void deleteLog(){
   logIndex = 0;
   logFull = 0;
   //use free for log[i].accountNumber here
@@ -157,5 +199,34 @@ Sum of all cash purchases:    %12.2f DKK\r\n\
 Sum of all account purchases: %12.2f DKK\r\n\r\n\
 Total operating time for the pump: %i sec\r\n",
            salesByDiesel, salesByLeadfr92, salesByLeadfr95, cashSum, accountSum, totalOperatingTime);
+  return pdFALSE;
+}
+static BaseType_t prvSetTimeCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString )
+{
+  const char *pcHours;
+  const char *pcMinutes;
+  const char *pcSeconds;
+  pcHours = FreeRTOS_CLIGetParameter(pcCommandString, 1, NULL);
+  pcMinutes = FreeRTOS_CLIGetParameter(pcCommandString, 2, NULL);
+  pcSeconds = FreeRTOS_CLIGetParameter(pcCommandString, 3, NULL);
+  int hours = atoi(pcHours);
+  int minutes = atoi(pcMinutes);
+  int seconds = atoi(pcSeconds);
+  if(setSystemTimeSeconds(hours,minutes,seconds)==pdPASS){
+    sprintf( pcWriteBuffer, "Changed time successfully \r\n");
+  } else {
+    sprintf( pcWriteBuffer, "Change unsuccessful. Parameters are out of range:\r\nhours: 0-23\r\nminutes: 0-59\r\nseconds: 0-59\r\n");
+  }
+  return pdFALSE;
+}
+
+static BaseType_t prvGetTimeCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString )
+{
+  int secTemp = clockSeconds;
+  int hours = secTemp / 60 / 60;
+  int minSecTemp = secTemp - (hours * 60 * 60);
+  int minutes = minSecTemp / 60;
+  int seconds = minSecTemp - (minutes * 60);
+  sprintf( pcWriteBuffer, "Current system time is: %02i:%02i:%02i\r\n",hours,minutes,seconds);
   return pdFALSE;
 }
