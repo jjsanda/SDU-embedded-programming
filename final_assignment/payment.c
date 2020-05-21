@@ -19,6 +19,7 @@
 
 static SemaphoreHandle_t xSemaphorePayment = NULL;
 static int finalCashSum = 0;
+static char finalCardNum[9];
 static int finalPaymentType = NO_PAYMENT_TYPE;
 
 
@@ -28,6 +29,9 @@ static void prvPaymentTask( void *pvParameters );
 
 int getCashSum(){
   return finalCashSum;
+}
+char * getCardNum(){
+  return finalCardNum;
 }
 int getPaymentType(){
   return finalPaymentType;
@@ -84,8 +88,10 @@ static void prvPaymentTask( void *pvParameters )
 
           //make sure to reset everything
           key = 0;
+          memset(finalCardNum,'-',8)
           memset(cardNr,'-',8);
           memset(pinNr,'-',4);
+          finalCardNum[8] = '\0';
           cardNr[8] = '\0'; //make sure to zero terminate the strings! so sprintf will work
           pinNr[4] = '\0';
           count = 0;
@@ -207,10 +213,16 @@ static void prvPaymentTask( void *pvParameters )
       //if done - give to next task:
 
 
-      if ( (CASH || validCard) && (key == '#' ) ) {
-          finalCashSum = cashSum;
-          if(CASH) finalPaymentType = CASH_PAYMENT_TYPE;
-          if(CARD) finalPaymentType = CARD_PAYMENT_TYPE;
+      if ( (CASH || (validCard && CARD)) && (key == '#' ) ) {
+          if(CASH) {
+            finalPaymentType = CASH_PAYMENT_TYPE;
+            finalCashSum = cashSum;
+          }
+          if(CARD) {
+            finalPaymentType = CARD_PAYMENT_TYPE;
+            strcpy(finalCardNum, cardNr);
+            finalCardNum[8] = '\0';
+          }
 
           CASH = 0;
           CARD = 0;
