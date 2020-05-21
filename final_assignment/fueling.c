@@ -130,8 +130,8 @@ static void prvFuelingTask( void *pvParameters )
     float fuelPrice = 0.0;
     int cashSum = 0;
     int paymentType = 0;
-    char line1[16];
-    char line2[16]; 
+    char line1[17]; //16chars + terminating null
+    char line2[17]; //16chars + terminating null
     INT8U fuelNozzle = 0;
 
   const TickType_t xBlockTime = pdMS_TO_TICKS( 50 );
