@@ -30,8 +30,8 @@ static void prvPaymentTask( void *pvParameters );
 int getCashSum(){
   return finalCashSum;
 }
-char * getCardNum(){
-  return finalCardNum;
+void getCardNum(char * buf){
+    strcpy(buf,finalCardNum);
 }
 int getPaymentType(){
   return finalPaymentType;
@@ -43,7 +43,7 @@ BOOLEAN init_payment( void ){
 
   xSemaphorePayment = xSemaphoreCreateMutex();
   if( xSemaphorePayment != NULL ){
-    if(xTaskCreate( prvPaymentTask, "payment task", 100, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+    if(xTaskCreate( prvPaymentTask, "payment task", 150, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
       uartPrint("payment initialized\r\n");
       return 1;
     } else {
@@ -75,7 +75,7 @@ static void prvPaymentTask( void *pvParameters )
   char outputLCD[] = "0000";
   INT16U cashSum = 0;
   //char line1[17];
-  char line2[17];
+  char line2[32];
   //const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();

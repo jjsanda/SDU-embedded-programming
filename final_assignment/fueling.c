@@ -120,8 +120,8 @@ static void prvFuelingTask( void *pvParameters )
     float fuelPrice = 0.0;
     int cashSum = 0;
     int paymentType = 0;
-    char line1[16];
-    char line2[16]; 
+    char line1[32];
+    char line2[32];
 
   const TickType_t xBlockTime = pdMS_TO_TICKS( 50 );
 
@@ -267,15 +267,15 @@ static void prvFuelingTask( void *pvParameters )
 
 
           if(paymentType == CARD_PAYMENT_TYPE){
-            char * card = getCardNum();
-            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, card);
+            char buf[9];
+            getCardNum(&buf);
+            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, buf);
           } else {
             appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, "CASH");
           }
           fuelingState = INIT;
           
-          sprintf(line1, "Time %i", totalOperatingTimeSEC );
-          uartPrint(line1);
+
           sendToLcd("Good bye!", "");
           vTaskDelay( pdMS_TO_TICKS(2000) );
 
