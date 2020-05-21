@@ -21,12 +21,11 @@
 
 //static SemaphoreHandle_t xSemaphoreFueling = NULL;
 //static INT16U pFuelingValue = 0;
-static float timerCallBackTimeSekunds = 1.0;
-static TimerHandle_t fuelPulse = NULL;
+//static float timerCallBackTimeSekunds = 1.0;
+static TimerHandle_t fuelPulse = NULL ;
+static TimerHandle_t terminateTimeFueling = NULL;
 static int fuelingState = INIT;
 static float deliveredGas = 0;
-
-//static TimerHandle_t fuelPulseTimer = NULL;
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -47,46 +46,24 @@ static int pulses = 0;
 static int tempPulses = 0;
 void callBackFunctionPulses(TimerHandle_t timer){
   pulses++;
+
+
 }
 
 
-//void callBackFunction(TimerHandle_t localFuelPulse)
-//{
-//    int callBackCount;
-//
-//    callBackCount = (int)pvTimerGetTimerID(fuelPulse);
-//    callBackCount++;
-//
-//
-//    switch (fuelingState)
-//    {
-//    case START_FUELING:
-//        deliveredGas += 0.05 / timerCallBackTimeSekunds;
-//        if (callBackCount >= (2 / timerCallBackTimeSekunds))
-//            fuelingState = FUELING;
-//        else
-//            vTimerSetTimerID(fuelPulse, (void*)callBackCount);
-//        break;
-//    case FUELING:
-//        deliveredGas += 0.3 / timerCallBackTimeSekunds;
-//        break;
-//    case END_FUELING:
-//        deliveredGas += 0.05 / timerCallBackTimeSekunds;
-//        if (callBackCount >= (5 / timerCallBackTimeSekunds))
-//        {
-//            fuelingState = FUELING_TERMINATE;
-//            uartPrint("Fueling has been terminated\r\n");
-//        }
-//        else
-//        {
-//            vTimerSetTimerID(fuelPulse, (void*)callBackCount);
-//            uartPrint("ved at v�re slut med fueling\r\n");
-//        }
-//        break;
-//    default:
-//        break;
-//    }
-//}
+static int terminate = 0;
+static void terminateFueling(TimerHandle_t timer)
+{
+  terminate++;
+  if (terminate == 3) { //3 = 15sec
+    terminate = 0;
+    fuelingState = FUELING_TERMINATE;
+  }
+}
+static void resetTerminationTimer(){
+  xTimerReset( terminateTimeFueling, portMAX_DELAY );
+  terminate = 0;
+}
 
 //const float slowPulseDelivery = 25.6; //512*0.05
 //const float constantPulseDelivery = 153.6; //512*0.3
@@ -96,10 +73,11 @@ static const double fastPulseSpeed = ( ( 1 / (512*0.3 ) ) * 1000 );
 
 /*-----------------------------------------------------------*/
 BOOLEAN init_fueling( void ){
-  //fuelPulse = xTimerCreate("Timer", pdMS_TO_TICKS(1000 * timerCallBackTimeSekunds ), pdTRUE, (void*) 0, callBackFunction) ;
+    // Timer that terminates the fueling if 15 seconds has passed, unless it is resat by the lever.
+  terminateTimeFueling = xTimerCreate("Timer", pdMS_TO_TICKS(5000), pdTRUE, (void*)0, terminateFueling);
   fuelPulse = xTimerCreate("PulseTimer", pdMS_TO_TICKS(slowPulseSpeed), pdTRUE, (void*) 0, callBackFunctionPulses);
-  if( fuelPulse != NULL ){
-    xTaskCreate( prvFuelingTask, "fueling task", 200 , NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
+  if( fuelPulse != NULL && terminateTimeFueling != NULL){
+    xTaskCreate( prvFuelingTask, "fueling task", 300 , NULL, ( tskIDLE_PRIORITY + 3 ), NULL );
     uartPrint("fueling initialized\r\n");
     return 1;
   } else {
@@ -154,10 +132,13 @@ static void prvFuelingTask( void *pvParameters )
           fuelingState = IDLE;
           pulses = 0;
           tempPulses = 0;
+//          xTimerStart( terminateTimeFueling, portMAX_DELAY );
+          resetTerminationTimer();
           sendToLcd(" Lift nozzle to ", " start fueling");
           break;
       case IDLE:
           if (!nozzleBoot){
+             resetTerminationTimer();
              while(!nozzleBoot){
                vTaskDelay(pdMS_TO_TICKS(10));
              }
@@ -166,14 +147,21 @@ static void prvFuelingTask( void *pvParameters )
           }
           break;
       case LIFTED_NOZZLE:                                   //The nozzle is lifted but the fueling hasn't started yet. 
-          sprintf(line1, "Cash: %4i", cashSum);
-          sprintf(line2, "Fuel price: %2.2f", fuelPrice);
+          sprintf(line1, "Liter: %4.2f", deliveredGas);
+          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
           sendToLcd(line1, line2);
           GPIO_PORTF_DATA_R &= redLED;
+          //xTimerStart(terminateTimeFueling, portMAX_DELAY); //Start the timer that terminates the fueling if more than 15 seconds has passed since lever has been pressed.
+          if(paymentType == CARD_PAYMENT_TYPE && terminate == 1 && pulses > 0){ //only terminate withitn 5sec if we already pumped (pulses) some gasoline
+            fuelingState = FUELING_TERMINATE;
+          }
           if (!lever)
           {
-              //stop timeout timer
-              xTimerStart(fuelPulse, portMAX_DELAY);    //Start works as a reset of the timer
+              resetTerminationTimer();
+              if (xTimerStart(fuelPulse, portMAX_DELAY) != pdPASS){
+                uartPrint("fuel pulse Timer not started\r\n");
+              }
+              //xTimerStart(fuelPulse[0], portMAX_DELAY);    //Start works as a reset of the timer
               fuelingState = START_FUELING;
           }
           if(!nozzleBoot){
@@ -187,7 +175,7 @@ static void prvFuelingTask( void *pvParameters )
           sprintf(line1, "Liter: %4.2f", deliveredGas);
           sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
           sendToLcd(line1, line2);
-          if(deliveredGas >= 0.1){ //after 2sec = 2*0.05l
+          if(deliveredGas >= 0.1){ //after 2sec = 2*0.05l //TODO use other values as deliveredGas since this will not work for restart
             fuelingState = FUELING;
             xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(fastPulseSpeed), portMAX_DELAY);
           }
@@ -202,16 +190,19 @@ static void prvFuelingTask( void *pvParameters )
           sendToLcd(line1, line2);
           GPIO_PORTF_DATA_R &= greenLED;
 
+          if(!lever){
+            resetTerminationTimer();
+          }
 
-          if(priceDifferece < 10){ //TODO calculate the exact value here with the current fuel price
+          if(priceDifferece < 10 && paymentType == CASH_PAYMENT_TYPE){ //TODO calculate the exact value here with the current fuel price
               xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
               fuelingState = END_FUELING;
           }
           else if (lever) //if lever is released
           {
-              xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
-              fuelingState = END_FUELING_RETURN_TO_LIFTED_NOZZLE;
-              tempPulses = pulses;
+            xTimerChangePeriod( fuelPulse, pdMS_TO_TICKS(slowPulseSpeed), portMAX_DELAY);
+            fuelingState = END_FUELING_RETURN_TO_LIFTED_NOZZLE;
+            tempPulses = pulses;
           }
           break;
       case END_FUELING_RETURN_TO_LIFTED_NOZZLE: // Still fueling but slower
@@ -221,7 +212,6 @@ static void prvFuelingTask( void *pvParameters )
           sprintf(line1, "Liter: %4.2f", deliveredGas);
           sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
           sendToLcd(line1, line2);
-
           if ((pulses - tempPulses) >= 25){ //25 pulses = 1sec in slow speed
               fuelingState = LIFTED_NOZZLE;
               //TODO: and we reset and start the timeout timer which will change the state to FUELING_TERMINATE if 15sec are counted down;
@@ -241,21 +231,27 @@ static void prvFuelingTask( void *pvParameters )
           break;
       case FUELING_TERMINATE:
 
+          xTimerStop(terminateTimeFueling, portMAX_DELAY);
           xTimerStop(fuelPulse, portMAX_DELAY); //STOPS PUMP (timer simulates the pump)
+          //xTimerStop(terminateTimeFueling, portMAX_DELAY); //STOPS terminating timer
           deliveredGas = pulses * (1.0/512.0);
           totalPrice = deliveredGas * fuelPrice;
 
-          sprintf(line1, "Liter: %4.2f", deliveredGas);
-          sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
+          sprintf(line1, "refueld %4.2fl", deliveredGas);
+          sprintf(line2, "for %5.2f DKK", totalPrice);
           sendToLcd(line1, line2);
+          vTaskDelay( pdMS_TO_TICKS(3000) );
 
-          uartPrint("Terminated\r\n");
           if(paymentType == CARD_PAYMENT_TYPE){
             appendLogEntry(10, fuelType, 100, totalPrice, "12341234"); //TODO: add card support, add day time, add operating time
           } else {
             appendLogEntry(10, fuelType, 100, totalPrice, "CASH"); //TODO: add card support, add day time, add operating time
           }
           fuelingState = INIT;
+
+          sendToLcd("Good bye!", "");
+          vTaskDelay( pdMS_TO_TICKS(2000) );
+
           setEVGroupPayment(localTaskEventGroup);
           break;
 

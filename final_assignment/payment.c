@@ -16,12 +16,12 @@
 #include "keyboard.h"
 #include "lcd.h"
 #include "payment.h"
+#include "timers.h"
 
 static SemaphoreHandle_t xSemaphorePayment = NULL;
 static int finalCashSum = 0;
 static char finalCardNum[9];
 static int finalPaymentType = NO_PAYMENT_TYPE;
-
 
 /*-----------------------------------------------------------*/
 // static function declarations. static fns must be declared before first use.
@@ -40,9 +40,10 @@ int getPaymentType(){
 /*-----------------------------------------------------------*/
 BOOLEAN init_payment( void ){
 
+
   xSemaphorePayment = xSemaphoreCreateMutex();
   if( xSemaphorePayment != NULL ){
-    if(xTaskCreate( prvPaymentTask, "payment task", configMINIMAL_STACK_SIZE, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+    if(xTaskCreate( prvPaymentTask, "payment task", 100, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
       uartPrint("payment initialized\r\n");
       return 1;
     } else {

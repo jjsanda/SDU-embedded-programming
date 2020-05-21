@@ -315,7 +315,7 @@ int sendToLcd(char* line1, char* line2)
     uartPrint("\r\n");
     uartPrint(secondLine);
     uartPrint("\r\n");
-    uartPrint("----------------\r\n");
+    uartPrint("----------------\r\n>");
 }
 
 /*
