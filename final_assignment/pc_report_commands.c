@@ -131,7 +131,7 @@ void appendLogEntry(int fuelType, int operatingTime, float totalPrice, unsigned 
 
     //copy each char of accountNumber into logIndex
     for(int i=0; *accountNumberInput!='\0' && i<8; i++ ) log[logIndex].accountNumber[i] = *(accountNumberInput++); //TODO value disappears after this functionappendLogEntry is left/returned
-    log[logIndex].accountNumber[9] = '\0';
+    log[logIndex].accountNumber[8] = '\0';
 
     // with malloc
 //    log[logIndex].accountNumber = (unsigned char *) malloc(sizeof(unsigned char) * 9);

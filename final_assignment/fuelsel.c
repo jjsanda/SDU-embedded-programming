@@ -78,7 +78,7 @@ int setPrice(float fuelselPrice, int fuel_type){
 BOOLEAN init_fuelsel( void ){
   xSemaphoreFuelsel = xSemaphoreCreateMutex();
   if( xSemaphoreFuelsel != NULL ){
-    if(xTaskCreate( prvFuelselTask, "fuelsel task", 150, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
+    if(xTaskCreate( prvFuelselTask, "fuelsel task", 170, NULL, ( tskIDLE_PRIORITY + 3 ), NULL ) == pdPASS){
       uartPrint("fuelsel initialized\r\n");
       return 1;
     } else {
