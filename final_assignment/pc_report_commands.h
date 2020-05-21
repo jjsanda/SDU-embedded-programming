@@ -27,7 +27,7 @@
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
-void appendLogEntry(long time, int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput);
+void appendLogEntry(int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput);
 void vRegisterReportCLICommands( void );
 long getSystemTimeSeconds();
 /*****************************************************************************
