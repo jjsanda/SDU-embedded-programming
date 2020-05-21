@@ -144,6 +144,8 @@ static void prvFuelingTask( void *pvParameters )
           pulses = 0;
           tempPulses = 0;
           resetTerminationTimer();
+          deliveredGas = 0;
+          totalPrice = 0;
           sendToLcd(" Lift nozzle to ", " start fueling");
           break;
       case IDLE:
@@ -156,7 +158,9 @@ static void prvFuelingTask( void *pvParameters )
              fuelingState = LIFTED_NOZZLE;
           }
           break;
-      case LIFTED_NOZZLE:                                   //The nozzle is lifted but the fueling hasn't started yet. 
+      case LIFTED_NOZZLE:                                   //The nozzle is lifted but the fueling hasn't started yet.
+//          deliveredGas = pulses * (1.0/512.0);
+//          totalPrice = deliveredGas * fuelPrice;
           sprintf(line1, "Liter: %4.2f", deliveredGas);
           sprintf(line2, "%1.2f %5.2f", fuelPrice, totalPrice);
           sendToLcd(line1, line2);
@@ -253,7 +257,7 @@ static void prvFuelingTask( void *pvParameters )
           GPIO_PORTF_DATA_R &= yellowLED;
           break;
       case FUELING_TERMINATE:
-
+          GPIO_PORTF_DATA_R |= ledOFF;
           xTimerStop(terminateTimeFueling, portMAX_DELAY);
           xTimerStop(fuelPulse, portMAX_DELAY); //STOPS PUMP (timer simulates the pump)
           //xTimerStop(terminateTimeFueling, portMAX_DELAY); //STOPS terminating timer
