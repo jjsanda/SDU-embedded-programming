@@ -259,9 +259,9 @@ static void prvFuelingTask( void *pvParameters )
 
           if(paymentType == CARD_PAYMENT_TYPE){
             char * card = getCardNum();
-            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, card); //TODO: add operating time
+            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, card);
           } else {
-            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, "CASH"); //TODO: add operating time
+            appendLogEntry(fuelType, totalOperatingTimeSEC, totalPrice, "CASH");
           }
           fuelingState = INIT;
           
