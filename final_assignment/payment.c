@@ -52,16 +52,25 @@ BOOLEAN init_payment( void ){
 
 static void prvPaymentTask( void *pvParameters )
 {
-    BOOLEAN CARD = 0;
-    BOOLEAN CASH = 0;
-    INT8U key = 0;
-    INT8U pinNr = 0;
-    INT16U cardNr = 0; 
-    INT8U count = 0;
-    INT8U validCard = 0;
-    char outputLCD[] = "0000";
-    INT16U cashSum = 0;
-  const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
+  BOOLEAN CARD = 0;
+  BOOLEAN CASH = 0;
+  INT8U key = 0;
+  //INT8U pinNr = 0;
+  BOOLEAN cardOdd = 0;
+  char cardNr[9];
+  char pinNr[5];
+  memset(cardNr,'-',8);
+  memset(pinNr,'-',4);
+  cardNr[8] = '\0'; //make sure to zero terminate the strings! so sprintf will work
+  cardNr[4] = '\0';
+  INT8U count = 0;
+  //INT8U cardMultiplier = 100000000;
+  INT8U validCard = 0;
+  char outputLCD[] = "0000";
+  INT16U cashSum = 0;
+  //char line1[17];
+  char line2[17];
+  //const TickType_t xBlockTime = pdMS_TO_TICKS( 1000 );
   EventBits_t uxBits;
   EventGroupHandle_t localTaskEventGroup = getEvGroup();
   for( ;; ){
@@ -72,6 +81,16 @@ static void prvPaymentTask( void *pvParameters )
        
         if (!CARD && !CASH){
           sendToLcd("Press * for card", "Press # for cash");
+
+          //make sure to reset everything
+          key = 0;
+          memset(cardNr,'-',8);
+          memset(pinNr,'-',4);
+          cardNr[8] = '\0'; //make sure to zero terminate the strings! so sprintf will work
+          pinNr[4] = '\0';
+          count = 0;
+          validCard = 0;
+          cashSum = 0;
           key = waitForNextKey(portMAX_DELAY);
         } else if(CASH){
           key = waitForNextKey( 0 ); //so we can quickly get the digi rotation
@@ -80,77 +99,69 @@ static void prvPaymentTask( void *pvParameters )
         }
 //        key = waitForNextKey( 0 ); //so we can quickly get the digi rotation
         
-        if (key == '*')
+        if (key == '*' && !CARD && !CASH)
         {
-            sendToLcd("Enter card number","");
+            sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+            sendToLcd("Enter card num.",line2);
             CARD = 1;
         }
             
 
-        if ((key != 0) && (key != '*') && CARD )
+        //if ((key != 0) && (key != '*') && CARD )
+        if((key >= '0' && key <= '9') && CARD) //better check if its a number
         {
             
             switch (count)
             {
             case 0 ... 6:
-                move_LCD(0, 0);
-                wr_str_LCD("Enter card number");
-                move_LCD(count, 1);
-                wr_ch_LCD(key);
-                cardNr += key % 2;
+                cardNr[count] = key;
+                sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+                sendToLcd("Enter card num.",line2);
                 break;
             case 7:
-                cardNr += key % 2;
-                move_LCD(count, 1);
-                wr_ch_LCD(key);
-
-                move_LCD(0, 0);
-                wr_str_LCD("Enter pin number");
-                move_LCD(count + 1, 1);
-                wr_ch_LCD(' ');
+                cardNr[count] = key;
+                cardOdd = (key - '0') % 2; //if we substract the ascii position of the zero we will end up with the actual int for that digit char
+                sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+                sendToLcd("Enter pin number",line2);
                 break;
             case 8 ... 10:
-                pinNr += key % 2;
-                move_LCD(count, 1);
-                wr_ch_LCD(key);
+                //cardNr[count-8] = key;
+                pinNr[count-8] = '*'; // keep away the spies :)
+                sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+                sendToLcd("Enter pin number",line2);
                 break;
             case 11: 
-                pinNr += key % 2;
-                move_LCD(count, 1);
-                wr_ch_LCD(key);
+                pinNr[count-8] = '*';
+                sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+                sendToLcd("Enter pin number",line2);
+                vTaskDelay(pdMS_TO_TICKS(330));
+                sendToLcd("processing.",line2);
+                vTaskDelay(pdMS_TO_TICKS(330));
+                sendToLcd("processing..",line2);
+                vTaskDelay(pdMS_TO_TICKS(330));
+                sendToLcd("processing...",line2);
+                vTaskDelay(pdMS_TO_TICKS(330));
+                BOOLEAN pinOdd = (key - '0') % 2;
+                if((cardOdd && !pinOdd) || (!cardOdd && pinOdd)){
+                  sendToLcd("pin correct",line2);
+                  vTaskDelay(pdMS_TO_TICKS(1000));
+                  sendToLcd("# to continue",line2);
+                  validCard = 1;
+                } else { //rejected
+                  memset(pinNr,'-',4);
+                  count = 7; //cause of count++
+                  sprintf(line2,"%8s  %4s  ",cardNr,pinNr);
+                  sendToLcd("wrong pin!",line2);
+                  vTaskDelay(pdMS_TO_TICKS(1500));
+                  sendToLcd("try again",line2);
+                  vTaskDelay(pdMS_TO_TICKS(1000));
+                  sendToLcd("Enter pin number",line2);
+                }
+                break;
             default:
                 break;
             }
             count++;
-            // If the card and pin is valid the fuelselect task should run 
-          
-         
-            if (cardNr == 8 && pinNr == 0 && count >= 12)                  //Odd card number and even pin number 
-            {
-                pinNr = 0;
-                cardNr = 0;
-                count = 0;
-                validCard = 1;
-                sendToLcd("Card and pin", " is korrect");
-
-            }
-            else if (cardNr == 0 && pinNr == 4 && count >= 12)             //Even card number and odd pin number
-            {
-                pinNr = 0;
-                cardNr = 0;
-                count = 0;
-                validCard = 1;
-                sendToLcd("Card and pin", " is korrect");
-            }
-            else if (count >= 12 && validCard != 1)
-            {
-
-                pinNr = 0;
-                cardNr = 0;
-                count = 0;
-                sendToLcd("Card or pin", "not korrect");
-            }
-                        
         }
         
         //-------------------------------------------------------------------------------
