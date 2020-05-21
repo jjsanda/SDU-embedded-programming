@@ -23,13 +23,12 @@
 /***************************** Include files *******************************/
 
 /*****************************    Defines    *******************************/
-#define MAX_LOG_ENTRYS 100
+#define MAX_LOG_ENTRYS 1000
 /*****************************   Constants   *******************************/
 
 /*****************************   Functions   *******************************/
 void appendLogEntry(long time, int fuelType, int operatingTime, float totalPrice, unsigned char * accountNumberInput);
 void vRegisterReportCLICommands( void );
-long getSystemTimeSeconds();
 /*****************************************************************************
 *   Input    : -
 *   Output   : -
